@@ -21,13 +21,15 @@ namespace Escapeaway.Source.States
             logoSheetSize = 1190,
 
             logoWidth = 170,
-            logoHeight = 27;
+            logoHeight = 27,
+
+            logoY = 24;
 
         // Yes, I made the copyright symbol a hashtag. Deal with it
         private Text copyright;
         private String copyrightString =
             """
-                     #2026 Snowman64
+                    # Snowman64 2026
             Made for BOSS BASH JAM 4
             """;
 
@@ -42,23 +44,25 @@ namespace Escapeaway.Source.States
         private byte
             buttonSelected = 0,
             maxButtons = 3;
-        private int buttonOffset = 30;
+        private int
+            buttonX = 22,
+            buttonY = 80;
 
         public TitleState()
         {
             // Graphics
 
-            logo = new Character(Global.logo, new Point((Global.resWidth / 2) - (logoWidth / 2), 40), new Point(logoSheetSize, logoHeight), new Point(logoWidth, logoHeight), Color.White);
+            logo = new Character(Global.logo, new Point((Global.resWidth / 2) - (logoWidth / 2), logoY), new Point(logoSheetSize, logoHeight), new Point(logoWidth, logoHeight), Color.White);
             logo.CreateAnimation("default", 0, 6);
 
             copyright = new Text(Global.defaultFont, copyrightString, new Vector2(56, 196), Color.White, 1.0f, false);
 
             // Buttons
 
-            start = new Text(Global.defaultFont, "Start", new Vector2(buttonOffset, 100), Color.White, 1.0f, true);
-            options = new Text(Global.defaultFont, "Options", new Vector2(buttonOffset, 120), Color.White, 1.0f, true);
-            credits = new Text(Global.defaultFont, "Credits", new Vector2(buttonOffset, 140), Color.White, 1.0f, true);
-            exit = new Text(Global.defaultFont, "Exit", new Vector2(buttonOffset, 160), Color.White, 1.0f, true);
+            start = new Text(Global.defaultFont, "Start", new Vector2(buttonX, buttonY), Color.White, 1.0f, true);
+            options = new Text(Global.defaultFont, "Options", new Vector2(buttonX, buttonY + 20), Color.White, 1.0f, true);
+            credits = new Text(Global.defaultFont, "Credits", new Vector2(buttonX, buttonY + 40), Color.White, 1.0f, true);
+            exit = new Text(Global.defaultFont, "Exit", new Vector2(buttonX, buttonY + 60), Color.White, 1.0f, true);
 
             SelectButton(start);
         }
