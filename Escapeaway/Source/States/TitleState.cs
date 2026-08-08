@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Escapeaway;
 using Escapeaway.Source.Graphics;
+using Escapeaway.Source.Objects;
 
 namespace Escapeaway.Source.States
 {
@@ -15,12 +16,20 @@ namespace Escapeaway.Source.States
     {
         // Graphics
 
-        private StaticSprite logo;
+        private Character logo;
         private int
+            logoSheetSize = 1190,
+
             logoWidth = 170,
             logoHeight = 27;
 
+        // Yes, I made the copyright symbol a hashtag. Deal with it
         private Text copyright;
+        private String copyrightString =
+            """
+                     #2026 Snowman64
+            Made for BOSS BASH JAM 4
+            """;
 
         // Buttons
 
@@ -39,10 +48,10 @@ namespace Escapeaway.Source.States
         {
             // Graphics
 
-            logo = new StaticSprite(Global.logo, new Rectangle((Global.resWidth / 2) - (logoWidth / 2), 40, logoWidth, logoHeight), Color.White);
+            logo = new Character(Global.logo, new Point((Global.resWidth / 2) - (logoWidth / 2), 40), new Point(logoSheetSize, logoHeight), new Point(logoWidth, logoHeight), Color.White);
+            logo.CreateAnimation("default", 0, 6);
 
-            // Yes, I made the copyright symbol a hashtag. Deal with it
-            copyright = new Text(Global.defaultFont, "#Snowman64 2026", new Vector2(126, 204), Color.White, 1.0f, false);
+            copyright = new Text(Global.defaultFont, copyrightString, new Vector2(56, 196), Color.White, 1.0f, false);
 
             // Buttons
 
@@ -82,6 +91,10 @@ namespace Escapeaway.Source.States
             {
                 if (buttonSelected == 3) Global.quit = true;
             }
+
+            // Animations
+
+            logo.PlayAnimation("default");
         }
 
         // Update Colors of Buttons
