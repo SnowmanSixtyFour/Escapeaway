@@ -1,6 +1,6 @@
 <div align="center">
 <a href="https://snowman64.itch.io/escapeaway" target="_blank">
-  <img align="center" src="repo/logo.png" alt="Escapeaway">
+  <img align="center" src="repo/logo.png" alt="ESCAPEAWAY!">
 </a>
 </div>
 <br/>
@@ -10,7 +10,9 @@
 ### A fast-paced platformer made with [MonoGame](https://monogame.net/), for [BOSS BASH JAM 4](https://itch.io/jam/boss-bash-jam-4).
 
 # About
-TBA
+Play as <b>YOURSELF</b>, dragged to the underworld after being falsely accused for sins you never committed — as you attempt to <i>escape</i> back into your regular life!
+
+Dodge obstacles, and make it to the end of the game while avoiding <b>the Devil</b>, who's hunting you down!
 
 # Copyright
 Copyright (c) 2026 Snowman64, under the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html).
