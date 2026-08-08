@@ -1,0 +1,16 @@
+<div align="center">
+<a href="https://snowman64.itch.io/escapeaway" target="_blank">
+  <img align="center" src="repo/logo.png" alt="Escapeaway">
+</a>
+</div>
+<br/>
+<a href="https://www.gnu.org/licenses/gpl-3.0.en.html"><img src="https://img.shields.io/badge/License-GPLv3-blue.svg" height="28" alt="GNU GPL v3"></a>
+<br/>
+
+### A fast-paced platformer made with [MonoGame](https://monogame.net/), for [BOSS BASH JAM 4](https://itch.io/jam/boss-bash-jam-4).
+
+# About
+TBA
+
+# Copyright
+Copyright (c) 2026 Snowman64, under the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html).
