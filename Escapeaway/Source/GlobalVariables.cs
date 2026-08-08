@@ -12,13 +12,44 @@ namespace Escapeaway.Source
 {
     internal class Global
     {
+        // Properties
+
         public static string windowName = "ESCAPEAWAY!";
         public static int
-            windowWidth = 844,
-            windowHeight = 480;
+            resWidth = 256,
+            resHeight = 224;
+
+        public static int
+            displayWidth = 768,
+            displayHeight = 672;
+
+        public static string gameVersion = "0.0.1";
+
+        public static bool pauseWhenInactive = true;
+
+        // Game
+
+        public static bool active = true;
+        public static bool paused = false;
+
+        // Assets
+
+        public static Texture2D
+            noImg,
+            
+            logo;
+        public static SpriteFont
+            defaultFont;
 
         public static void LoadAssets(ContentManager Content)
         {
+            // Images
+            noImg = Content.Load<Texture2D>("Assets/Images/pixel");
+
+            logo = Content.Load<Texture2D>("Assets/Images/Title/logo");
+
+            // Fonts
+            defaultFont = Content.Load<SpriteFont>("Assets/Fonts/retroFont");
         }
     }
 }

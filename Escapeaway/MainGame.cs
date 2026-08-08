@@ -13,10 +13,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Escapeaway.Source;
+using Escapeaway.Source.States;
 
 namespace Escapeaway
 {
@@ -24,6 +25,14 @@ namespace Escapeaway
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
+
+        // Public Variables
+        public static GameTime gameTime;
+        public static GraphicsDeviceManager publicGraphics;
+        public static GraphicsDevice publicGraphicsDevice;
+
+        // Game State
+        private Main game;
 
         public MainGame()
         {
@@ -34,6 +43,11 @@ namespace Escapeaway
 
         protected override void Initialize()
         {
+            // Set Public Variables
+            publicGraphics = this.graphics;
+            publicGraphicsDevice = this.GraphicsDevice;
+
+            // Set Window Properties
             this.Window.Title = Global.windowName;
             this.Window.AllowUserResizing = true;
             this.Window.ClientSizeChanged += WindowSizeChanged;
@@ -43,7 +57,7 @@ namespace Escapeaway
 
         private void WindowSizeChanged(object sender, EventArgs e)
         {
-            SetWindowSize(Global.windowWidth, Global.windowHeight);
+            game.cam.SetDestRect();
         }
 
         private void SetWindowSize(int width, int height)
@@ -51,28 +65,41 @@ namespace Escapeaway
             graphics.PreferredBackBufferWidth = width;
             graphics.PreferredBackBufferHeight = height;
             graphics.ApplyChanges();
+
+            game.cam.SetDestRect();
         }
 
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            // Load Game Assets
             Global.LoadAssets(this.Content);
+
+            // Set Game State
+            game = new Main();
+
+            // Set Window Size on Startup
+            SetWindowSize(Global.displayWidth, Global.displayHeight);
         }
 
-        protected override void Update(GameTime gameTime)
+        protected override void Update(GameTime mainGameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
+            // Update Global Variables
+            Global.active = this.IsActive;
+            gameTime = mainGameTime;
 
-            base.Update(gameTime);
+            base.Update(mainGameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
+
+            game.cam.Activate();
 
             spriteBatch.Begin(SpriteSortMode.Deferred,
                 BlendState.AlphaBlend,
@@ -80,7 +107,10 @@ namespace Escapeaway
                 DepthStencilState.None,
                 RasterizerState.CullNone
             );
+            game.Draw(spriteBatch);
             spriteBatch.End();
+
+            game.cam.Draw(spriteBatch);
 
             base.Draw(gameTime);
         }
