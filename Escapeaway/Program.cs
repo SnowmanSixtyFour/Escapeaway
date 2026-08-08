@@ -1,2 +1,2 @@
-﻿using var game = new Escapeaway.Game1();
+﻿using var game = new Escapeaway.MainGame();
 game.Run();
