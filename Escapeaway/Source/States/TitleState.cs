@@ -13,19 +13,88 @@ namespace Escapeaway.Source.States
 {
     internal class TitleState : State
     {
+        // Graphics
+
         private StaticSprite logo;
         private int
-            logoWidth = 154,
+            logoWidth = 170,
             logoHeight = 27;
 
         private Text copyright;
 
+        // Buttons
+
+        private Text
+            start,
+            options,
+            credits,
+            exit;
+
+        private byte
+            buttonSelected = 0,
+            maxButtons = 3;
+        private int buttonOffset = 30;
+
         public TitleState()
         {
+            // Graphics
+
             logo = new StaticSprite(Global.logo, new Rectangle((Global.resWidth / 2) - (logoWidth / 2), 40, logoWidth, logoHeight), Color.White);
 
             // Yes, I made the copyright symbol a hashtag. Deal with it
-            copyright = new Text(Global.defaultFont, "#Snowman64 2026", new Vector2(2, 212), Color.White, 1.0f, false);
+            copyright = new Text(Global.defaultFont, "#Snowman64 2026", new Vector2(126, 204), Color.White, 1.0f, false);
+
+            // Buttons
+
+            start = new Text(Global.defaultFont, "Start", new Vector2(buttonOffset, 100), Color.White, 1.0f, true);
+            options = new Text(Global.defaultFont, "Options", new Vector2(buttonOffset, 120), Color.White, 1.0f, true);
+            credits = new Text(Global.defaultFont, "Credits", new Vector2(buttonOffset, 140), Color.White, 1.0f, true);
+            exit = new Text(Global.defaultFont, "Exit", new Vector2(buttonOffset, 160), Color.White, 1.0f, true);
+
+            SelectButton(start);
+        }
+
+        public override void OnUpdate(GameTime gameTime)
+        {
+            // Update Selected Button
+
+            if (KeyPress(Keys.Up))
+            {
+                if (buttonSelected != 0) buttonSelected--;
+                else buttonSelected = maxButtons;
+            }
+            if (KeyPress(Keys.Down))
+            {
+                if (buttonSelected < maxButtons) buttonSelected++;
+                else buttonSelected = 0;
+            }
+            if (KeyPress(Keys.Up) || KeyPress(Keys.Down))
+            {
+                if (buttonSelected == 0) SelectButton(start);
+                else if (buttonSelected == 1) SelectButton(options);
+                else if (buttonSelected == 2) SelectButton(credits);
+                else if (buttonSelected == 3) SelectButton(exit);
+            }
+
+            // Button Press
+
+            if (KeyPress(Keys.Enter))
+            {
+                if (buttonSelected == 3) Global.quit = true;
+            }
+        }
+
+        // Update Colors of Buttons
+        private void SelectButton(Text button)
+        {
+            // Reset all Button Colors
+            start.setColor(Color.White);
+            options.setColor(Color.White);
+            credits.setColor(Color.White);
+            exit.setColor(Color.White);
+
+            // Update Chosen Button to be Selected Color
+            button.setColor(Global.selectedColor);
         }
 
         public override void OnDraw(SpriteBatch spriteBatch)
@@ -34,6 +103,11 @@ namespace Escapeaway.Source.States
 
             logo.Draw(spriteBatch);
             copyright.Draw(spriteBatch);
+
+            start.Draw(spriteBatch);
+            options.Draw(spriteBatch);
+            credits.Draw(spriteBatch);
+            exit.Draw(spriteBatch);
         }
     }
 }

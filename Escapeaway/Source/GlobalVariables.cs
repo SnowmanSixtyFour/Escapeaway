@@ -14,6 +14,8 @@ namespace Escapeaway.Source
     {
         // Properties
 
+        public static bool quit = false;
+
         public static string windowName = "ESCAPEAWAY!";
         public static int
             resWidth = 256,
@@ -40,6 +42,9 @@ namespace Escapeaway.Source
             logo;
         public static SpriteFont
             defaultFont;
+
+        public static Color
+            selectedColor = new Color(249, 231, 181);
 
         public static void LoadAssets(ContentManager Content)
         {

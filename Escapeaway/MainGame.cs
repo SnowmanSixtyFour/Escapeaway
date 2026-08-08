@@ -85,12 +85,15 @@ namespace Escapeaway
 
         protected override void Update(GameTime mainGameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+            // Quit Game
+            if (Global.quit) Exit();
 
             // Update Global Variables
             Global.active = this.IsActive;
             gameTime = mainGameTime;
+
+            // Update Game
+            game.Update(mainGameTime);
 
             base.Update(mainGameTime);
         }
