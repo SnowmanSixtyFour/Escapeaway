@@ -91,7 +91,7 @@ namespace Escapeaway.Source.States
 
             // Button Press
 
-            if (KeyPress(Keys.Enter))
+            if (KeyPress(Keys.Enter) || KeyPress(Keys.Z))
             {
                 if (buttonSelected == 3) Global.quit = true;
             }

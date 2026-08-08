@@ -44,7 +44,7 @@ namespace Escapeaway.Source
             defaultFont;
 
         public static Color
-            selectedColor = new Color(249, 231, 181);
+            selectedColor = new Color(252, 160, 68);
 
         public static void LoadAssets(ContentManager Content)
         {
