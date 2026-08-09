@@ -39,7 +39,7 @@ namespace Escapeaway.Source.States
         {
             header = new Text(Global.defaultFont, "Story", new Vector2((Global.resWidth / 2) - 20, 6), Global.selectedColor, 1.0f, false);
             giantWallOfText = new Text(Global.defaultFont, story, new Vector2(6, 24), Color.White, 1.0f, false);
-            goBack = new Text(Global.defaultFont, "Press [Z] / [X] to Exit", new Vector2((Global.resWidth / 2) - 120, Global.resHeight - 24), Global.selectedColor, 1.0f, false);
+            goBack = new Text(Global.defaultFont, "Press [Z] / [X] to Exit", new Vector2((Global.resWidth / 2) - 120, 204), Global.selectedColor, 1.0f, false);
         }
 
         public override void OnUpdate(GameTime gameTime, Main main)
