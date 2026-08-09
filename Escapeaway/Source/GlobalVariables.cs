@@ -38,13 +38,13 @@ namespace Escapeaway.Source
 
         public static Texture2D
             noImg,
-            
-            logo;
+
+            logo, titleOverlay;
         public static SpriteFont
             defaultFont;
 
         public static Color
-            selectedColor = new Color(252, 160, 68);
+            selectedColor = new Color(248, 120, 88);
 
         public static void LoadAssets(ContentManager Content)
         {
@@ -52,6 +52,7 @@ namespace Escapeaway.Source
             noImg = Content.Load<Texture2D>("Assets/Images/pixel");
 
             logo = Content.Load<Texture2D>("Assets/Images/Title/logo");
+            titleOverlay = Content.Load<Texture2D>("Assets/Images/Title/titleOverlay");
 
             // Fonts
             defaultFont = Content.Load<SpriteFont>("Assets/Fonts/retroFont");

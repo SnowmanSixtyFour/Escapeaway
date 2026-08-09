@@ -40,6 +40,11 @@ namespace Escapeaway.Source.States
             // Pause Game when Inactive
             if (Global.pauseWhenInactive && !Global.active) Global.paused = true;
 
+            // Switch State
+
+            if (currentState == title) if (title.startGame) currentState = level; // Switch to Level
+            else if (title.startGame) title.startGame = false; // Reset Start Game Flag
+
             // Update Current State
             currentState.Update(gameTime);
         }

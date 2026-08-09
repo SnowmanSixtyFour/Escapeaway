@@ -14,6 +14,10 @@ namespace Escapeaway.Source.States
 {
     internal class TitleState : State
     {
+        // Game State
+
+        public bool startGame = false;
+
         // Graphics
 
         private Character logo;
@@ -24,6 +28,8 @@ namespace Escapeaway.Source.States
             logoHeight = 27,
 
             logoY = 24;
+
+        private StaticSprite overlay;
 
         // Yes, I made the copyright symbol a hashtag. Deal with it
         private Text copyright;
@@ -54,6 +60,8 @@ namespace Escapeaway.Source.States
 
             logo = new Character(Global.logo, new Point((Global.resWidth / 2) - (logoWidth / 2), logoY), new Point(logoSheetSize, logoHeight), new Point(logoWidth, logoHeight), Color.White);
             logo.CreateAnimation("default", 0, 6);
+
+            overlay = new StaticSprite(Global.titleOverlay, new Rectangle(0, 0, Global.resWidth, Global.resHeight), Color.White);
 
             copyright = new Text(Global.defaultFont, copyrightString, new Vector2(56, 196), Color.White, 1.0f, false);
 
@@ -93,7 +101,8 @@ namespace Escapeaway.Source.States
 
             if (KeyPress(Keys.Enter) || KeyPress(Keys.Z))
             {
-                if (buttonSelected == 3) Global.quit = true;
+                if (buttonSelected == 0) startGame = true;
+                else if (buttonSelected == 3) Global.quit = true;
             }
 
             // Animations
@@ -117,6 +126,8 @@ namespace Escapeaway.Source.States
         public override void OnDraw(SpriteBatch spriteBatch)
         {
             graphicsDevice.Clear(Color.Black);
+
+            overlay.Draw(spriteBatch);
 
             logo.Draw(spriteBatch);
             copyright.Draw(spriteBatch);
