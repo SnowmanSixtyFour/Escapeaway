@@ -39,18 +39,17 @@ namespace Escapeaway.Source.States
             {
                 if (KeyPress(Keys.Escape)) // When Escape is Pressed
                 {
-                    // If the State is capable of pausing
-                    if (currentState != title)
-                    {
-                        // Toggle Pause
-                        Global.paused = !Global.paused;
-                    }
-
-                    // If the State should instead quit game
-                    else
+                    // If the State should quit game
+                    if (currentState == title)
                     {
                         // Quit Game
                         Global.quit = true;
+                    }
+                    // If the State is capable of pausing (gameplay)
+                    else if (currentState == level)
+                    {
+                        // Toggle Pause
+                        Global.paused = !Global.paused;
                     }
                 }
             }

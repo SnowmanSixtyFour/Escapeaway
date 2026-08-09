@@ -97,7 +97,7 @@ namespace Escapeaway.Source.States
             }
 
             // Button Presses
-            if (KeyPress(Keys.Enter))
+            if (KeyPress(Keys.Z) || KeyPress(Keys.Enter))
             {
                 if (buttonSelected == 0) main.currentState = main.level;
                 else if (buttonSelected == 1) main.currentState = main.options;
