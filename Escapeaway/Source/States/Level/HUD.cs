@@ -12,24 +12,27 @@ namespace Escapeaway.Source.States.Level
 {
     internal class HUD
     {
-        private Text lives, room;
+        private Text lives, score, room;
         private int y = 6;
 
         public HUD()
         {
             lives = new Text(Global.defaultFont, "", new Vector2(8, y), Color.White, 1.0f, false);
+            score = new Text(Global.defaultFont, "", new Vector2(78, y), Color.White, 1.0f, false);
             room = new Text(Global.defaultFont, "", new Vector2(Global.resWidth - 64, y), Color.White, 1.0f, false);
         }
 
         public void Update(GameTime gameTime, Player player, int currentScreen)
         {
             lives.setText("LIVES " + player.lives);
+            score.setText("SCORE " + player.score);
             room.setText("ROOM " + currentScreen);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             lives.Draw(spriteBatch);
+            score.Draw(spriteBatch);
             room.Draw(spriteBatch);
         }
     }

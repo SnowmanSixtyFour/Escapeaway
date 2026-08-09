@@ -14,7 +14,8 @@ namespace Escapeaway.Source.States.Level
     {
         // Game Variables
         public int
-            lives = 3;
+            lives = 3,
+            score = 0;
 
         // Screen
         private bool

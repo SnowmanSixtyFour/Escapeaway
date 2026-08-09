@@ -59,7 +59,7 @@ namespace Escapeaway.Source.States
             logo = new Character(Global.logo, new Point((Global.resWidth / 2) - (logoWidth / 2), logoY), new Point(logoSheetSize, logoHeight), new Point(logoWidth, logoHeight), Color.White);
             logo.CreateAnimation("default", 0, 6);
 
-            highscore = new Text(Global.defaultFont, "", new Vector2(62, logoY + 34), Global.yellowColor, 1.0f, false);
+            highscore = new Text(Global.defaultFont, "", new Vector2(62, logoY + 34), CustomColor.Yellow, 1.0f, false);
             SetHighscore();
 
             overlay = new StaticSprite(Global.titleOverlay, new Rectangle(0, 0, Global.resWidth, Global.resHeight), Color.White);
@@ -95,7 +95,7 @@ namespace Escapeaway.Source.States
                 Global.highscore == 66666666 ||
                 Global.highscore == 666666666)
             {
-                highscore.setColor(Global.redSky);
+                highscore.setColor(CustomColor.Red);
             }
 
             // Illegal score
@@ -152,7 +152,7 @@ namespace Escapeaway.Source.States
             exit.setColor(Color.White);
 
             // Update Chosen Button to be Selected Color
-            button.setColor(Global.selectedColor);
+            button.setColor(CustomColor.Orange);
         }
 
         public override void OnDraw(SpriteBatch spriteBatch)

@@ -53,14 +53,6 @@ namespace Escapeaway.Source
         public static SpriteFont
             defaultFont;
 
-        public static Color
-            // Text / Buttons
-            selectedColor = new Color(248, 120, 88),
-            yellowColor = new Color(248, 184, 0),
-
-            // Backgrounds
-            redSky = new Color(168, 0, 32);
-
         public static void LoadAssets(ContentManager Content)
         {
             // Images
@@ -72,5 +64,13 @@ namespace Escapeaway.Source
             // Fonts
             defaultFont = Content.Load<SpriteFont>("Assets/Fonts/retroFont");
         }
+    }
+
+    internal class CustomColor
+    {
+        public static Color
+            Red = new Color(168, 0, 32),
+            Orange = new Color(248, 120, 88),
+            Yellow = new Color(248, 184, 0);
     }
 }

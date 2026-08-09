@@ -57,7 +57,7 @@ namespace Escapeaway.Source.States
 
         public override void OnDraw(SpriteBatch spriteBatch)
         {
-            graphicsDevice.Clear(Global.redSky);
+            graphicsDevice.Clear(CustomColor.Red);
 
             player.Draw(spriteBatch);
 

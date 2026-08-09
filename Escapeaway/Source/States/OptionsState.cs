@@ -28,10 +28,15 @@ namespace Escapeaway.Source.States
 
         // Buttons
         private Text
-            fullscreen;
+            fullscreen,
+            resetHighscore;
         private byte
             buttonSelected = 0,
-            maxButtons = 0;
+            maxButtons = 1;
+
+        // Temporary Variables
+        private int
+            newHighscore = 0;
 
         public OptionsState()
         {
@@ -40,7 +45,8 @@ namespace Escapeaway.Source.States
             goBack = new Text(Global.defaultFont, "Press [X] to Exit", new Vector2((Global.resWidth / 2) - 120, 204), Color.White, 1.0f, false);
 
             // Buttons
-            fullscreen = new Text(Global.defaultFont, "Fullscreen", new Vector2(6, 24), Global.selectedColor, 1.0f, false);
+            fullscreen = new Text(Global.defaultFont, "Fullscreen", new Vector2(6, 24), CustomColor.Orange, 1.0f, false);
+            resetHighscore = new Text(Global.defaultFont, "Reset HISCORE", new Vector2(6, 48), Color.White, 1.0f, false);
             UpdateButtonText();
         }
 
@@ -60,16 +66,23 @@ namespace Escapeaway.Source.States
             if (KeyPress(Keys.Up) || KeyPress(Keys.Down))
             {
                 if (buttonSelected == 0) SelectButton(fullscreen);
+                else if (buttonSelected == 1) SelectButton(resetHighscore);
             }
 
             // Button Presses
             if (KeyPress(Keys.Z) || KeyPress(Keys.Enter))
             {
+                // Toggle Fullscreen
                 if (buttonSelected == 0)
                 {
-                    // Toggle Fullscreen
                     Global.fullscreen = !Global.fullscreen;
                     Global.fullscreenChanged = true;
+                }
+
+                // Reset Highscore
+                if (buttonSelected == 1)
+                {
+                    Global.highscore = newHighscore;
                 }
 
                 UpdateButtonText();
@@ -85,6 +98,7 @@ namespace Escapeaway.Source.States
                     XDocument settingsDoc = XDocument.Load("C:/Users/" + Environment.UserName + "/Documents/My Games/ESCAPEAWAY!/Options.xml");
 
                     settingsDoc.Descendants("Fullscreen").First().Value = Convert.ToString(Global.fullscreen);
+                    if (Global.highscore == this.newHighscore) settingsDoc.Descendants("Highscore").First().Value = Convert.ToString(this.newHighscore);
 
                     settingsDoc.Save("C:/Users/" + Environment.UserName + "/Documents/My Games/ESCAPEAWAY!/Options.xml", SaveOptions.None);
 
@@ -103,8 +117,9 @@ namespace Escapeaway.Source.States
         private void SelectButton(Text button)
         {
             fullscreen.setColor(Color.White);
+            resetHighscore.setColor(Color.White);
 
-            button.setColor(Global.selectedColor);
+            button.setColor(CustomColor.Orange);
         }
 
         private void UpdateButtonText()
@@ -122,6 +137,7 @@ namespace Escapeaway.Source.States
 
             // Draw Buttons
             fullscreen.Draw(spriteBatch);
+            resetHighscore.Draw(spriteBatch);
         }
     }
 }
