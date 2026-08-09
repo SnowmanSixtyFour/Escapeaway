@@ -11,9 +11,9 @@ using Escapeaway.Source.Graphics;
 
 namespace Escapeaway.Source.States
 {
-    internal class LevelState : State
+    internal class OptionsState : State
     {
-        public LevelState()
+        public OptionsState()
         {
         }
 
@@ -23,7 +23,7 @@ namespace Escapeaway.Source.States
 
         public override void OnDraw(SpriteBatch spriteBatch)
         {
-            graphicsDevice.Clear(Color.CornflowerBlue);
+            graphicsDevice.Clear(Color.Black);
         }
     }
 }

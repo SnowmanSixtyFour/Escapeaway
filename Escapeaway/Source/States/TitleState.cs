@@ -14,10 +14,6 @@ namespace Escapeaway.Source.States
 {
     internal class TitleState : State
     {
-        // Game State
-
-        public bool startGame = false;
-
         // Graphics
 
         private Character logo;
@@ -39,12 +35,14 @@ namespace Escapeaway.Source.States
             Made for BOSS BASH JAM 4
             """;
 
+        private Text version;
+
         // Buttons
 
         private Text
             start,
             options,
-            credits,
+            story,
             exit;
 
         private byte
@@ -63,22 +61,23 @@ namespace Escapeaway.Source.States
 
             overlay = new StaticSprite(Global.titleOverlay, new Rectangle(0, 0, Global.resWidth, Global.resHeight), Color.White);
 
-            copyright = new Text(Global.defaultFont, copyrightString, new Vector2(56, 196), Color.White, 1.0f, false);
+            copyright = new Text(Global.defaultFont, copyrightString, new Vector2(62, 196), Color.White, 1.0f, false);
+
+            version = new Text(Global.defaultFont, Global.gameVersion, new Vector2(6, 204), Color.White, 1.0f, false);
 
             // Buttons
 
             start = new Text(Global.defaultFont, "Start", new Vector2(buttonX, buttonY), Color.White, 1.0f, true);
             options = new Text(Global.defaultFont, "Options", new Vector2(buttonX, buttonY + 20), Color.White, 1.0f, true);
-            credits = new Text(Global.defaultFont, "Credits", new Vector2(buttonX, buttonY + 40), Color.White, 1.0f, true);
+            story = new Text(Global.defaultFont, "Story", new Vector2(buttonX, buttonY + 40), Color.White, 1.0f, true);
             exit = new Text(Global.defaultFont, "Exit", new Vector2(buttonX, buttonY + 60), Color.White, 1.0f, true);
 
             SelectButton(start);
         }
 
-        public override void OnUpdate(GameTime gameTime)
+        public override void OnUpdate(GameTime gameTime, Main main)
         {
             // Update Selected Button
-
             if (KeyPress(Keys.Up))
             {
                 if (buttonSelected != 0) buttonSelected--;
@@ -93,20 +92,20 @@ namespace Escapeaway.Source.States
             {
                 if (buttonSelected == 0) SelectButton(start);
                 else if (buttonSelected == 1) SelectButton(options);
-                else if (buttonSelected == 2) SelectButton(credits);
+                else if (buttonSelected == 2) SelectButton(story);
                 else if (buttonSelected == 3) SelectButton(exit);
             }
 
-            // Button Press
-
-            if (KeyPress(Keys.Enter) || KeyPress(Keys.Z))
+            // Button Presses
+            if (KeyPress(Keys.Enter))
             {
-                if (buttonSelected == 0) startGame = true;
-                else if (buttonSelected == 3) Global.quit = true;
+                if (buttonSelected == 0) main.currentState = main.level;
+                else if (buttonSelected == 1) main.currentState = main.options;
+                else if (buttonSelected == 2) main.currentState = main.story;
+                else if (buttonSelected == 3) main.ExitGame();
             }
 
             // Animations
-
             logo.PlayAnimation("default");
         }
 
@@ -116,7 +115,7 @@ namespace Escapeaway.Source.States
             // Reset all Button Colors
             start.setColor(Color.White);
             options.setColor(Color.White);
-            credits.setColor(Color.White);
+            story.setColor(Color.White);
             exit.setColor(Color.White);
 
             // Update Chosen Button to be Selected Color
@@ -131,10 +130,11 @@ namespace Escapeaway.Source.States
 
             logo.Draw(spriteBatch);
             copyright.Draw(spriteBatch);
+            version.Draw(spriteBatch);
 
             start.Draw(spriteBatch);
             options.Draw(spriteBatch);
-            credits.Draw(spriteBatch);
+            story.Draw(spriteBatch);
             exit.Draw(spriteBatch);
         }
     }

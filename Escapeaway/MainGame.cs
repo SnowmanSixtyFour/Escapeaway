@@ -93,7 +93,7 @@ namespace Escapeaway
             gameTime = mainGameTime;
 
             // Update Game
-            game.Update(mainGameTime);
+            game.Update(mainGameTime, game);
 
             base.Update(mainGameTime);
         }

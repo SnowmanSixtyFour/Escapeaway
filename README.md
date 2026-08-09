@@ -14,5 +14,19 @@ Play as <b>YOURSELF</b>, dragged to the underworld after being falsely accused f
 
 Dodge obstacles, and make it to the end of the game while avoiding <b>the Devil</b>, who's hunting you down!
 
+## Controls
+<b>Z</b> | Jump
+
+<b>Left Arrow</b> | Slow Down
+
+<b>Down Arrow</b> | Slide
+
+<i>"How do you stop running?" <b>You CAN'T!</b></i>
+
+## Downloads
+The game can be downloaded on [itch.io](https://snowman64.itch.io/escapeaway) and [Game Jolt](https://gamejolt.com/games/escapeaway/1090448) for free!
+
+Alternatively, you can browse the [releases](https://github.com/SnowmanSixtyFour/Escapeaway/releases) in the GitHub repository.
+
 # Copyright
 Copyright (c) 2026 Snowman64, under the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html).
