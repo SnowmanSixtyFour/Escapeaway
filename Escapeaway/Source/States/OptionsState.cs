@@ -88,7 +88,7 @@ namespace Escapeaway.Source.States
 
                     settingsDoc.Save("C:/Users/" + Environment.UserName + "/Documents/My Games/ESCAPEAWAY!/Options.xml", SaveOptions.None);
 
-                    Debug.Print("Saved to Settings.xml.");
+                    Debug.Print("Saved to Options.xml.");
                 }
                 else // If Options.xml does not exist
                 {
