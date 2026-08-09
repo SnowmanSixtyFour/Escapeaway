@@ -65,8 +65,7 @@ namespace Escapeaway.Source.States
             overlay = new StaticSprite(Global.titleOverlay, new Rectangle(0, 0, Global.resWidth, Global.resHeight), Color.White);
 
             copyright = new Text(Global.defaultFont, copyrightString, new Vector2(62, 196), Color.White, 1.0f, false);
-
-            version = new Text(Global.defaultFont, Global.gameVersion, new Vector2(6, 204), Color.White, 1.0f, false);
+            version = new Text(Global.defaultFont, Global.gameVersion, new Vector2((Global.resWidth / 2) - 120, 204), Color.White, 1.0f, false);
 
             // Buttons
 
@@ -152,7 +151,7 @@ namespace Escapeaway.Source.States
             exit.setColor(Color.White);
 
             // Update Chosen Button to be Selected Color
-            button.setColor(CustomColor.Orange);
+            button.setColor(CustomColor.LightOrange);
         }
 
         public override void OnDraw(SpriteBatch spriteBatch)

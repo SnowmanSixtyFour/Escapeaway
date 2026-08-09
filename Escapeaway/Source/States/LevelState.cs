@@ -18,10 +18,18 @@ namespace Escapeaway.Source.States
         PauseOverlay pauseOverlay;
         HUD hud;
 
-        public int currentScreen = 0;
+        public int
+            currentScreen = 0,
+            
+            randomScreenColor = 0;
+        private Random random;
+        private Color screenColor = CustomColor.Red;
 
         public LevelState()
         {
+            // Set Variables
+            random = new Random();
+
             // Initialize Level
             player = new Player(null, new Point(0, 120), new Point(20, 40), new Point(20, 40), Color.White);
 
@@ -40,6 +48,11 @@ namespace Escapeaway.Source.States
                 if (player.reachedEnd)
                 {
                     currentScreen++;
+                    randomScreenColor = random.Next(0, 3);
+
+                    if (randomScreenColor == 0) screenColor = CustomColor.Red;
+                    else if (randomScreenColor == 1) screenColor = CustomColor.DarkRed;
+                    else if (randomScreenColor == 2) screenColor = CustomColor.Brown;
 
                     player.reachedEnd = false;
                 }
@@ -57,7 +70,7 @@ namespace Escapeaway.Source.States
 
         public override void OnDraw(SpriteBatch spriteBatch)
         {
-            graphicsDevice.Clear(CustomColor.Red);
+            graphicsDevice.Clear(screenColor);
 
             player.Draw(spriteBatch);
 

@@ -45,7 +45,7 @@ namespace Escapeaway.Source.States
             goBack = new Text(Global.defaultFont, "Press [X] to Exit", new Vector2((Global.resWidth / 2) - 120, 204), Color.White, 1.0f, false);
 
             // Buttons
-            fullscreen = new Text(Global.defaultFont, "Fullscreen", new Vector2(6, 24), CustomColor.Orange, 1.0f, false);
+            fullscreen = new Text(Global.defaultFont, "Fullscreen", new Vector2(6, 24), CustomColor.LightOrange, 1.0f, false);
             resetHighscore = new Text(Global.defaultFont, "Reset HISCORE", new Vector2(6, 48), Color.White, 1.0f, false);
             UpdateButtonText();
         }
@@ -119,7 +119,7 @@ namespace Escapeaway.Source.States
             fullscreen.setColor(Color.White);
             resetHighscore.setColor(Color.White);
 
-            button.setColor(CustomColor.Orange);
+            button.setColor(CustomColor.LightOrange);
         }
 
         private void UpdateButtonText()

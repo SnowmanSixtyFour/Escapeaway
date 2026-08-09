@@ -69,8 +69,10 @@ namespace Escapeaway.Source
     internal class CustomColor
     {
         public static Color
+            DarkRed = new Color(136, 20, 0),
             Red = new Color(168, 0, 32),
-            Orange = new Color(248, 120, 88),
-            Yellow = new Color(248, 184, 0);
+            LightOrange = new Color(248, 120, 88),
+            Yellow = new Color(248, 184, 0),
+            Brown = new Color(80, 48, 0);
     }
 }
