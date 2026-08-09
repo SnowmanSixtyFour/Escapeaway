@@ -168,6 +168,7 @@ namespace Escapeaway
                 try
                 {
                     Global.fullscreen = Convert.ToBoolean(settingsDoc.Descendants("Fullscreen").First().Value);
+                    Global.highscore = Convert.ToInt32(settingsDoc.Descendants("Highscore").First().Value);
                 }
                 catch (Exception e)
                 {
@@ -240,7 +241,8 @@ namespace Escapeaway
         {
             // Create Settings.xml File
             var settingsDoc = new XDocument(new XElement("Settings",
-                new XElement("Fullscreen", new XElement("Value", graphics.IsFullScreen))
+                new XElement("Fullscreen", new XElement("Value", graphics.IsFullScreen)),
+                new XElement("Highscore", new XElement("Value", Global.highscore))
                 ));
 
             // Save File

@@ -35,7 +35,7 @@ namespace Escapeaway.Source.States
             Made for BOSS BASH JAM 4
             """;
 
-        private Text version;
+        private Text version, highscore;
 
         // Buttons
 
@@ -59,6 +59,9 @@ namespace Escapeaway.Source.States
             logo = new Character(Global.logo, new Point((Global.resWidth / 2) - (logoWidth / 2), logoY), new Point(logoSheetSize, logoHeight), new Point(logoWidth, logoHeight), Color.White);
             logo.CreateAnimation("default", 0, 6);
 
+            highscore = new Text(Global.defaultFont, "", new Vector2(62, logoY + 34), Global.yellowColor, 1.0f, false);
+            SetHighscore();
+
             overlay = new StaticSprite(Global.titleOverlay, new Rectangle(0, 0, Global.resWidth, Global.resHeight), Color.White);
 
             copyright = new Text(Global.defaultFont, copyrightString, new Vector2(62, 196), Color.White, 1.0f, false);
@@ -73,6 +76,36 @@ namespace Escapeaway.Source.States
             exit = new Text(Global.defaultFont, "Exit", new Vector2(buttonX, buttonY + 60), Color.White, 1.0f, true);
 
             SelectButton(start);
+        }
+
+        private void SetHighscore()
+        {
+            highscore.setText("HISCORE " + Global.highscore);
+
+            // Little easter eggs, they're unoptimized but I don't care :)
+
+            // 666
+            if (Global.highscore == 6 ||
+                Global.highscore == 66 ||
+                Global.highscore == 666 ||
+                Global.highscore == 6666 ||
+                Global.highscore == 66666 ||
+                Global.highscore == 666666 ||
+                Global.highscore == 6666666 ||
+                Global.highscore == 66666666 ||
+                Global.highscore == 666666666)
+            {
+                highscore.setColor(Global.redSky);
+            }
+
+            // Illegal score
+            if (Global.highscore < 0)
+            {
+                highscore.setText("""
+                    THE DEVIL KNOWS
+                         A CHEATER!
+                    """);
+            }
         }
 
         public override void OnUpdate(GameTime gameTime, Main main)
@@ -129,6 +162,7 @@ namespace Escapeaway.Source.States
             overlay.Draw(spriteBatch);
 
             logo.Draw(spriteBatch);
+            if (Global.highscore != 0) highscore.Draw(spriteBatch);
             copyright.Draw(spriteBatch);
             version.Draw(spriteBatch);
 

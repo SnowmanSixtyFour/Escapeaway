@@ -27,6 +27,8 @@ namespace Escapeaway.Source
 
         public static string gameVersion = "1.0.0";
 
+        public static int highscore = 0;
+
         // Bools not to be messed with (window properties)
         public static bool
             checkAndCreateOptions = false, // Create Settings
@@ -54,6 +56,7 @@ namespace Escapeaway.Source
         public static Color
             // Text / Buttons
             selectedColor = new Color(248, 120, 88),
+            yellowColor = new Color(248, 184, 0),
 
             // Backgrounds
             redSky = new Color(168, 0, 32);
