@@ -66,11 +66,5 @@ namespace Escapeaway.Source.States
             // Draw Current State
             currentState.OnDraw(spriteBatch);
         }
-
-        // Quit the Game
-        public void ExitGame()
-        {
-            Global.quit = true;
-        }
     }
 }

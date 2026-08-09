@@ -27,11 +27,19 @@ namespace Escapeaway.Source
 
         public static string gameVersion = "1.0.0";
 
-        public static bool pauseWhenInactive = true;
+        // Bools not to be messed with (window properties)
+        public static bool
+            checkAndCreateOptions = false, // Create Settings
+
+            // Active Window
+            pauseWhenInactive = true,
+            active = true,
+            
+            // Fullscreen
+            fullscreen = false, fullscreenChanged = false;
 
         // Game
 
-        public static bool active = true;
         public static bool paused = false;
 
         // Assets

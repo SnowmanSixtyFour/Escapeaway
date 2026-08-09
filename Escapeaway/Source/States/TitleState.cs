@@ -99,10 +99,10 @@ namespace Escapeaway.Source.States
             // Button Presses
             if (KeyPress(Keys.Z) || KeyPress(Keys.Enter))
             {
-                if (buttonSelected == 0) main.currentState = main.level;
-                else if (buttonSelected == 1) main.currentState = main.options;
-                else if (buttonSelected == 2) main.currentState = main.story;
-                else if (buttonSelected == 3) main.ExitGame();
+                if (buttonSelected == 0) SwitchState(main.level);
+                else if (buttonSelected == 1) SwitchState(main.options);
+                else if (buttonSelected == 2) SwitchState(main.story);
+                else if (buttonSelected == 3) ExitGame();
             }
 
             // Animations

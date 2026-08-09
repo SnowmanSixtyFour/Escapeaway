@@ -80,6 +80,14 @@ namespace Escapeaway.Source.States
         {
         }
 
+        /// <summary>
+        /// Quits the game. Use with caution.
+        /// </summary>
+        public void ExitGame()
+        {
+            Global.quit = true;
+        }
+
         public void StopSong()
         {
             MediaPlayer.Stop();
