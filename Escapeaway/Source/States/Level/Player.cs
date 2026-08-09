@@ -12,8 +12,14 @@ namespace Escapeaway.Source.States.Level
 {
     internal class Player : Character
     {
-        // Intro
-        private bool moving = false;
+        // Game Variables
+        public int
+            lives = 3;
+
+        // Screen
+        private bool
+            moving = false;
+        public bool reachedEnd = false;
 
         // Properties
         private int ground = 120;
@@ -32,9 +38,12 @@ namespace Escapeaway.Source.States.Level
             jumpIncrement = 16,
             maxJumpHeight = 80,
             gravity = 1;
+
+        // Conditions
         private bool
             slowingDown = false,
-            jumping = false;
+            jumping = false,
+            sliding = false;
 
         public Player(Texture2D spriteSheet, Point location, Point size, Point sheetSize, Color color) : base(spriteSheet, location, size, sheetSize, color)
         {
@@ -100,8 +109,17 @@ namespace Escapeaway.Source.States.Level
                     runSpeed = defaultRunSpeed;
                 }
 
-                // Prevent Player From Leaving Screen
-                if (this.X > Global.resWidth) this.X = 0 - this.Width;
+                // Slide
+                if (KeyPress(Keys.Down)) sliding = true;
+
+                // Reaching End of Screen
+                if (this.X > Global.resWidth)
+                {
+                    reachedEnd = true;
+
+                    // Prevent Player From Leaving Screen
+                    if (reachedEnd) this.X = 0 - this.Width;
+                }
             }
         }
     }

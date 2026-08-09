@@ -109,7 +109,7 @@ namespace Escapeaway.Source.States
 
         private void UpdateButtonText()
         {
-            fullscreen.setText("Fullscreen: " + (Global.fullscreen ? enabled : disabled));
+            fullscreen.setText("Fullscreen " + (Global.fullscreen ? enabled : disabled));
         }
 
         public override void OnDraw(SpriteBatch spriteBatch)

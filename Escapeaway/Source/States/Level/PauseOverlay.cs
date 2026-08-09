@@ -31,11 +31,6 @@ namespace Escapeaway.Source.States.Level
             background = new StaticSprite(null, new Rectangle(0, Global.resHeight / 2 - 38, Global.resWidth, Global.resHeight / 3), Color.Black);
         }
 
-        public void Update(GameTime gameTime, Main main)
-        {
-            // Pause Menu Logic
-        }
-
         public void Draw(SpriteBatch spriteBatch)
         {
             // Draw Pause Menu

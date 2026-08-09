@@ -29,7 +29,7 @@ namespace Escapeaway.Source.States
             level = new LevelState();
 
             // Set Current State
-            currentState = title;
+            currentState = level;
         }
 
         public override void OnUpdate(GameTime gameTime, Main main)

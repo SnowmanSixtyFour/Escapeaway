@@ -16,6 +16,9 @@ namespace Escapeaway.Source.States
     {
         Player player;
         PauseOverlay pauseOverlay;
+        HUD hud;
+
+        public int currentScreen = 0;
 
         public LevelState()
         {
@@ -23,6 +26,7 @@ namespace Escapeaway.Source.States
             player = new Player(null, new Point(0, 120), new Point(20, 40), new Point(20, 40), Color.White);
 
             // Visuals
+            hud = new HUD();
             pauseOverlay = new PauseOverlay();
         }
 
@@ -32,10 +36,17 @@ namespace Escapeaway.Source.States
             if (!Global.paused)
             {
                 player.Update(gameTime);
+
+                if (player.reachedEnd)
+                {
+                    currentScreen++;
+
+                    player.reachedEnd = false;
+                }
             }
 
             // While Paused
-            pauseOverlay.Update(gameTime, main);
+            hud.Update(gameTime, player, currentScreen);
 
             if (Global.paused)
             {
@@ -50,6 +61,7 @@ namespace Escapeaway.Source.States
 
             player.Draw(spriteBatch);
 
+            hud.Draw(spriteBatch);
             pauseOverlay.Draw(spriteBatch);
         }
     }
