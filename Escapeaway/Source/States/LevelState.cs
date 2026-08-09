@@ -31,7 +31,7 @@ namespace Escapeaway.Source.States
             random = new Random();
 
             // Initialize Level
-            player = new Player(null, new Point(0, 120), new Point(20, 40), new Point(20, 40), Color.White);
+            player = new Player(null, new Point(0, 120), Color.White);
 
             // Visuals
             hud = new HUD();

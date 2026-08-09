@@ -24,6 +24,11 @@ namespace Escapeaway.Source.States.Level
 
         // Properties
         private int ground = 120;
+        public static Point
+            size = new Point(20, 40),
+            sheetSize = new Point(20, 40),
+
+            slidingSize = new Point(40, 20);
 
         private int
             // Default Variables
@@ -36,9 +41,13 @@ namespace Escapeaway.Source.States.Level
             slowRunSpeed = 2,
 
             // Jumping
-            jumpIncrement = 16,
-            maxJumpHeight = 80,
-            gravity = 1;
+            jumpIncrement = 12,
+            maxJumpHeight = 65,
+            gravity = 1,
+
+            // Sliding
+            slideCounter = 0,
+            slideStart = 30;
 
         // Conditions
         private bool
@@ -46,7 +55,7 @@ namespace Escapeaway.Source.States.Level
             jumping = false,
             sliding = false;
 
-        public Player(Texture2D spriteSheet, Point location, Point size, Point sheetSize, Color color) : base(spriteSheet, location, size, sheetSize, color)
+        public Player(Texture2D spriteSheet, Point location, Color color) : base(spriteSheet, location, size, sheetSize, color)
         {
         }
 
@@ -63,7 +72,7 @@ namespace Escapeaway.Source.States.Level
             {
                 this.X += runSpeed;
 
-                if (KeyDown(Keys.Left))
+                if (KeyHold(Keys.Left))
                 {
                     slowingDown = true;
                 }
@@ -73,7 +82,7 @@ namespace Escapeaway.Source.States.Level
                 }
 
                 // Jump
-                if (KeyDown(Keys.Z) && !jumping)
+                if (!sliding && KeyHold(Keys.Z) && !jumping)
                 {
                     yVelocity = -jumpIncrement;
 
@@ -91,7 +100,7 @@ namespace Escapeaway.Source.States.Level
                 this.Y += yVelocity;
 
                 // When Touching Ground
-                if (this.Y >= ground)
+                if (this.Y >= ground && !sliding)
                 {
                     this.Y = ground;
 
@@ -101,7 +110,7 @@ namespace Escapeaway.Source.States.Level
                 }
 
                 // Slow Down
-                if (slowingDown && !jumping)
+                if (slowingDown && !jumping) // Only works when not jumping
                 {
                     runSpeed = slowRunSpeed;
                 }
@@ -111,7 +120,40 @@ namespace Escapeaway.Source.States.Level
                 }
 
                 // Slide
-                if (KeyPress(Keys.Down)) sliding = true;
+                if (!jumping && KeyHold(Keys.Down))
+                {
+                    // Start Sliding
+                    sliding = true;
+
+                    // Set Sliding Timer
+                    slideCounter = slideStart;
+
+                    if (this.Width != slidingSize.X && this.Height != slidingSize.Y)
+                    {
+                        // Update Size
+                        this.Width = slidingSize.X;
+                        this.Height = slidingSize.Y;
+                        this.Y += 20;
+                    }
+                }
+
+                if (sliding)
+                {
+                    // Sliding Timer
+                    slideCounter--;
+
+                    // When Sliding is Finished
+                    if (slideCounter <= 0)
+                    {
+                        // Reset Size
+                        this.Width = size.X;
+                        this.Height = size.Y;
+                        this.Y -= 20;
+
+                        // Stop Sliding
+                        sliding = false;
+                    }
+                }
 
                 // Reaching End of Screen
                 if (this.X > Global.resWidth)

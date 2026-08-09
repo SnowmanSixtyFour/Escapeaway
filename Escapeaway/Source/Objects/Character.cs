@@ -189,7 +189,7 @@ namespace Escapeaway.Source.Objects
             else return false;
         }
 
-        public bool KeyDown(Keys key)
+        public bool KeyHold(Keys key)
         {
             if (keyboard.IsKeyDown(key))
             {
