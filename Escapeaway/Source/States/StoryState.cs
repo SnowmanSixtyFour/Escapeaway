@@ -15,9 +15,9 @@ namespace Escapeaway.Source.States
     {
         private String story =
             """
-            You, yes YOU, have been dragged
+            You (yes, YOU) have been dragged
 
-            into the underworld after being
+            into the underdepths after being
 
             falsely accused of sins you
 
@@ -37,9 +37,9 @@ namespace Escapeaway.Source.States
 
         public StoryState()
         {
-            header = new Text(Global.defaultFont, "Story", new Vector2((Global.resWidth / 2) - 20, 6), Global.selectedColor, 1.0f, false);
+            header = new Text(Global.defaultFont, "Story", new Vector2((Global.resWidth / 2) - 20, 6), Color.White, 1.0f, false);
             giantWallOfText = new Text(Global.defaultFont, story, new Vector2(6, 24), Color.White, 1.0f, false);
-            goBack = new Text(Global.defaultFont, "Press [Z] / [X] to Exit", new Vector2((Global.resWidth / 2) - 120, 204), Global.selectedColor, 1.0f, false);
+            goBack = new Text(Global.defaultFont, "Press [Z] / [X] to Exit", new Vector2((Global.resWidth / 2) - 120, 204), Color.White, 1.0f, false);
         }
 
         public override void OnUpdate(GameTime gameTime, Main main)

@@ -10,7 +10,7 @@
 ### A fast-paced platformer made with [MonoGame](https://monogame.net/), for [BOSS BASH JAM 4](https://itch.io/jam/boss-bash-jam-4).
 
 # About
-Play as <b>YOURSELF</b>, dragged to the underworld after being falsely accused for sins you never committed — as you attempt to <i>escape</i> back into your regular life!
+Play as <b>YOURSELF</b>, dragged to the underdepths after being falsely accused for sins you never committed — as you attempt to <i>escape</i> back into your regular life!
 
 Dodge obstacles, and make it to the end of the game while avoiding <b>the Devil</b>, who's hunting you down!
 

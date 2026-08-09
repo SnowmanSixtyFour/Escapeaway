@@ -52,7 +52,11 @@ namespace Escapeaway.Source
             defaultFont;
 
         public static Color
-            selectedColor = new Color(248, 120, 88);
+            // Text / Buttons
+            selectedColor = new Color(248, 120, 88),
+
+            // Backgrounds
+            redSky = new Color(168, 0, 32);
 
         public static void LoadAssets(ContentManager Content)
         {

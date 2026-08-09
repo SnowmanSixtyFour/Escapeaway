@@ -53,6 +53,9 @@ namespace Escapeaway.Source.States
                     }
                 }
             }
+            
+            // Unpause when not in Level
+            if (Global.paused && currentState != level) Global.paused = false;
 
             // Pause Game when Inactive
             if (Global.pauseWhenInactive && !Global.active) Global.paused = true;
