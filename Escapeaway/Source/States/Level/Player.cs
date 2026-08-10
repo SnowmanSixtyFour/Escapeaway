@@ -74,7 +74,7 @@ namespace Escapeaway.Source.States.Level
         private void NewDustParticle()
         {
             // Delete Previous Particles
-            if (dustParticles.Count > 0) dustParticles.RemoveAt(0);
+            if (dustParticles.Count > 4) dustParticles.RemoveAt(0);
 
             // Create New Particle
             dustParticles.Add(new DustParticle(this));
