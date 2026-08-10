@@ -66,6 +66,7 @@ namespace Escapeaway.Source.States.Level
 
         // Particles
         private List<DustParticle> dustParticles = new List<DustParticle>();
+        private int dustParticleLimit = 4;
 
         public Player(Texture2D spriteSheet, Point location, Color color) : base(spriteSheet, location, size, sheetSize, color)
         {
@@ -74,7 +75,7 @@ namespace Escapeaway.Source.States.Level
         private void NewDustParticle()
         {
             // Delete Previous Particles
-            if (dustParticles.Count > 4) dustParticles.RemoveAt(0);
+            if (dustParticles.Count > dustParticleLimit) dustParticles.RemoveAt(0);
 
             // Create New Particle
             dustParticles.Add(new DustParticle(this));

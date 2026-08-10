@@ -18,7 +18,7 @@ namespace Escapeaway.Source.States.Level.Particles
 
         private float
             timeExisted = 0f,
-            timeToExist = 800f;
+            timeToExist = 1200f;
         private bool draw = true;
 
         public HeatParticle(Point location)

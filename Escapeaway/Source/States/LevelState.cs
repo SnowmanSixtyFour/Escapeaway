@@ -30,6 +30,7 @@ namespace Escapeaway.Source.States
         private float
             heatParticleTimer = 0f,
             timeBeforeNewHeatParticle = 360f;
+        int heatParticleLimit = 14;
 
         public LevelState()
         {
@@ -66,7 +67,7 @@ namespace Escapeaway.Source.States
                 if (heatParticleTimer > timeBeforeNewHeatParticle)
                 {
                     // Remove First Heat Particle
-                    if (heatParticles.Count > 0) heatParticles.RemoveAt(0);
+                    if (heatParticles.Count > heatParticleLimit) heatParticles.RemoveAt(0);
 
                     // Create New Heat Particle
                     GenerateHeat();
