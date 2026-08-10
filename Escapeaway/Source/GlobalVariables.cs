@@ -48,9 +48,14 @@ namespace Escapeaway.Source
         // Assets
 
         public static Texture2D
+            // Util
             noImg,
 
-            logo, titleOverlay;
+            // Title
+            logo, titleOverlay,
+
+            // Particles
+            dustParticle;
         public static SpriteFont
             defaultFont;
 
@@ -61,6 +66,8 @@ namespace Escapeaway.Source
 
             logo = Content.Load<Texture2D>("Assets/Images/Title/logo");
             titleOverlay = Content.Load<Texture2D>("Assets/Images/Title/titleOverlay");
+
+            dustParticle = Content.Load<Texture2D>("Assets/Images/Level/dustParticles");
 
             // Fonts
             defaultFont = Content.Load<SpriteFont>("Assets/Fonts/retroFont");

@@ -14,10 +14,10 @@ namespace Escapeaway.Source.States.Level.PlayerData
 {
     internal class DustParticle
     {
-        private StaticSprite dust;
+        private Character dust;
         private Point
             size = new Point(8, 8),
-            smallerSize = new Point(4, 4);
+            sheetSize = new Point(16, 8);
         private int offsetToPlayer = 6; // How far in front of player to spawn
 
         private int pixelsToMoveBack = 1;
@@ -30,28 +30,37 @@ namespace Escapeaway.Source.States.Level.PlayerData
         public DustParticle(Player player)
         {
             // Set Sprite
-            dust = new StaticSprite(null,
-                new Rectangle(
-                player.X + (player.Width - size.X) + offsetToPlayer,
-                player.Y + (player.Height - size.Y),
-                size.X,
-                size.Y),
+
+            dust = new Character(
+                Global.dustParticle,
+                new Point(
+                    player.X + (player.Width - size.X) + offsetToPlayer,
+                    player.Y + (player.Height - size.Y)
+                    ),
+                new Point(
+                    sheetSize.X,
+                    sheetSize.Y
+                    ),
+                new Point(
+                    size.X,
+                    size.Y
+                    ),
                 Color.White);
+
+            // Animations
+
+            dust.CreateAnimation("default", 0, 1);
         }
 
         public void Update(GameTime gameTime)
         {
+            dust.PlayAnimation("default");
+            dust.animSpeed = 100;
+
             // Move Backwards
-            dust.SetDestRect(new Rectangle(dust.GetDestRect().X - pixelsToMoveBack, dust.GetDestRect().Y, size.X, size.Y));
+            dust.X -= pixelsToMoveBack;
 
             timeExisted += gameTime.ElapsedGameTime.Milliseconds;
-
-            // Turn Small after Half of Time Existed
-            if (timeExisted > (timeToExist / 2))
-            {
-                if (this.size.X > 0) this.size.X--;
-                if (this.size.Y > 0) this.size.Y--;
-            }
 
             // After Enough Time, Disappear
             if (timeExisted > timeToExist) draw = false;

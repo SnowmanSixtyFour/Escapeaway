@@ -20,6 +20,9 @@ namespace Escapeaway.Source.States
         public StoryState story;
         public LevelState level;
 
+        // Endless Mode
+        public bool endless = false;
+
         public Main()
         {
             // Initialize States

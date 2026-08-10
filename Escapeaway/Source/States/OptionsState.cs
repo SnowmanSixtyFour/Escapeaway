@@ -27,12 +27,10 @@ namespace Escapeaway.Source.States
             goBack;
 
         // Buttons
-        private Text
-            fullscreen,
-            resetHighscore;
+        private List<Text> buttons = new List<Text>();
         private byte
             buttonSelected = 0,
-            maxButtons = 1;
+            maxButtons;
 
         // Temporary Variables
         private int
@@ -45,8 +43,11 @@ namespace Escapeaway.Source.States
             goBack = new Text(Global.defaultFont, "Press [X] to Exit", new Vector2((Global.resWidth / 2) - 120, 204), Color.White, 1.0f, false);
 
             // Buttons
-            fullscreen = new Text(Global.defaultFont, "Fullscreen", new Vector2(6, 24), CustomColor.LightOrange, 1.0f, false);
-            resetHighscore = new Text(Global.defaultFont, "Reset HISCORE", new Vector2(6, 48), Color.White, 1.0f, false);
+            buttons.Add(new Text(Global.defaultFont, "Fullscreen", new Vector2(6, 24), CustomColor.LightOrange, 1.0f, false));
+            buttons.Add(new Text(Global.defaultFont, "Reset HISCORE", new Vector2(6, 48), Color.White, 1.0f, false));
+
+            maxButtons = Convert.ToByte(buttons.Count - 1);
+
             UpdateButtonText();
         }
 
@@ -65,8 +66,7 @@ namespace Escapeaway.Source.States
             }
             if (KeyPress(Keys.Up) || KeyPress(Keys.Down))
             {
-                if (buttonSelected == 0) SelectButton(fullscreen);
-                else if (buttonSelected == 1) SelectButton(resetHighscore);
+                if (buttonSelected < maxButtons) SelectButton(buttons[buttonSelected]);
             }
 
             // Button Presses
@@ -114,17 +114,19 @@ namespace Escapeaway.Source.States
             }
         }
 
-        private void SelectButton(Text button)
+        private void SelectButton(Text buttonToHighlight)
         {
-            fullscreen.setColor(Color.White);
-            resetHighscore.setColor(Color.White);
+            foreach (var button in buttons)
+            {
+                button.setColor(Color.White);
+            }
 
-            button.setColor(CustomColor.LightOrange);
+            buttonToHighlight.setColor(CustomColor.LightOrange);
         }
 
         private void UpdateButtonText()
         {
-            fullscreen.setText("Fullscreen " + (Global.fullscreen ? enabled : disabled));
+            buttons[0].setText("Fullscreen " + (Global.fullscreen ? enabled : disabled));
         }
 
         public override void OnDraw(SpriteBatch spriteBatch)
@@ -136,8 +138,7 @@ namespace Escapeaway.Source.States
             goBack.Draw(spriteBatch);
 
             // Draw Buttons
-            fullscreen.Draw(spriteBatch);
-            resetHighscore.Draw(spriteBatch);
+            foreach (var button in buttons) button.Draw(spriteBatch);
         }
     }
 }

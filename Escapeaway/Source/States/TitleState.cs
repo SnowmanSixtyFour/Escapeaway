@@ -39,15 +39,17 @@ namespace Escapeaway.Source.States
 
         // Buttons
 
+        private List<Text> buttons = new List<Text>();
         private Text
             start,
+            endless,
             options,
             story,
             exit;
 
         private byte
             buttonSelected = 0,
-            maxButtons = 3;
+            maxButtons;
         private int
             buttonX = 22,
             buttonY = 80;
@@ -68,13 +70,15 @@ namespace Escapeaway.Source.States
             version = new Text(Global.defaultFont, Global.gameVersion, new Vector2((Global.resWidth / 2) - 120, 204), Color.White, 1.0f, false);
 
             // Buttons
+            buttons.Add(new Text(Global.defaultFont, "Start", new Vector2(buttonX, buttonY), Color.White, 1.0f, true));
+            buttons.Add(new Text(Global.defaultFont, "Endless", new Vector2(buttonX, buttonY + 20), Color.White, 1.0f, true));
+            buttons.Add(new Text(Global.defaultFont, "Options", new Vector2(buttonX, buttonY + 40), Color.White, 1.0f, true));
+            buttons.Add(new Text(Global.defaultFont, "Help", new Vector2(buttonX, buttonY + 60), Color.White, 1.0f, true));
+            buttons.Add(new Text(Global.defaultFont, "Exit", new Vector2(buttonX, buttonY + 80), Color.White, 1.0f, true));
 
-            start = new Text(Global.defaultFont, "Start", new Vector2(buttonX, buttonY), Color.White, 1.0f, true);
-            options = new Text(Global.defaultFont, "Options", new Vector2(buttonX, buttonY + 20), Color.White, 1.0f, true);
-            story = new Text(Global.defaultFont, "Story", new Vector2(buttonX, buttonY + 40), Color.White, 1.0f, true);
-            exit = new Text(Global.defaultFont, "Exit", new Vector2(buttonX, buttonY + 60), Color.White, 1.0f, true);
+            maxButtons = Convert.ToByte(buttons.Count - 1); // Set Num of Max Buttons
 
-            SelectButton(start);
+            SelectButton(buttons[0]); // Select First Button by Default
         }
 
         private void SetHighscore()
@@ -122,19 +126,35 @@ namespace Escapeaway.Source.States
             }
             if (KeyPress(Keys.Up) || KeyPress(Keys.Down))
             {
-                if (buttonSelected == 0) SelectButton(start);
-                else if (buttonSelected == 1) SelectButton(options);
-                else if (buttonSelected == 2) SelectButton(story);
-                else if (buttonSelected == 3) SelectButton(exit);
+                // Set Color of Selected Button (don't if value is past limit)
+                if (buttonSelected < maxButtons) SelectButton(buttons[buttonSelected]);
             }
 
             // Button Presses
             if (KeyPress(Keys.Z) || KeyPress(Keys.Enter))
             {
-                if (buttonSelected == 0) SwitchState(main.level);
-                else if (buttonSelected == 1) SwitchState(main.options);
-                else if (buttonSelected == 2) SwitchState(main.story);
-                else if (buttonSelected == 3) ExitGame();
+                // Regular Mode
+                if (buttonSelected == 0)
+                {
+                    SwitchState(main.level);
+                    main.endless = false;
+                }
+
+                // Endless Mode
+                else if (buttonSelected == 1)
+                {
+                    SwitchState(main.level);
+                    main.endless = true;
+                }
+
+                // Options
+                else if (buttonSelected == 2) SwitchState(main.options);
+
+                // Help
+                else if (buttonSelected == 3) SwitchState(main.story);
+
+                // Quit
+                else if (buttonSelected == 4) ExitGame();
             }
 
             // Animations
@@ -142,16 +162,16 @@ namespace Escapeaway.Source.States
         }
 
         // Update Colors of Buttons
-        private void SelectButton(Text button)
+        private void SelectButton(Text buttonToHighlight)
         {
             // Reset all Button Colors
-            start.setColor(Color.White);
-            options.setColor(Color.White);
-            story.setColor(Color.White);
-            exit.setColor(Color.White);
+            foreach(var button in buttons)
+            {
+                button.setColor(Color.White);
+            }    
 
             // Update Chosen Button to be Selected Color
-            button.setColor(CustomColor.LightOrange);
+            buttonToHighlight.setColor(CustomColor.LightOrange);
         }
 
         public override void OnDraw(SpriteBatch spriteBatch)
@@ -164,11 +184,7 @@ namespace Escapeaway.Source.States
             if (Global.highscore != 0) highscore.Draw(spriteBatch);
             copyright.Draw(spriteBatch);
             version.Draw(spriteBatch);
-
-            start.Draw(spriteBatch);
-            options.Draw(spriteBatch);
-            story.Draw(spriteBatch);
-            exit.Draw(spriteBatch);
+            foreach (var button in buttons) button.Draw(spriteBatch);
         }
     }
 }
