@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Audio;
 using Escapeaway.Source.Graphics;
 
-namespace Escapeaway.Source.States.Level.PlayerData
+namespace Escapeaway.Source.States.Level.Particles
 {
     internal class DustParticle
     {
@@ -55,7 +55,7 @@ namespace Escapeaway.Source.States.Level.PlayerData
         public void Update(GameTime gameTime)
         {
             dust.PlayAnimation("default");
-            dust.animSpeed = 100;
+            dust.animSpeed = 100; // Slowwww
 
             // Move Backwards
             dust.X -= pixelsToMoveBack;

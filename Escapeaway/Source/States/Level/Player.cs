@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Escapeaway.Source.Objects;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Audio;
-using Escapeaway.Source.States.Level.PlayerData;
+using Escapeaway.Source.States.Level.Particles;
 
 namespace Escapeaway.Source.States.Level
 {
