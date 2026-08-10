@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Escapeaway.Source.Objects;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Audio;
+using Escapeaway.Source.Objects;
 using Escapeaway.Source.States.Level.Particles;
 
 namespace Escapeaway.Source.States.Level
@@ -73,6 +73,10 @@ namespace Escapeaway.Source.States.Level
 
         private void NewDustParticle()
         {
+            // Delete Previous Particles
+            if (dustParticles.Count > 0) dustParticles.RemoveAt(0);
+
+            // Create New Particle
             dustParticles.Add(new DustParticle(this));
         }
 

@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Input;
 using Escapeaway;
 using Escapeaway.Source.Graphics;
 using Escapeaway.Source.States.Level;
+using Escapeaway.Source.States.Level.Particles;
 
 namespace Escapeaway.Source.States
 {
@@ -25,6 +26,11 @@ namespace Escapeaway.Source.States
         private Random random;
         private Color screenColor = CustomColor.Red;
 
+        private List<HeatParticle> heatParticles = new List<HeatParticle>();
+        private float
+            heatParticleTimer = 0f,
+            timeBeforeNewHeatParticle = 360f;
+
         public LevelState()
         {
             // Set Variables
@@ -38,22 +44,50 @@ namespace Escapeaway.Source.States
             pauseOverlay = new PauseOverlay();
         }
 
+        private void GenerateHeat()
+        {
+            heatParticles.Add(new HeatParticle(new Point(random.Next(0, (Global.resWidth - 8)), Global.resHeight)));
+        }
+
         public override void OnUpdate(GameTime gameTime, Main main)
         {
             // While Unpaused
             if (!Global.paused)
             {
+                // Update Objects
                 player.Update(gameTime);
 
+                // Update Particles
+                foreach (HeatParticle heatParticle in heatParticles) heatParticle.Update(gameTime);
+
+                // Timer Events
+                heatParticleTimer += gameTime.ElapsedGameTime.Milliseconds;
+
+                if (heatParticleTimer > timeBeforeNewHeatParticle)
+                {
+                    // Remove First Heat Particle
+                    if (heatParticles.Count > 0) heatParticles.RemoveAt(0);
+
+                    // Create New Heat Particle
+                    GenerateHeat();
+
+                    // Reset Timer
+                    heatParticleTimer = 0f;
+                }
+
+                // Reset Room
                 if (player.reachedEnd)
                 {
+                    // Update Current Sceen Count
                     currentScreen++;
-                    randomScreenColor = random.Next(0, 3);
 
+                    // Randomize Screen Colour
+                    randomScreenColor = random.Next(0, 3);
                     if (randomScreenColor == 0) screenColor = CustomColor.Red;
                     else if (randomScreenColor == 1) screenColor = CustomColor.DarkRed;
                     else if (randomScreenColor == 2) screenColor = CustomColor.Brown;
 
+                    // Set Flag to False
                     player.reachedEnd = false;
                 }
             }
@@ -70,10 +104,16 @@ namespace Escapeaway.Source.States
 
         public override void OnDraw(SpriteBatch spriteBatch)
         {
+            // Background
             graphicsDevice.Clear(screenColor);
 
+            // Objects
             player.Draw(spriteBatch);
 
+            // Particles
+            foreach (HeatParticle heatParticle in heatParticles) heatParticle.Draw(spriteBatch);
+
+            // HUD
             hud.Draw(spriteBatch);
             pauseOverlay.Draw(spriteBatch);
         }
