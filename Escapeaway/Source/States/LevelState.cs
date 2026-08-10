@@ -58,6 +58,9 @@ namespace Escapeaway.Source.States
         /// </summary>
         public void ResetLevel()
         {
+            // Reset Player
+            player.Reset();
+
             // Reset Particles
             heatParticles.Clear();
         }

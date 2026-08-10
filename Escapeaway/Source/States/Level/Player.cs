@@ -81,6 +81,14 @@ namespace Escapeaway.Source.States.Level
             dustParticles.Add(new DustParticle(this));
         }
 
+        /// <summary>
+        /// Resets the player to its starting state. Good for level resets.
+        /// </summary>
+        public void Reset()
+        {
+            moving = false;
+        }
+
         public override void OnUpdate(GameTime gameTime)
         {
             // Intro

@@ -71,7 +71,7 @@ namespace Escapeaway.Source.States
 
             // Buttons
             buttons.Add(new Text(Global.defaultFont, "Start", new Vector2(buttonX, buttonY), Color.White, 1.0f, true));
-            buttons.Add(new Text(Global.defaultFont, "Endless", new Vector2(buttonX, buttonY + 20), Color.White, 1.0f, true));
+            buttons.Add(new Text(Global.defaultFont, "Endless Mode", new Vector2(buttonX, buttonY + 20), Color.White, 1.0f, true));
             buttons.Add(new Text(Global.defaultFont, "Options", new Vector2(buttonX, buttonY + 40), Color.White, 1.0f, true));
             buttons.Add(new Text(Global.defaultFont, "Help", new Vector2(buttonX, buttonY + 60), Color.White, 1.0f, true));
             buttons.Add(new Text(Global.defaultFont, "Exit", new Vector2(buttonX, buttonY + 80), Color.White, 1.0f, true));
