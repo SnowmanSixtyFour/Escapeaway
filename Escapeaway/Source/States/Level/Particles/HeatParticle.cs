@@ -23,7 +23,7 @@ namespace Escapeaway.Source.States.Level.Particles
 
         public HeatParticle(Point location)
         {
-            heat = new StaticSprite(null, new Rectangle(location, this.size), CustomColor.LightOrange);
+            heat = new StaticSprite(Global.heatParticle, new Rectangle(location, this.size), CustomColor.LightOrange);
         }
 
         public void Update(GameTime gameTime)
