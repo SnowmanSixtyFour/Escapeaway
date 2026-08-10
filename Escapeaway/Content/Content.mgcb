@@ -27,6 +27,13 @@
 /processorParam:Version=3.8.5.0
 /build:Assets/Audio/jump.wav
 
+#begin Assets/Audio/skid.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/processorParam:Version=3.8.5.0
+/build:Assets/Audio/skid.wav
+
 #begin Assets/Audio/slide.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

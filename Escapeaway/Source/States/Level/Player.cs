@@ -48,7 +48,7 @@ namespace Escapeaway.Source.States.Level
 
             // Sliding
             slideCounter = 0,
-            slideStart = 30;
+            slideStart = 60;
 
         // Conditions
         private bool
@@ -56,8 +56,8 @@ namespace Escapeaway.Source.States.Level
             jumping = false,
             sliding = false;
         private float
-            footstepSfxTimer = 0f,
-            framesToPlayFootstepSfx = 180f;
+            footstepSfxTimer = 0f, slowDownSfxTimer,
+            framesToPlayFootstepSfx = 180f, framesToPlaySlowDownSfx = 75f;
 
         public Player(Texture2D spriteSheet, Point location, Color color) : base(spriteSheet, location, size, sheetSize, color)
         {
@@ -88,8 +88,16 @@ namespace Escapeaway.Source.States.Level
                 // Move Right
                 this.X += runSpeed;
 
+                slowDownSfxTimer += gameTime.ElapsedGameTime.Milliseconds;
                 if (KeyHold(Keys.Left))
                 {
+                    if (slowDownSfxTimer > framesToPlaySlowDownSfx)
+                    {
+                        if (!jumping) SFX.skid.Play();
+
+                        slowDownSfxTimer = 0f;
+                    }
+
                     slowingDown = true;
                 }
                 else

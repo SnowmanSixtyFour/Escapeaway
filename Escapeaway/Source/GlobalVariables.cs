@@ -69,6 +69,7 @@ namespace Escapeaway.Source
             SFX.jump = Content.Load<SoundEffect>("Assets/Audio/jump");
             SFX.footsteps = Content.Load<SoundEffect>("Assets/Audio/footsteps");
             SFX.slide = Content.Load<SoundEffect>("Assets/Audio/slide");
+            SFX.skid = Content.Load<SoundEffect>("Assets/Audio/skid");
         }
     }
 
@@ -87,6 +88,7 @@ namespace Escapeaway.Source
         public static SoundEffect
             jump,
             footsteps,
-            slide;
+            slide,
+            skid;
     }
 }
