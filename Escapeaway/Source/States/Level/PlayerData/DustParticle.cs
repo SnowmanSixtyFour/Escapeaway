@@ -15,14 +15,16 @@ namespace Escapeaway.Source.States.Level.PlayerData
     internal class DustParticle
     {
         private StaticSprite dust;
-        private Point size = new Point(8, 8);
+        private Point
+            size = new Point(8, 8),
+            smallerSize = new Point(4, 4);
         private int offsetToPlayer = 6; // How far in front of player to spawn
 
         private int pixelsToMoveBack = 1;
 
         private float
             timeExisted = 0f,
-            timeToExist = 180f; // Frames to exist until deleted
+            timeToExist = 220f; // Frames to exist until deleted
         private bool draw = true;
 
         public DustParticle(Player player)
@@ -34,7 +36,7 @@ namespace Escapeaway.Source.States.Level.PlayerData
                 player.Y + (player.Height - size.Y),
                 size.X,
                 size.Y),
-                Color.Gray);
+                Color.White);
         }
 
         public void Update(GameTime gameTime)
@@ -42,8 +44,16 @@ namespace Escapeaway.Source.States.Level.PlayerData
             // Move Backwards
             dust.SetDestRect(new Rectangle(dust.GetDestRect().X - pixelsToMoveBack, dust.GetDestRect().Y, size.X, size.Y));
 
-            // After Enough Time, Disappear
             timeExisted += gameTime.ElapsedGameTime.Milliseconds;
+
+            // Turn Small after Half of Time Existed
+            if (timeExisted > (timeToExist / 2))
+            {
+                if (this.size.X > 0) this.size.X--;
+                if (this.size.Y > 0) this.size.Y--;
+            }
+
+            // After Enough Time, Disappear
             if (timeExisted > timeToExist) draw = false;
         }
 
