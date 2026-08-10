@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Escapeaway.Source
 {
@@ -63,6 +64,11 @@ namespace Escapeaway.Source
 
             // Fonts
             defaultFont = Content.Load<SpriteFont>("Assets/Fonts/retroFont");
+
+            // Audio
+            SFX.jump = Content.Load<SoundEffect>("Assets/Audio/jump");
+            SFX.footsteps = Content.Load<SoundEffect>("Assets/Audio/footsteps");
+            SFX.slide = Content.Load<SoundEffect>("Assets/Audio/slide");
         }
     }
 
@@ -74,5 +80,13 @@ namespace Escapeaway.Source
             LightOrange = new Color(248, 120, 88),
             Yellow = new Color(248, 184, 0),
             Brown = new Color(80, 48, 0);
+    }
+
+    internal class SFX
+    {
+        public static SoundEffect
+            jump,
+            footsteps,
+            slide;
     }
 }

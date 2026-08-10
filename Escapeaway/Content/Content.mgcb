@@ -13,6 +13,27 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Assets/Audio/footsteps.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/processorParam:Version=3.8.5.0
+/build:Assets/Audio/footsteps.wav
+
+#begin Assets/Audio/jump.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/processorParam:Version=3.8.5.0
+/build:Assets/Audio/jump.wav
+
+#begin Assets/Audio/slide.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/processorParam:Version=3.8.5.0
+/build:Assets/Audio/slide.wav
+
 #begin Assets/Fonts/retroFont.png
 /importer:TextureImporter
 /processor:FontTextureProcessor

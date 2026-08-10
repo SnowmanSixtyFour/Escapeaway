@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Escapeaway.Source.Objects;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Escapeaway.Source.States.Level
 {
@@ -54,6 +55,9 @@ namespace Escapeaway.Source.States.Level
             slowingDown = false,
             jumping = false,
             sliding = false;
+        private float
+            footstepSfxTimer = 0f,
+            framesToPlayFootstepSfx = 180f;
 
         public Player(Texture2D spriteSheet, Point location, Color color) : base(spriteSheet, location, size, sheetSize, color)
         {
@@ -70,6 +74,18 @@ namespace Escapeaway.Source.States.Level
             // Movement
             if (moving)
             {
+                // Footstep SFX
+                footstepSfxTimer += gameTime.ElapsedGameTime.Milliseconds;
+                if (footstepSfxTimer > framesToPlayFootstepSfx)
+                {
+                    // If on Ground
+                    if (!jumping && !sliding) SFX.footsteps.Play();
+
+                    // Reset Timer
+                    footstepSfxTimer = 0f;
+                }
+
+                // Move Right
                 this.X += runSpeed;
 
                 if (KeyHold(Keys.Left))
@@ -87,6 +103,8 @@ namespace Escapeaway.Source.States.Level
                     yVelocity = -jumpIncrement;
 
                     jumping = true;
+
+                    SFX.jump.Play();
                 }
 
                 // Gravity
@@ -120,6 +138,8 @@ namespace Escapeaway.Source.States.Level
                 }
 
                 // Slide
+                if (!sliding && KeyHold(Keys.Down) && !jumping) SFX.slide.Play();
+
                 if (!jumping && KeyHold(Keys.Down))
                 {
                     // Start Sliding
