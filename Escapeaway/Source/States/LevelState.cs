@@ -32,6 +32,9 @@ namespace Escapeaway.Source.States
             timeBeforeNewHeatParticle = 360f;
         int heatParticleLimit = 14;
 
+        private StaticSprite heatBG;
+        private int heatBGHeight = 22;
+
         public LevelState()
         {
             // Set Variables
@@ -40,7 +43,10 @@ namespace Escapeaway.Source.States
             // Initialize Level
             player = new Player(null, new Point(0, 120), Color.White);
 
-            // Visuals
+            // Background
+            heatBG = new StaticSprite(null, new Rectangle(0, Global.resHeight - this.heatBGHeight, Global.resWidth, this.heatBGHeight), CustomColor.LightOrange);
+
+            // HUD
             hud = new HUD();
             pauseOverlay = new PauseOverlay();
         }
@@ -122,6 +128,7 @@ namespace Escapeaway.Source.States
         {
             // Background
             graphicsDevice.Clear(screenColor);
+            heatBG.Draw(spriteBatch);
 
             // Objects
             player.Draw(spriteBatch);
