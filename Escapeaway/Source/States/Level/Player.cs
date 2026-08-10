@@ -133,7 +133,7 @@ namespace Escapeaway.Source.States.Level
                         // Update Size
                         this.Width = slidingSize.X;
                         this.Height = slidingSize.Y;
-                        this.Y += 20;
+                        this.Y += slidingSize.Y;
                     }
                 }
 
@@ -148,7 +148,7 @@ namespace Escapeaway.Source.States.Level
                         // Reset Size
                         this.Width = size.X;
                         this.Height = size.Y;
-                        this.Y -= 20;
+                        this.Y -= slidingSize.Y;
 
                         // Stop Sliding
                         sliding = false;
