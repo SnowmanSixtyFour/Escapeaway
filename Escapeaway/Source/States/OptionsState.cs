@@ -46,7 +46,7 @@ namespace Escapeaway.Source.States
             buttons.Add(new Text(Global.defaultFont, "Fullscreen", new Vector2(6, 24), CustomColor.LightOrange, 1.0f, false));
             buttons.Add(new Text(Global.defaultFont, "Reset HISCORE", new Vector2(6, 48), Color.White, 1.0f, false));
 
-            maxButtons = Convert.ToByte(buttons.Count - 1);
+            maxButtons = Convert.ToByte(buttons.Count);
 
             UpdateButtonText();
         }
@@ -57,11 +57,11 @@ namespace Escapeaway.Source.States
             if (KeyPress(Keys.Up))
             {
                 if (buttonSelected != 0) buttonSelected--;
-                else buttonSelected = maxButtons;
+                else buttonSelected = Convert.ToByte(maxButtons - 1);
             }
             if (KeyPress(Keys.Down))
             {
-                if (buttonSelected < maxButtons) buttonSelected++;
+                if (buttonSelected < Convert.ToByte(maxButtons - 1)) buttonSelected++;
                 else buttonSelected = 0;
             }
             if (KeyPress(Keys.Up) || KeyPress(Keys.Down))

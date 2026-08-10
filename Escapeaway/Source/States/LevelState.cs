@@ -45,9 +45,21 @@ namespace Escapeaway.Source.States
             pauseOverlay = new PauseOverlay();
         }
 
+        /// <summary>
+        /// Generate heat particles for the level background.
+        /// </summary>
         private void GenerateHeat()
         {
             heatParticles.Add(new HeatParticle(new Point(random.Next(0, (Global.resWidth - 8)), Global.resHeight)));
+        }
+
+        /// <summary>
+        /// Resets the level back to a state in which the game hasn't started yet.
+        /// </summary>
+        public void ResetLevel()
+        {
+            // Reset Particles
+            heatParticles.Clear();
         }
 
         public override void OnUpdate(GameTime gameTime, Main main)

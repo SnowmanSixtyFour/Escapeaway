@@ -76,7 +76,7 @@ namespace Escapeaway.Source.States
             buttons.Add(new Text(Global.defaultFont, "Help", new Vector2(buttonX, buttonY + 60), Color.White, 1.0f, true));
             buttons.Add(new Text(Global.defaultFont, "Exit", new Vector2(buttonX, buttonY + 80), Color.White, 1.0f, true));
 
-            maxButtons = Convert.ToByte(buttons.Count - 1); // Set Num of Max Buttons
+            maxButtons = Convert.ToByte(buttons.Count); // Set Num of Max Buttons
 
             SelectButton(buttons[0]); // Select First Button by Default
         }
@@ -117,11 +117,11 @@ namespace Escapeaway.Source.States
             if (KeyPress(Keys.Up))
             {
                 if (buttonSelected != 0) buttonSelected--;
-                else buttonSelected = maxButtons;
+                else buttonSelected = Convert.ToByte(maxButtons - 1);
             }
             if (KeyPress(Keys.Down))
             {
-                if (buttonSelected < maxButtons) buttonSelected++;
+                if (buttonSelected < Convert.ToByte(maxButtons - 1)) buttonSelected++;
                 else buttonSelected = 0;
             }
             if (KeyPress(Keys.Up) || KeyPress(Keys.Down))
@@ -136,15 +136,21 @@ namespace Escapeaway.Source.States
                 // Regular Mode
                 if (buttonSelected == 0)
                 {
+                    // Reset Level State
+                    main.level.ResetLevel();
+                    main.endless = false; // Disable Endless Mode (in case it was on)
+
+                    // Go to Level
                     SwitchState(main.level);
-                    main.endless = false;
                 }
 
                 // Endless Mode
                 else if (buttonSelected == 1)
                 {
+                    main.level.ResetLevel();
+                    main.endless = true; // Enable Endless Mode
+
                     SwitchState(main.level);
-                    main.endless = true;
                 }
 
                 // Options
@@ -165,10 +171,10 @@ namespace Escapeaway.Source.States
         private void SelectButton(Text buttonToHighlight)
         {
             // Reset all Button Colors
-            foreach(var button in buttons)
+            foreach(Text button in buttons)
             {
                 button.setColor(Color.White);
-            }    
+            }
 
             // Update Chosen Button to be Selected Color
             buttonToHighlight.setColor(CustomColor.LightOrange);
@@ -184,7 +190,7 @@ namespace Escapeaway.Source.States
             if (Global.highscore != 0) highscore.Draw(spriteBatch);
             copyright.Draw(spriteBatch);
             version.Draw(spriteBatch);
-            foreach (var button in buttons) button.Draw(spriteBatch);
+            foreach (Text button in buttons) button.Draw(spriteBatch);
         }
     }
 }
