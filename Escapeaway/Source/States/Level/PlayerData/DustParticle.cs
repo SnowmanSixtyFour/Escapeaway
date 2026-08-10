@@ -16,15 +16,21 @@ namespace Escapeaway.Source.States.Level.PlayerData
     {
         private StaticSprite dust;
         private Point size = new Point(8, 8);
+        private int offsetToPlayer = 6; // How far in front of player to spawn
 
         private int pixelsToMoveBack = 1;
+
+        private float
+            timeExisted = 0f,
+            timeToExist = 180f; // Frames to exist until deleted
+        private bool draw = true;
 
         public DustParticle(Player player)
         {
             // Set Sprite
             dust = new StaticSprite(null,
                 new Rectangle(
-                player.X + (player.Width - size.X),
+                player.X + (player.Width - size.X) + offsetToPlayer,
                 player.Y + (player.Height - size.Y),
                 size.X,
                 size.Y),
@@ -35,11 +41,15 @@ namespace Escapeaway.Source.States.Level.PlayerData
         {
             // Move Backwards
             dust.SetDestRect(new Rectangle(dust.GetDestRect().X - pixelsToMoveBack, dust.GetDestRect().Y, size.X, size.Y));
+
+            // After Enough Time, Disappear
+            timeExisted += gameTime.ElapsedGameTime.Milliseconds;
+            if (timeExisted > timeToExist) draw = false;
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            dust.Draw(spriteBatch);
+            if (draw) dust.Draw(spriteBatch);
         }
     }
 }
