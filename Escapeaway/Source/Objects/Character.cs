@@ -84,7 +84,7 @@ namespace Escapeaway.Source.Objects
         {
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
             // Update
 

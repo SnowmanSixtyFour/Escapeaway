@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Escapeaway.Source.Objects;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Audio;
+using Escapeaway.Source.States.Level.PlayerData;
 
 namespace Escapeaway.Source.States.Level
 {
@@ -35,7 +36,6 @@ namespace Escapeaway.Source.States.Level
             // Default Variables
             runSpeed = 0,
             yVelocity = 0,
-            currentGravity = 0,
 
             // Running Speeds
             defaultRunSpeed = 3,
@@ -55,12 +55,25 @@ namespace Escapeaway.Source.States.Level
             slowingDown = false,
             jumping = false,
             sliding = false;
+
+        // Timers
         private float
+            // SFX
             footstepSfxTimer = 0f, slowDownSfxTimer,
+
+            // Frames until SFX should Play
             framesToPlayFootstepSfx = 180f, framesToPlaySlowDownSfx = 75f;
+
+        // Particles
+        private List<DustParticle> dustParticles = new List<DustParticle>();
 
         public Player(Texture2D spriteSheet, Point location, Color color) : base(spriteSheet, location, size, sheetSize, color)
         {
+        }
+
+        private void NewDustParticle()
+        {
+            dustParticles.Add(new DustParticle(this));
         }
 
         public override void OnUpdate(GameTime gameTime)
@@ -93,7 +106,14 @@ namespace Escapeaway.Source.States.Level
                 {
                     if (slowDownSfxTimer > framesToPlaySlowDownSfx)
                     {
-                        if (!jumping) SFX.skid.Play();
+                        if (!jumping)
+                        {
+                            // Play SFX
+                            SFX.skid.Play();
+
+                            // Create new Dust
+                            NewDustParticle();
+                        }
 
                         slowDownSfxTimer = 0f;
                     }
@@ -190,7 +210,28 @@ namespace Escapeaway.Source.States.Level
 
                     // Prevent Player From Leaving Screen
                     if (reachedEnd) this.X = 0 - this.Width;
+
+                    // Reset Particles
+                    dustParticles.Clear();
                 }
+
+                // Update Particles
+                foreach (DustParticle dust in dustParticles)
+                {
+                    dust.Update(gameTime);
+                }
+            }
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            // Draw Character
+            base.Draw(spriteBatch);
+
+            // Draw Particles
+            foreach (DustParticle dust in dustParticles)
+            {
+                dust.Draw(spriteBatch);
             }
         }
     }
