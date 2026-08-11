@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Escapeaway;
 using Escapeaway.Source.Graphics;
+using Escapeaway.Source.States.Level.Rooms;
 
 namespace Escapeaway.Source.Objects
 {
@@ -161,6 +162,11 @@ namespace Escapeaway.Source.Objects
         {
             // Colliding character is intersecting another character
             return Bounds.Intersects(collider.Bounds);
+        }
+
+        public bool CollidesWith(StaticSprite collider)
+        {
+            return Bounds.Intersects(collider.GetDestRect());
         }
 
         // Setters

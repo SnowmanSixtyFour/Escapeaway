@@ -10,11 +10,14 @@ using Escapeaway;
 using Escapeaway.Source.Graphics;
 using Escapeaway.Source.States.Level;
 using Escapeaway.Source.States.Level.Particles;
+using Escapeaway.Source.States.Level.Rooms;
 
 namespace Escapeaway.Source.States
 {
     internal class LevelState : State
     {
+        RoomLayout roomLayout;
+
         Player player;
         PauseOverlay pauseOverlay;
         HUD hud;
@@ -41,6 +44,7 @@ namespace Escapeaway.Source.States
             random = new Random();
 
             // Initialize Level
+            roomLayout = new RoomLayout();
             player = new Player(null, new Point(0, 120), Color.White);
 
             // Background
@@ -76,7 +80,10 @@ namespace Escapeaway.Source.States
             // While Unpaused
             if (!Global.paused)
             {
-                // Update Objects
+                // Update Level
+                roomLayout.Update(gameTime);
+
+                player.SetRoom(this.roomLayout);
                 player.Update(gameTime);
 
                 // Update Particles
@@ -100,6 +107,9 @@ namespace Escapeaway.Source.States
                 // Reset Room
                 if (player.reachedEnd)
                 {
+                    // Randomize Room Layout
+                    roomLayout.RandomizeRoom();
+
                     // Update Current Sceen Count
                     currentScreen++;
 
@@ -130,7 +140,8 @@ namespace Escapeaway.Source.States
             graphicsDevice.Clear(screenColor);
             heatBG.Draw(spriteBatch);
 
-            // Objects
+            // Level
+            roomLayout.Draw(spriteBatch);
             player.Draw(spriteBatch);
 
             // Particles

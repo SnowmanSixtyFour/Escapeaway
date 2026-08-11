@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Audio;
 using Escapeaway.Source.Objects;
 using Escapeaway.Source.States.Level.Particles;
+using Escapeaway.Source.States.Level.Rooms;
 
 namespace Escapeaway.Source.States.Level
 {
@@ -25,7 +26,8 @@ namespace Escapeaway.Source.States.Level
         public bool reachedEnd = false;
 
         // Properties
-        private int ground = 120;
+        private RoomLayout room;
+        private int ground;
         public static Point
             size = new Point(20, 40),
             sheetSize = new Point(20, 40),
@@ -72,6 +74,11 @@ namespace Escapeaway.Source.States.Level
         {
         }
 
+        public void SetRoom(RoomLayout newRoom)
+        {
+            this.room = newRoom;
+        }
+
         private void NewDustParticle()
         {
             // Delete Previous Particles
@@ -95,6 +102,31 @@ namespace Escapeaway.Source.States.Level
             if (!moving)
             {
                 if (KeyPress(Keys.Right)) moving = true;
+            }
+
+            // Room Collision
+            foreach (var sprite in room.ground.sprites)
+            {
+                if (this.CollidesWith(sprite))
+                {
+                    // Don't Apply Gravity
+                    this.jumping = false;
+
+                    // Update Ground Y Position
+                    this.ground = sprite.GetDestRect().Y;
+
+                    // Keep Player on Ground
+                    this.Y = this.ground - this.Height;
+                }
+                // Player is not Touching Ground
+                else
+                {
+                    // Apply Gravity
+                    this.jumping = true;
+
+                    // Set Ground Y Position to Bottom of Screen
+                    this.ground = Global.resHeight;
+                }
             }
 
             // Movement
