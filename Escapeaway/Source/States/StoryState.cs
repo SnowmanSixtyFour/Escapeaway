@@ -28,13 +28,6 @@ namespace Escapeaway.Source.States
             is convinced you must stay...
 
             Make it back to the real world!
-
-
-            Controls
-
-            [Z] Jump
-            [Left Arrow] Slow Down
-            [Down Arrow] Slide
             """;
 
         private Text

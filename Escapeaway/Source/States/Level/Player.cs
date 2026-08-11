@@ -22,7 +22,8 @@ namespace Escapeaway.Source.States.Level
 
         // Screen
         private bool
-            moving = false;
+            moving = false,
+            blocked = false;
         public bool reachedEnd = false;
 
         // Properties
@@ -142,12 +143,18 @@ namespace Escapeaway.Source.States.Level
                             // Don't End Collision Until Player Stops Touching Sprite
                             break;
                         }
+
+                        // Stop Movement if Touching Wall
+                        if (this.X >= sprite.GetDestRect().X - this.Width && this.X <= sprite.GetDestRect().X + sprite.GetDestRect().Width) blocked = true;
+                        else blocked = false;
                     }
                     // Player is not Touching Ground
                     else
                     {
                         // Apply Gravity
                         this.jumping = true;
+
+                        blocked = false;
                     }
                 }
 
@@ -163,14 +170,14 @@ namespace Escapeaway.Source.States.Level
                 }
 
                 // Move Right
-                this.X += runSpeed;
+                if (!blocked) this.X += runSpeed;
 
                 slowDownSfxTimer += gameTime.ElapsedGameTime.Milliseconds;
                 if (KeyHold(Keys.Left))
                 {
                     if (slowDownSfxTimer > framesToPlaySlowDownSfx)
                     {
-                        if (!jumping)
+                        if (!jumping && !blocked)
                         {
                             // Play SFX
                             SFX.skid.Play();

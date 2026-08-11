@@ -15,7 +15,8 @@ namespace Escapeaway.Source.States.Level.Rooms
 
         private List<StaticSprite>
             room1 = new List<StaticSprite>(),
-            room2 = new List<StaticSprite>();
+            room2 = new List<StaticSprite>(),
+            room3 = new List<StaticSprite>();
 
         public RoomGround ground;
 
@@ -23,7 +24,7 @@ namespace Escapeaway.Source.States.Level.Rooms
 
         private Random random = new Random();
         private int
-            maxRooms = 2;
+            maxRooms = 3;
 
         public RoomLayout()
         {
@@ -33,8 +34,13 @@ namespace Escapeaway.Source.States.Level.Rooms
             room2.Add(new StaticSprite(null, new Rectangle(0, 160, Global.resWidth / 2, 120), Color.Black));
             room2.Add(new StaticSprite(null, new Rectangle(Global.resWidth / 2 + 60, 160, Global.resWidth / 3, 120), Color.Black));
 
+            room3.Add(new StaticSprite(null, new Rectangle(0, 160, Global.resWidth, 120), Color.Black));
+            room3.Add(new StaticSprite(null, new Rectangle(Global.resWidth / 2, 72, 20, 60), Color.Black));
+
+            // Add Rooms to List
             currentRoomLayout.Add(new RoomGround(room1));
             currentRoomLayout.Add(new RoomGround(room2));
+            currentRoomLayout.Add(new RoomGround(room3));
         }
 
         public void RandomizeRoom()
