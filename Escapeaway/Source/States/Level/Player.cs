@@ -27,7 +27,6 @@ namespace Escapeaway.Source.States.Level
 
         // Properties
         private RoomLayout room;
-        private int ground;
         public static Point
             size = new Point(20, 40),
             sheetSize = new Point(20, 40),
@@ -41,7 +40,7 @@ namespace Escapeaway.Source.States.Level
 
             // Running Speeds
             defaultRunSpeed = 3,
-            slowRunSpeed = 2,
+            slowRunSpeed = 1,
 
             // Jumping
             jumpIncrement = 12,
@@ -104,34 +103,54 @@ namespace Escapeaway.Source.States.Level
                 if (KeyPress(Keys.Right)) moving = true;
             }
 
-            // Room Collision
-            foreach (var sprite in room.ground.sprites)
-            {
-                if (this.CollidesWith(sprite))
-                {
-                    // Don't Apply Gravity
-                    this.jumping = false;
-
-                    // Update Ground Y Position
-                    this.ground = sprite.GetDestRect().Y;
-
-                    // Keep Player on Ground
-                    this.Y = this.ground - this.Height;
-                }
-                // Player is not Touching Ground
-                else
-                {
-                    // Apply Gravity
-                    this.jumping = true;
-
-                    // Set Ground Y Position to Bottom of Screen
-                    this.ground = Global.resHeight;
-                }
-            }
-
             // Movement
             if (moving)
             {
+                // Jump
+                if (!sliding && KeyHold(Keys.Z) && !jumping)
+                {
+                    yVelocity = -jumpIncrement;
+
+                    jumping = true;
+
+                    SFX.jump.Play();
+                }
+
+                // Gravity
+                if (jumping)
+                {
+                    if (yVelocity < maxJumpHeight) yVelocity += gravity;
+                    else yVelocity = maxJumpHeight;
+                }
+
+                // Update Y Position
+                this.Y += yVelocity;
+
+                // Room Collision
+                foreach (var sprite in room.ground.sprites)
+                {
+                    if (this.CollidesWith(sprite))
+                    {
+                        // Place Player on Ground
+                        if (this.Y <= sprite.GetDestRect().Y)
+                        {
+                            // Stop Jump
+                            this.Y = sprite.GetDestRect().Y - this.Height;
+                            yVelocity = 0;
+                            jumping = false;
+
+                            // Don't End Collision Until Player Stops Touching Sprite
+                            break;
+                        }
+                    }
+                    // Player is not Touching Ground
+                    else
+                    {
+                        // Apply Gravity
+                        this.jumping = true;
+                    }
+                }
+
                 // Footstep SFX
                 footstepSfxTimer += gameTime.ElapsedGameTime.Milliseconds;
                 if (footstepSfxTimer > framesToPlayFootstepSfx)
@@ -168,36 +187,6 @@ namespace Escapeaway.Source.States.Level
                 else
                 {
                     slowingDown = false;
-                }
-
-                // Jump
-                if (!sliding && KeyHold(Keys.Z) && !jumping)
-                {
-                    yVelocity = -jumpIncrement;
-
-                    jumping = true;
-
-                    SFX.jump.Play();
-                }
-
-                // Gravity
-                if (jumping)
-                {
-                    if (yVelocity < maxJumpHeight) yVelocity += gravity;
-                    else yVelocity = maxJumpHeight;
-                }
-
-                // Update Y Position
-                this.Y += yVelocity;
-
-                // When Touching Ground
-                if (this.Y >= ground && !sliding)
-                {
-                    this.Y = ground;
-
-                    yVelocity = 0;
-
-                    jumping = false;
                 }
 
                 // Slow Down
