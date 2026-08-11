@@ -19,6 +19,7 @@ namespace Escapeaway.Source.States.Level
         public int
             lives = 3,
             score = 0;
+        private Point startingPosition;
 
         // Screen
         private bool
@@ -72,6 +73,7 @@ namespace Escapeaway.Source.States.Level
 
         public Player(Texture2D spriteSheet, Point location, Color color) : base(spriteSheet, location, size, sheetSize, color)
         {
+            this.startingPosition = location;
         }
 
         public void SetRoom(RoomLayout newRoom)
@@ -93,11 +95,30 @@ namespace Escapeaway.Source.States.Level
         /// </summary>
         public void Reset()
         {
+            this.X = 6;
+            this.Y = startingPosition.Y;
             moving = false;
+        }
+
+        private void LostLife()
+        {
+            Reset();
+
+            // If score is above 1, cut it in half after death
+            if (score > 1) score /= 2;
+
+            // If score is THAT low, set to 0
+            else score = 0;
+            
+            // Take a life
+            if (lives > 0) lives--;
         }
 
         public override void OnUpdate(GameTime gameTime)
         {
+            // Prevent an illegal score
+            if (score < 0) score = 0;
+
             // Intro
             if (!moving)
             {
@@ -107,6 +128,12 @@ namespace Escapeaway.Source.States.Level
             // Movement
             if (moving)
             {
+                // Lost a Life
+                if (this.Y > Global.resHeight)
+                {
+                    LostLife();
+                }
+
                 // Jump
                 if (!sliding && KeyHold(Keys.Z) && !jumping)
                 {

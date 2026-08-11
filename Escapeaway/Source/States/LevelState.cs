@@ -45,7 +45,7 @@ namespace Escapeaway.Source.States
 
             // Initialize Level
             roomLayout = new RoomLayout();
-            player = new Player(null, new Point(0, 120), Color.White);
+            player = new Player(null, new Point(6, 120), Color.White);
 
             // Background
             heatBG = new StaticSprite(null, new Rectangle(0, Global.resHeight - this.heatBGHeight, Global.resWidth, this.heatBGHeight), CustomColor.LightOrange);
@@ -112,6 +112,9 @@ namespace Escapeaway.Source.States
 
                     // Update Current Sceen Count
                     currentScreen++;
+
+                    // Add to Score
+                    player.score += 2;
 
                     // Randomize Screen Colour
                     randomScreenColor = random.Next(0, 3);
