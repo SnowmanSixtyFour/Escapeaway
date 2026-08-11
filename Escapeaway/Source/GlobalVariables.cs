@@ -52,6 +52,7 @@ namespace Escapeaway.Source
             noImg,
 
             // Title
+            snowman64,
             logo, titleOverlay,
 
             // Particles
@@ -64,6 +65,7 @@ namespace Escapeaway.Source
             // Images
             noImg = Content.Load<Texture2D>("Assets/Images/pixel");
 
+            snowman64 = Content.Load<Texture2D>("Assets/Images/Title/snowman64Logo");
             logo = Content.Load<Texture2D>("Assets/Images/Title/logo");
             titleOverlay = Content.Load<Texture2D>("Assets/Images/Title/titleOverlay");
 
@@ -88,6 +90,7 @@ namespace Escapeaway.Source
             Red = new Color(168, 0, 32),
             LightOrange = new Color(248, 120, 88),
             Yellow = new Color(248, 184, 0),
+            DarkAqua = new Color(0, 136, 136),
             Brown = new Color(80, 48, 0);
     }
 

@@ -15,6 +15,7 @@ namespace Escapeaway.Source.States
         public State currentState;
 
         // Game States
+        public IntroState intro;
         public TitleState title;
         public OptionsState options;
         public StoryState story;
@@ -26,13 +27,14 @@ namespace Escapeaway.Source.States
         public Main()
         {
             // Initialize States
+            intro = new IntroState();
             title = new TitleState();
             options = new OptionsState();
             story = new StoryState();
             level = new LevelState();
 
             // Set Current State
-            currentState = level;
+            currentState = intro;
         }
 
         public override void OnUpdate(GameTime gameTime, Main main)
