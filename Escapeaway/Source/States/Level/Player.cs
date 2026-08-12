@@ -64,17 +64,20 @@ namespace Escapeaway.Source.States.Level
 
         // Timers
         private float
-            // Score Penalizing
-            scorePenalizeTimer = 0f,
+            // Visuals
+            flickerTimer = 0f,
+            framesUntilFlicker = 90f,
 
-            // Frames Until Score Penalized
-            framesUntilScorePenalized = 260f,
+            // Events
+            scorePenalizeTimer = 0f, startRunningTimer = 0f,
+            framesUntilScorePenalized = 260f, timeUntilMovingAgain = 810f,
 
             // SFX
             footstepSfxTimer = 0f, slowDownSfxTimer,
-
-            // Frames until SFX should Play
             framesToPlayFootstepSfx = 180f, framesToPlaySlowDownSfx = 40f;
+        private bool
+            flickering = false,
+            shouldFlicker = false, countdownRun = false;
 
         // Particles
         private List<DustParticle> dustParticles = new List<DustParticle>();
@@ -121,22 +124,34 @@ namespace Escapeaway.Source.States.Level
 
         private void LostLife()
         {
+            // Reset Player
             Reset();
+
+            // Begin Flicker and Auto Run Events
+            shouldFlicker = true;
+            countdownRun = true;
 
             // If score is above 1, cut it in half after death
             if (score > 1) score /= 2;
-
             // If score is THAT low, set to 0
             else score = 0;
             
             // Take a life
             if (lives > 0) lives--;
-
             // Game Over
             else
             {
                 gameOver = true;
             }
+        }
+
+        /// <summary>
+        ///  Start moving the player. Useful for respawning or starting the level.
+        /// </summary>
+        private void StartMoving()
+        {
+            moving = true;
+            cantSlide = false;
         }
 
         public override void OnUpdate(GameTime gameTime)
@@ -154,10 +169,42 @@ namespace Escapeaway.Source.States.Level
                 dustParticles.Clear();
 
                 // Start Movement
-                if (KeyPress(Keys.Right))
+                if (KeyPress(Keys.Right) && !countdownRun)
                 {
-                    moving = true;
-                    cantSlide = false;
+                    StartMoving();
+                }
+            }
+
+            // Flicker Effect after Respawning
+            if (shouldFlicker)
+            {
+                flickerTimer += gameTime.ElapsedGameTime.Milliseconds;
+                if (flickerTimer > framesUntilFlicker)
+                {
+                    flickering = !flickering;
+
+                    flickerTimer = 0f;
+                }
+            }
+
+            // Timer until Running Again
+            if (countdownRun)
+            {
+                startRunningTimer += gameTime.ElapsedGameTime.Milliseconds;
+                if (startRunningTimer > timeUntilMovingAgain)
+                {
+                    // Stop Timer Flag
+                    countdownRun = false;
+
+                    // Stop Flickering
+                    shouldFlicker = false;
+                    flickering = false; // Failsafe if the flicker effect somehow leaves the player invisible
+
+                    // Start Moving Again
+                    StartMoving();
+
+                    // Reset Timer
+                    startRunningTimer = 0f;
                 }
             }
 
@@ -235,7 +282,7 @@ namespace Escapeaway.Source.States.Level
 
                         scorePenalizeTimer = 0f;
                     }
-                }    
+                }
 
                 // Footstep SFX
                 footstepSfxTimer += gameTime.ElapsedGameTime.Milliseconds;
@@ -351,7 +398,7 @@ namespace Escapeaway.Source.States.Level
         public override void Draw(SpriteBatch spriteBatch)
         {
             // Draw Character
-            base.Draw(spriteBatch);
+            if (!flickering) base.Draw(spriteBatch);
 
             // Draw Particles
             foreach (DustParticle dust in dustParticles)
