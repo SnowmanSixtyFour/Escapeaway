@@ -76,6 +76,10 @@ namespace Escapeaway.Source
             defaultFont = Content.Load<SpriteFont>("Assets/Fonts/retroFont");
 
             // Audio
+            SFX.intro = Content.Load<SoundEffect>("Assets/Audio/introJingle");
+
+            SFX.select = Content.Load<SoundEffect>("Assets/Audio/buttonSelect");
+
             SFX.jump = Content.Load<SoundEffect>("Assets/Audio/jump");
             SFX.footsteps = Content.Load<SoundEffect>("Assets/Audio/footsteps");
             SFX.slide = Content.Load<SoundEffect>("Assets/Audio/slide");
@@ -97,6 +101,13 @@ namespace Escapeaway.Source
     internal class SFX
     {
         public static SoundEffect
+            // Intro
+            intro,
+
+            // Menus
+            select,
+            
+            // Level
             jump,
             footsteps,
             slide,

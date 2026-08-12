@@ -67,6 +67,9 @@ namespace Escapeaway.Source.States
             if (KeyPress(Keys.Up) || KeyPress(Keys.Down))
             {
                 if (buttonSelected < maxButtons) SelectButton(buttons[buttonSelected]);
+
+                // Select SFX
+                SFX.select.Play();
             }
 
             // Button Presses
@@ -84,6 +87,9 @@ namespace Escapeaway.Source.States
                 {
                     Global.highscore = newHighscore;
                 }
+
+                // Accept SFX
+                SFX.intro.Play();
 
                 UpdateButtonText();
             }
@@ -108,6 +114,9 @@ namespace Escapeaway.Source.States
                 {
                     Global.checkAndCreateOptions = true;
                 }
+
+                // Back SFX
+                SFX.select.Play();
 
                 // Go to Title
                 SwitchState(main.title);

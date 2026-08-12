@@ -40,6 +40,9 @@ namespace Escapeaway.Source.States.Intro
             // Update Timer
             timeExisted += gameTime.ElapsedGameTime.Milliseconds;
 
+            // Play Intro Jingle SFX
+            if (timeExisted > 170 && timeExisted < 180) SFX.intro.Play();
+        
             // When Timer is Up
             if (timeExisted > timeToExist) gone = true;
         }

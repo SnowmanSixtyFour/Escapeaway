@@ -41,17 +41,27 @@ namespace Escapeaway.Source.States.Level.Rooms
             currentRoomLayout.Add(new RoomGround(room1));
             currentRoomLayout.Add(new RoomGround(room2));
             currentRoomLayout.Add(new RoomGround(room3));
+
+            SetRoom();
         }
 
+        /// <summary>
+        /// Set the layout of the room to a random layout.
+        /// </summary>
         public void RandomizeRoom()
         {
             selectedRoomLayout = random.Next(0, maxRooms);
         }
 
-        public void Update(GameTime gameTime)
+        private void SetRoom()
         {
             // Set Ground
             ground = currentRoomLayout[selectedRoomLayout];
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            SetRoom();
         }
 
         public void Draw(SpriteBatch spriteBatch)

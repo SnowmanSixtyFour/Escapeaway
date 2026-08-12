@@ -114,7 +114,7 @@ namespace Escapeaway.Source.States
                     currentScreen++;
 
                     // Add to Score
-                    player.score += 2;
+                    player.score += random.Next(2, 5);
 
                     // Randomize Screen Colour
                     randomScreenColor = random.Next(0, 3);

@@ -128,6 +128,9 @@ namespace Escapeaway.Source.States
             {
                 // Set Color of Selected Button (don't if value is past limit)
                 if (buttonSelected < maxButtons) SelectButton(buttons[buttonSelected]);
+
+                // Select SFX
+                SFX.select.Play();
             }
 
             // Button Presses
@@ -161,6 +164,9 @@ namespace Escapeaway.Source.States
 
                 // Quit
                 else if (buttonSelected == 4) ExitGame();
+
+                // Accept SFX
+                SFX.intro.Play();
             }
 
             // Animations

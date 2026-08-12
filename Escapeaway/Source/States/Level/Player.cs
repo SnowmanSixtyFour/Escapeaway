@@ -65,7 +65,7 @@ namespace Escapeaway.Source.States.Level
             footstepSfxTimer = 0f, slowDownSfxTimer,
 
             // Frames until SFX should Play
-            framesToPlayFootstepSfx = 180f, framesToPlaySlowDownSfx = 75f;
+            framesToPlayFootstepSfx = 180f, framesToPlaySlowDownSfx = 40f;
 
         // Particles
         private List<DustParticle> dustParticles = new List<DustParticle>();
@@ -95,8 +95,16 @@ namespace Escapeaway.Source.States.Level
         /// </summary>
         public void Reset()
         {
+            // Reset Position
             this.X = 6;
             this.Y = startingPosition.Y;
+
+            // Reset ALL Values
+            sliding = false;
+            blocked = false;
+            jumping = false;
+
+            // Stop Moving (wait for player input)
             moving = false;
         }
 
@@ -185,20 +193,24 @@ namespace Escapeaway.Source.States.Level
                     }
                 }
 
-                // Footstep SFX
-                footstepSfxTimer += gameTime.ElapsedGameTime.Milliseconds;
-                if (footstepSfxTimer > framesToPlayFootstepSfx)
-                {
-                    // If on Ground
-                    if (!jumping && !sliding) SFX.footsteps.Play();
-
-                    // Reset Timer
-                    footstepSfxTimer = 0f;
-                }
-
                 // Move Right
                 if (!blocked) this.X += runSpeed;
 
+                // Footstep SFX
+                footstepSfxTimer += gameTime.ElapsedGameTime.Milliseconds;
+                if (!jumping)
+                {
+                    if (footstepSfxTimer > framesToPlayFootstepSfx)
+                    {
+                        // Play Footstep SFX
+                        if (!sliding && !blocked) SFX.footsteps.Play();
+
+                        // Reset Timer
+                        footstepSfxTimer = 0f;
+                    }
+                }
+
+                // Slowing Down SFX
                 slowDownSfxTimer += gameTime.ElapsedGameTime.Milliseconds;
                 if (KeyHold(Keys.Left))
                 {

@@ -13,12 +13,26 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Assets/Audio/buttonSelect.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/processorParam:Version=3.8.5.0
+/build:Assets/Audio/buttonSelect.wav
+
 #begin Assets/Audio/footsteps.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /processorParam:Version=3.8.5.0
 /build:Assets/Audio/footsteps.wav
+
+#begin Assets/Audio/introJingle.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/processorParam:Version=3.8.5.0
+/build:Assets/Audio/introJingle.wav
 
 #begin Assets/Audio/jump.wav
 /importer:WavImporter

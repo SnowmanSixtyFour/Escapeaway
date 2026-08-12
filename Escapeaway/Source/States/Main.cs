@@ -34,7 +34,7 @@ namespace Escapeaway.Source.States
             level = new LevelState();
 
             // Set Current State
-            currentState = level; // WIP - Change to intro
+            currentState = intro;
         }
 
         public override void OnUpdate(GameTime gameTime, Main main)

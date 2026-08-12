@@ -45,7 +45,12 @@ namespace Escapeaway.Source.States
         public override void OnUpdate(GameTime gameTime, Main main)
         {
             // Switch to Title
-            if (KeyPress(Keys.Z) || KeyPress(Keys.X) || KeyPress(Keys.Enter) || KeyPress(Keys.Escape)) SwitchState(main.title);
+            if (KeyPress(Keys.Z) || KeyPress(Keys.X) || KeyPress(Keys.Enter) || KeyPress(Keys.Escape))
+            {
+                SFX.select.Play();
+
+                SwitchState(main.title);
+            }
         }
 
         public override void OnDraw(SpriteBatch spriteBatch)
