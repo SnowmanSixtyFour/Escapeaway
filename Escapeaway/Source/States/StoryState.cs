@@ -47,8 +47,6 @@ namespace Escapeaway.Source.States
             // Switch to Title
             if (KeyPress(Keys.Z) || KeyPress(Keys.X) || KeyPress(Keys.Enter) || KeyPress(Keys.Escape))
             {
-                SFX.select.Play();
-
                 SwitchState(main.title);
             }
         }

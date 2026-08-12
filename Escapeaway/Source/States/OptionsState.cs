@@ -115,9 +115,6 @@ namespace Escapeaway.Source.States
                     Global.checkAndCreateOptions = true;
                 }
 
-                // Back SFX
-                SFX.select.Play();
-
                 // Go to Title
                 SwitchState(main.title);
             }
