@@ -122,6 +122,16 @@ namespace Escapeaway.Source.States
                 player.SetRoom(this.roomLayout);
                 player.Update(gameTime);
 
+                // Game Over
+                if (player.gameOver)
+                {
+                    // Go to Game Over Screen
+                    SwitchState(main.title);
+
+                    // Reset Game Over Flag
+                    player.gameOver = false;
+                }
+
                 // Update Particles
                 foreach (HeatParticle heatParticle in heatParticles) heatParticle.Update(gameTime);
 

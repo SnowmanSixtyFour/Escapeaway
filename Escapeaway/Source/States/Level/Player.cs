@@ -23,7 +23,8 @@ namespace Escapeaway.Source.States.Level
 
         // Screen
         public bool
-            moving = false;
+            moving = false,
+            gameOver = false;
         private bool
             blocked = false,
             cantSlide = true;
@@ -63,6 +64,12 @@ namespace Escapeaway.Source.States.Level
 
         // Timers
         private float
+            // Score Penalizing
+            scorePenalizeTimer = 0f,
+
+            // Frames Until Score Penalized
+            framesUntilScorePenalized = 260f,
+
             // SFX
             footstepSfxTimer = 0f, slowDownSfxTimer,
 
@@ -124,6 +131,12 @@ namespace Escapeaway.Source.States.Level
             
             // Take a life
             if (lives > 0) lives--;
+
+            // Game Over
+            else
+            {
+                gameOver = true;
+            }
         }
 
         public override void OnUpdate(GameTime gameTime)
@@ -210,6 +223,19 @@ namespace Escapeaway.Source.States.Level
 
                 // Move Right
                 if (!blocked) this.X += runSpeed;
+
+                // Penalize Score while Blocked
+                else
+                {
+                    scorePenalizeTimer += gameTime.ElapsedGameTime.Milliseconds;
+
+                    if (scorePenalizeTimer > framesUntilScorePenalized)
+                    {
+                        if (score > 0) score--;
+
+                        scorePenalizeTimer = 0f;
+                    }
+                }    
 
                 // Footstep SFX
                 footstepSfxTimer += gameTime.ElapsedGameTime.Milliseconds;
