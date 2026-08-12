@@ -13,7 +13,7 @@ namespace Escapeaway.Source.States.Intro
     internal class Snowman64
     {
         private Character logo;
-        private Point size = new Point(81, 10);
+        private Point size = new Point(162, 20);
 
         private float
             timeExisted = 0f,
@@ -25,7 +25,7 @@ namespace Escapeaway.Source.States.Intro
             logo = new Character(
                 Global.snowman64,
                 new Point((Global.resWidth / 2) - (size.X / 2), (Global.resHeight / 2) - (size.Y / 2)),
-                new Point(648, 10),
+                new Point(1620, 20),
                 new Point(size.X, size.Y),
                 Color.White);
             logo.CreateAnimation("default", 0, 9);
