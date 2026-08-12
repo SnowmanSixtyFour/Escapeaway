@@ -20,9 +20,12 @@ namespace Escapeaway.Source.States
     {
         RoomLayout roomLayout;
         FirstRoomDisclaimer roomDisclaimer;
+        
         FirstRoomDevil firstRoomDevil;
+        BackgroundDevil backgroundDevil;
 
         Player player;
+        
         PauseOverlay pauseOverlay;
         HUD hud;
 
@@ -30,6 +33,7 @@ namespace Escapeaway.Source.States
 
         public int
             currentScreen = 0,
+            screenWithBackgroundDevil = 49,
             
             randomScreenColor = 0;
         private Random random;
@@ -52,7 +56,10 @@ namespace Escapeaway.Source.States
             // Initialize Level
             roomLayout = new RoomLayout();
             roomDisclaimer = new FirstRoomDisclaimer();
+
             firstRoomDevil = new FirstRoomDevil();
+            backgroundDevil = new BackgroundDevil();
+
             player = new Player(null, new Point(16, 120), Color.White, defaultLives);
 
             // Background
@@ -128,7 +135,9 @@ namespace Escapeaway.Source.States
                 // Update Level
                 roomLayout.Update(gameTime);
                 roomDisclaimer.Update(gameTime, player);
+
                 firstRoomDevil.Update(gameTime);
+                if (currentScreen == screenWithBackgroundDevil) backgroundDevil.Update(gameTime);
 
                 player.SetRoom(this.roomLayout);
                 player.Update(gameTime);
@@ -204,6 +213,7 @@ namespace Escapeaway.Source.States
             // Level
             roomLayout.Draw(spriteBatch);
             firstRoomDevil.Draw(spriteBatch);
+            if (currentScreen == screenWithBackgroundDevil) backgroundDevil.Draw(spriteBatch);
 
             player.Draw(spriteBatch);
 

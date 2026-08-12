@@ -13,6 +13,9 @@ namespace Escapeaway.Source.States.Level.Boss
     {
         private Character devil;
         private bool visible = true;
+        private Point
+            size = new Point(100, 100),
+            sheetSize = new Point(100, 100);
 
         // Movement
         private bool movingUp = false;
@@ -24,7 +27,7 @@ namespace Escapeaway.Source.States.Level.Boss
 
         public FirstRoomDevil()
         {
-            devil = new Character(null, new Point(100, 36), new Point(100, 100), new Point(100, 100), Color.White);
+            devil = new Character(null, new Point(100, 36), sheetSize, size, Color.White);
         }
 
         public void Hide()
