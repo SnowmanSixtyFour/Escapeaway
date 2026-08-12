@@ -1,26 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Escapeaway;
+﻿using Escapeaway;
 using Escapeaway.Source.Graphics;
 using Escapeaway.Source.States.Level;
 using Escapeaway.Source.States.Level.Particles;
 using Escapeaway.Source.States.Level.Rooms;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Numerics;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Escapeaway.Source.States
 {
     internal class LevelState : State
     {
         RoomLayout roomLayout;
+        FirstRoomDisclaimer roomDisclaimer;
 
         Player player;
         PauseOverlay pauseOverlay;
         HUD hud;
+
+        private int defaultLives = 3;
 
         public int
             currentScreen = 0,
@@ -45,7 +49,8 @@ namespace Escapeaway.Source.States
 
             // Initialize Level
             roomLayout = new RoomLayout();
-            player = new Player(null, new Point(6, 120), Color.White);
+            roomDisclaimer = new FirstRoomDisclaimer();
+            player = new Player(null, new Point(6, 120), Color.White, defaultLives);
 
             // Background
             heatBG = new StaticSprite(null, new Rectangle(0, Global.resHeight - this.heatBGHeight, Global.resWidth, this.heatBGHeight), CustomColor.LightOrange);
@@ -75,6 +80,36 @@ namespace Escapeaway.Source.States
             heatParticles.Clear();
         }
 
+        /// <summary>
+        /// Resets the game's level state all the way back to room 1, with a screen value of 0.
+        /// </summary>
+        public void GoBackToFirstRoom()
+        {
+            // Reset Screen
+            currentScreen = 0;
+            roomLayout.GoToRoomOne();
+
+            player.reachedEnd = false;
+            SetScreenColor(0);
+
+            // Reset Player Values (score, lives, etc)
+            player.lives = defaultLives;
+            player.score = 0;
+
+            // Show Disclaimer
+            roomDisclaimer.visible = true;
+
+            // Reset Room
+            ResetLevel();
+        }
+
+        private void SetScreenColor(int screenColor)
+        {
+            if (screenColor == 0) this.screenColor = CustomColor.Red;
+            else if (screenColor == 1) this.screenColor = CustomColor.DarkRed;
+            else if (screenColor == 2) this.screenColor = CustomColor.Brown;
+        }
+
         public override void OnUpdate(GameTime gameTime, Main main)
         {
             // While Unpaused
@@ -82,6 +117,7 @@ namespace Escapeaway.Source.States
             {
                 // Update Level
                 roomLayout.Update(gameTime);
+                roomDisclaimer.Update(gameTime, player);
 
                 player.SetRoom(this.roomLayout);
                 player.Update(gameTime);
@@ -118,9 +154,7 @@ namespace Escapeaway.Source.States
 
                     // Randomize Screen Colour
                     randomScreenColor = random.Next(0, 3);
-                    if (randomScreenColor == 0) screenColor = CustomColor.Red;
-                    else if (randomScreenColor == 1) screenColor = CustomColor.DarkRed;
-                    else if (randomScreenColor == 2) screenColor = CustomColor.Brown;
+                    SetScreenColor(randomScreenColor);
 
                     // Set Flag to False
                     player.reachedEnd = false;
@@ -128,7 +162,7 @@ namespace Escapeaway.Source.States
             }
 
             // While Paused
-            hud.Update(gameTime, player, currentScreen);
+            hud.Update(gameTime, player, currentScreen, main);
 
             if (Global.paused)
             {
@@ -151,6 +185,7 @@ namespace Escapeaway.Source.States
             foreach (HeatParticle heatParticle in heatParticles) heatParticle.Draw(spriteBatch);
 
             // HUD
+            roomDisclaimer.Draw(spriteBatch);
             hud.Draw(spriteBatch);
             pauseOverlay.Draw(spriteBatch);
         }

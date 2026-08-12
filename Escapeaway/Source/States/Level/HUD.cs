@@ -22,11 +22,14 @@ namespace Escapeaway.Source.States.Level
             room = new Text(Global.defaultFont, "", new Vector2(Global.resWidth - 64, y), Color.White, 1.0f, false);
         }
 
-        public void Update(GameTime gameTime, Player player, int currentScreen)
+        public void Update(GameTime gameTime, Player player, int currentScreen, Main main)
         {
             lives.setText("LIVES " + player.lives);
-            score.setText("SCORE " + player.score);
-            room.setText("ROOM " + currentScreen);
+            if (player.score <= Global.maxScore) score.setText("SCORE " + player.score);
+            if (player.score < Global.maxScore) score.setColor(Color.White);
+            else score.setColor(CustomColor.Yellow);
+            if (!main.endless) room.setText("ROOM " + (currentScreen + 1));
+            else room.setText("ENDLESS");
         }
 
         public void Draw(SpriteBatch spriteBatch)

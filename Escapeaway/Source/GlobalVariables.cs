@@ -44,6 +44,7 @@ namespace Escapeaway.Source
         // Game
 
         public static bool paused = false;
+        public static int maxScore = 9999999;
 
         // Assets
 

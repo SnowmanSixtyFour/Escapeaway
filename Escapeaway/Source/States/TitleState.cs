@@ -94,15 +94,13 @@ namespace Escapeaway.Source.States
                 Global.highscore == 6666 ||
                 Global.highscore == 66666 ||
                 Global.highscore == 666666 ||
-                Global.highscore == 6666666 ||
-                Global.highscore == 66666666 ||
-                Global.highscore == 666666666)
+                Global.highscore == 6666666)
             {
                 highscore.setColor(CustomColor.Red);
             }
 
             // Illegal score
-            if (Global.highscore < 0)
+            if (Global.highscore < 0 || Global.highscore > Global.maxScore)
             {
                 highscore.setText("""
                     THE DEVIL KNOWS
@@ -140,7 +138,7 @@ namespace Escapeaway.Source.States
                 if (buttonSelected == 0)
                 {
                     // Reset Level State
-                    main.level.ResetLevel();
+                    main.level.GoBackToFirstRoom();
                     main.endless = false; // Disable Endless Mode (in case it was on)
 
                     // Go to Level
@@ -150,7 +148,7 @@ namespace Escapeaway.Source.States
                 // Endless Mode
                 else if (buttonSelected == 1)
                 {
-                    main.level.ResetLevel();
+                    main.level.GoBackToFirstRoom();
                     main.endless = true; // Enable Endless Mode
 
                     SwitchState(main.level);

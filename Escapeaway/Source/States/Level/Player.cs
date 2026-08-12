@@ -17,13 +17,14 @@ namespace Escapeaway.Source.States.Level
     {
         // Game Variables
         public int
-            lives = 3,
+            lives = 0,
             score = 0;
         private Point startingPosition;
 
         // Screen
+        public bool
+            moving = false;
         private bool
-            moving = false,
             blocked = false,
             cantSlide = true;
         public bool reachedEnd = false;
@@ -72,9 +73,10 @@ namespace Escapeaway.Source.States.Level
         private List<DustParticle> dustParticles = new List<DustParticle>();
         private int dustParticleLimit = 4;
 
-        public Player(Texture2D spriteSheet, Point location, Color color) : base(spriteSheet, location, size, sheetSize, color)
+        public Player(Texture2D spriteSheet, Point location, Color color, int startingLives) : base(spriteSheet, location, size, sheetSize, color)
         {
             this.startingPosition = location;
+            this.lives = startingLives;
         }
 
         public void SetRoom(RoomLayout newRoom)
@@ -129,9 +131,16 @@ namespace Escapeaway.Source.States.Level
             // Prevent an illegal score
             if (score < 0) score = 0;
 
+            // Prevent a huge gigantic score (from making the HUD look bad!)
+            if (score > Global.maxScore) score = Global.maxScore;
+
             // Intro
             if (!moving)
             {
+                // Hide Dust Particles
+                dustParticles.Clear();
+
+                // Start Movement
                 if (KeyPress(Keys.Right))
                 {
                     moving = true;

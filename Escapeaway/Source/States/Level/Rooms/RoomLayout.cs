@@ -46,6 +46,16 @@ namespace Escapeaway.Source.States.Level.Rooms
         }
 
         /// <summary>
+        /// Go back to the very first default room. Useful when restarting the game.
+        /// </summary>
+        public void GoToRoomOne()
+        {
+            // Set Current Room
+            selectedRoomLayout = 0;
+            SetRoom();
+        }
+
+        /// <summary>
         /// Set the layout of the room to a random layout.
         /// </summary>
         public void RandomizeRoom()
