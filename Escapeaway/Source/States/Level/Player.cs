@@ -24,7 +24,8 @@ namespace Escapeaway.Source.States.Level
         // Screen
         private bool
             moving = false,
-            blocked = false;
+            blocked = false,
+            cantSlide = true;
         public bool reachedEnd = false;
 
         // Properties
@@ -95,17 +96,18 @@ namespace Escapeaway.Source.States.Level
         /// </summary>
         public void Reset()
         {
+            // Stop Moving (wait for player input)
+            moving = false;
+
             // Reset Position
             this.X = 6;
             this.Y = startingPosition.Y;
 
-            // Reset ALL Values
-            sliding = false;
-            blocked = false;
-            jumping = false;
+            // Reset Values
+            cantSlide = true;
 
-            // Stop Moving (wait for player input)
-            moving = false;
+            this.Width = size.X;
+            this.Height = size.Y;
         }
 
         private void LostLife()
@@ -130,7 +132,11 @@ namespace Escapeaway.Source.States.Level
             // Intro
             if (!moving)
             {
-                if (KeyPress(Keys.Right)) moving = true;
+                if (KeyPress(Keys.Right))
+                {
+                    moving = true;
+                    cantSlide = false;
+                }
             }
 
             // Movement
@@ -246,24 +252,28 @@ namespace Escapeaway.Source.States.Level
                 }
 
                 // Slide
-                if (!sliding && KeyHold(Keys.Down) && !jumping) SFX.slide.Play();
-
-                if (!jumping && KeyHold(Keys.Down))
+                if (!cantSlide)
                 {
-                    // Start Sliding
-                    sliding = true;
+                    if (!sliding && KeyHold(Keys.Down) && !jumping) SFX.slide.Play();
 
-                    // Set Sliding Timer
-                    slideCounter = slideStart;
-
-                    if (this.Width != slidingSize.X && this.Height != slidingSize.Y)
+                    if (!jumping && KeyHold(Keys.Down))
                     {
-                        // Update Size
-                        this.Width = slidingSize.X;
-                        this.Height = slidingSize.Y;
-                        this.Y += slidingSize.Y;
+                        // Start Sliding
+                        sliding = true;
+
+                        // Set Sliding Timer
+                        slideCounter = slideStart;
+
+                        if (this.Width != slidingSize.X && this.Height != slidingSize.Y)
+                        {
+                            // Update Size
+                            this.Width = slidingSize.X;
+                            this.Height = slidingSize.Y;
+                            this.Y += slidingSize.Y;
+                        }
                     }
                 }
+                else slideCounter = 0;
 
                 if (sliding)
                 {
