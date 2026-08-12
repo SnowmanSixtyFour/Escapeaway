@@ -96,7 +96,9 @@ namespace Escapeaway.Source
             LightOrange = new Color(248, 120, 88),
             Yellow = new Color(248, 184, 0),
             DarkAqua = new Color(0, 136, 136),
-            Brown = new Color(80, 48, 0);
+            Brown = new Color(80, 48, 0),
+            Black = new Color(8, 8, 8),
+            White = new Color(248, 248, 248);
     }
 
     internal class SFX

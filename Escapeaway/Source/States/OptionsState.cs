@@ -39,12 +39,12 @@ namespace Escapeaway.Source.States
         public OptionsState()
         {
             // Display Text
-            header = new Text(Global.defaultFont, "Options", new Vector2((Global.resWidth / 2) - 26, 6), Color.White, 1.0f, false);
-            goBack = new Text(Global.defaultFont, "Press [X] to Exit", new Vector2((Global.resWidth / 2) - 120, 204), Color.White, 1.0f, false);
+            header = new Text(Global.defaultFont, "Options", new Vector2((Global.resWidth / 2) - 26, 6), CustomColor.White, 1.0f, false);
+            goBack = new Text(Global.defaultFont, "Press [X] to Exit", new Vector2((Global.resWidth / 2) - 120, 204), CustomColor.White, 1.0f, false);
 
             // Buttons
             buttons.Add(new Text(Global.defaultFont, "Fullscreen", new Vector2(6, 24), CustomColor.LightOrange, 1.0f, false));
-            buttons.Add(new Text(Global.defaultFont, "Reset HISCORE", new Vector2(6, 48), Color.White, 1.0f, false));
+            buttons.Add(new Text(Global.defaultFont, "Reset HISCORE", new Vector2(6, 48), CustomColor.White, 1.0f, false));
 
             maxButtons = Convert.ToByte(buttons.Count);
 
@@ -137,7 +137,7 @@ namespace Escapeaway.Source.States
 
         public override void OnDraw(SpriteBatch spriteBatch)
         {
-            graphicsDevice.Clear(Color.Black);
+            graphicsDevice.Clear(CustomColor.Black);
 
             // Draw Display Text
             header.Draw(spriteBatch);

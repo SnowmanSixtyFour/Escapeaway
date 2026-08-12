@@ -29,13 +29,13 @@ namespace Escapeaway.Source.States.Level.Rooms
         public RoomLayout()
         {
             // Set Rooms
-            room1.Add(new StaticSprite(null, new Rectangle(0, 160, Global.resWidth, 120), Color.Black));
+            room1.Add(new StaticSprite(null, new Rectangle(0, 160, Global.resWidth, 120), CustomColor.Black));
 
-            room2.Add(new StaticSprite(null, new Rectangle(0, 160, Global.resWidth / 2, 120), Color.Black));
-            room2.Add(new StaticSprite(null, new Rectangle(Global.resWidth / 2 + 60, 160, Global.resWidth / 3, 120), Color.Black));
+            room2.Add(new StaticSprite(null, new Rectangle(0, 160, Global.resWidth / 2, 120), CustomColor.Black));
+            room2.Add(new StaticSprite(null, new Rectangle(Global.resWidth / 2 + 60, 160, Global.resWidth / 3, 120), CustomColor.Black));
 
-            room3.Add(new StaticSprite(null, new Rectangle(0, 160, Global.resWidth, 120), Color.Black));
-            room3.Add(new StaticSprite(null, new Rectangle(Global.resWidth / 2, 72, 20, 60), Color.Black));
+            room3.Add(new StaticSprite(null, new Rectangle(0, 160, Global.resWidth, 120), CustomColor.Black));
+            room3.Add(new StaticSprite(null, new Rectangle(Global.resWidth / 2, 72, 20, 60), CustomColor.Black));
 
             // Add Rooms to List
             currentRoomLayout.Add(new RoomGround(room1));

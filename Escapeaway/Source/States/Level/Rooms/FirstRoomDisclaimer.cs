@@ -38,8 +38,8 @@ namespace Escapeaway.Source.States.Level.Rooms
 
         public FirstRoomDisclaimer()
         {
-            controls = new Text(Global.defaultFont, controlsString, new Vector2(Global.resWidth / 2 - 90, Global.resHeight / 4 - 26), Color.White, 1.0f, false);
-            start = new Text(Global.defaultFont, startString, new Vector2(Global.resWidth / 2 - 84, Global.resHeight / 4 + 10), Color.White, 1.0f, false);
+            controls = new Text(Global.defaultFont, controlsString, new Vector2(Global.resWidth / 2 - 90, Global.resHeight / 4 - 26), CustomColor.White, 1.0f, false);
+            start = new Text(Global.defaultFont, startString, new Vector2(Global.resWidth / 2 - 84, Global.resHeight / 4 + 10), CustomColor.White, 1.0f, false);
         }
 
         public void Update(GameTime gameTime, Player player)

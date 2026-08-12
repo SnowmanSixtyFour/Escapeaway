@@ -58,23 +58,23 @@ namespace Escapeaway.Source.States
         {
             // Graphics
 
-            logo = new Character(Global.logo, new Point((Global.resWidth / 2) - (logoWidth / 2), logoY), new Point(logoSheetSize, logoHeight), new Point(logoWidth, logoHeight), Color.White);
+            logo = new Character(Global.logo, new Point((Global.resWidth / 2) - (logoWidth / 2), logoY), new Point(logoSheetSize, logoHeight), new Point(logoWidth, logoHeight), CustomColor.White);
             logo.CreateAnimation("default", 0, 6);
 
             highscore = new Text(Global.defaultFont, "", new Vector2(62, logoY + 34), CustomColor.Yellow, 1.0f, false);
             SetHighscore();
 
-            overlay = new StaticSprite(Global.titleOverlay, new Rectangle(0, 0, Global.resWidth, Global.resHeight), Color.White);
+            overlay = new StaticSprite(Global.titleOverlay, new Rectangle(0, 0, Global.resWidth, Global.resHeight), CustomColor.White);
 
-            copyright = new Text(Global.defaultFont, copyrightString, new Vector2(62, 196), Color.White, 1.0f, false);
-            version = new Text(Global.defaultFont, Global.gameVersion, new Vector2((Global.resWidth / 2) - 120, 204), Color.White, 1.0f, false);
+            copyright = new Text(Global.defaultFont, copyrightString, new Vector2(62, 196), CustomColor.White, 1.0f, false);
+            version = new Text(Global.defaultFont, Global.gameVersion, new Vector2((Global.resWidth / 2) - 120, 204), CustomColor.White, 1.0f, false);
 
             // Buttons
-            buttons.Add(new Text(Global.defaultFont, "Start", new Vector2(buttonX, buttonY), Color.White, 1.0f, true));
-            buttons.Add(new Text(Global.defaultFont, "Endless Mode", new Vector2(buttonX, buttonY + 20), Color.White, 1.0f, true));
-            buttons.Add(new Text(Global.defaultFont, "Options", new Vector2(buttonX, buttonY + 40), Color.White, 1.0f, true));
-            buttons.Add(new Text(Global.defaultFont, "Story", new Vector2(buttonX, buttonY + 60), Color.White, 1.0f, true));
-            buttons.Add(new Text(Global.defaultFont, "Exit", new Vector2(buttonX, buttonY + 80), Color.White, 1.0f, true));
+            buttons.Add(new Text(Global.defaultFont, "Start", new Vector2(buttonX, buttonY), CustomColor.White, 1.0f, true));
+            buttons.Add(new Text(Global.defaultFont, "Endless Mode", new Vector2(buttonX, buttonY + 20), CustomColor.White, 1.0f, true));
+            buttons.Add(new Text(Global.defaultFont, "Options", new Vector2(buttonX, buttonY + 40), CustomColor.White, 1.0f, true));
+            buttons.Add(new Text(Global.defaultFont, "Story", new Vector2(buttonX, buttonY + 60), CustomColor.White, 1.0f, true));
+            buttons.Add(new Text(Global.defaultFont, "Exit", new Vector2(buttonX, buttonY + 80), CustomColor.White, 1.0f, true));
 
             maxButtons = Convert.ToByte(buttons.Count); // Set Num of Max Buttons
 
@@ -177,7 +177,7 @@ namespace Escapeaway.Source.States
             // Reset all Button Colors
             foreach(Text button in buttons)
             {
-                button.setColor(Color.White);
+                button.setColor(CustomColor.White);
             }
 
             // Update Chosen Button to be Selected Color
@@ -186,7 +186,7 @@ namespace Escapeaway.Source.States
 
         public override void OnDraw(SpriteBatch spriteBatch)
         {
-            graphicsDevice.Clear(Color.Black);
+            graphicsDevice.Clear(CustomColor.Black);
 
             overlay.Draw(spriteBatch);
 

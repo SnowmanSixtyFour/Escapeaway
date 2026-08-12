@@ -53,7 +53,7 @@ namespace Escapeaway.Source.States
 
         public override void OnDraw(SpriteBatch spriteBatch)
         {
-            graphicsDevice.Clear(Color.Black);
+            graphicsDevice.Clear(CustomColor.Black);
 
             header.Draw(spriteBatch);
             giantWallOfText.Draw(spriteBatch);

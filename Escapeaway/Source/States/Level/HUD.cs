@@ -17,16 +17,16 @@ namespace Escapeaway.Source.States.Level
 
         public HUD()
         {
-            lives = new Text(Global.defaultFont, "", new Vector2(8, y), Color.White, 1.0f, false);
-            score = new Text(Global.defaultFont, "", new Vector2(78, y), Color.White, 1.0f, false);
-            room = new Text(Global.defaultFont, "", new Vector2(Global.resWidth - 64, y), Color.White, 1.0f, false);
+            lives = new Text(Global.defaultFont, "", new Vector2(8, y), CustomColor.White, 1.0f, false);
+            score = new Text(Global.defaultFont, "", new Vector2(78, y), CustomColor.White, 1.0f, false);
+            room = new Text(Global.defaultFont, "", new Vector2(Global.resWidth - 64, y), CustomColor.White, 1.0f, false);
         }
 
         public void Update(GameTime gameTime, Player player, int currentScreen, Main main)
         {
             lives.setText("LIVES " + player.lives);
             if (player.score <= Global.maxScore) score.setText("SCORE " + player.score);
-            if (player.score < Global.maxScore) score.setColor(Color.White);
+            if (player.score < Global.maxScore) score.setColor(CustomColor.White);
             else score.setColor(CustomColor.Yellow);
             if (!main.endless) room.setText("ROOM " + (currentScreen + 1));
             else room.setText("ENDLESS");

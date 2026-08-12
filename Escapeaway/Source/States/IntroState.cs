@@ -27,6 +27,8 @@ namespace Escapeaway.Source.States
 
         public override void OnDraw(SpriteBatch spriteBatch)
         {
+            graphicsDevice.Clear(CustomColor.Black);
+
             snowman64.Draw(spriteBatch);
         }
     }

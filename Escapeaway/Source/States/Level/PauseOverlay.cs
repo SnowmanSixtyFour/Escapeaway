@@ -25,10 +25,10 @@ namespace Escapeaway.Source.States.Level
         {
             // Initialize Pause Menu
 
-            pause = new Text(Global.defaultFont, "PAUSED", new Vector2(Global.resWidth / 2 - 20, Global.resHeight / 2 - 30), Color.White, 1f, true);
-            options = new Text(Global.defaultFont, optionsText, new Vector2(42, Global.resHeight / 2), Color.White, 1f, true);
+            pause = new Text(Global.defaultFont, "PAUSED", new Vector2(Global.resWidth / 2 - 20, Global.resHeight / 2 - 30), CustomColor.White, 1f, true);
+            options = new Text(Global.defaultFont, optionsText, new Vector2(42, Global.resHeight / 2), CustomColor.White, 1f, true);
 
-            background = new StaticSprite(null, new Rectangle(0, Global.resHeight / 2 - 38, Global.resWidth, Global.resHeight / 3), Color.Black);
+            background = new StaticSprite(null, new Rectangle(0, Global.resHeight / 2 - 38, Global.resWidth, Global.resHeight / 3), CustomColor.Black);
         }
 
         public void Draw(SpriteBatch spriteBatch)

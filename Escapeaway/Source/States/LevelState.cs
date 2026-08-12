@@ -1,18 +1,18 @@
-﻿using Escapeaway;
-using Escapeaway.Source.Graphics;
-using Escapeaway.Source.States.Level;
-using Escapeaway.Source.States.Level.Boss;
-using Escapeaway.Source.States.Level.Particles;
-using Escapeaway.Source.States.Level.Rooms;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Escapeaway;
+using Escapeaway.Source.Graphics;
+using Escapeaway.Source.States.Level;
+using Escapeaway.Source.States.Level.Boss;
+using Escapeaway.Source.States.Level.Particles;
+using Escapeaway.Source.States.Level.Rooms;
 
 namespace Escapeaway.Source.States
 {
