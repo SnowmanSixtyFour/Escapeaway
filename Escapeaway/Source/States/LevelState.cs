@@ -1,6 +1,7 @@
 ﻿using Escapeaway;
 using Escapeaway.Source.Graphics;
 using Escapeaway.Source.States.Level;
+using Escapeaway.Source.States.Level.Boss;
 using Escapeaway.Source.States.Level.Particles;
 using Escapeaway.Source.States.Level.Rooms;
 using Microsoft.Xna.Framework;
@@ -19,6 +20,7 @@ namespace Escapeaway.Source.States
     {
         RoomLayout roomLayout;
         FirstRoomDisclaimer roomDisclaimer;
+        FirstRoomDevil firstRoomDevil;
 
         Player player;
         PauseOverlay pauseOverlay;
@@ -50,7 +52,8 @@ namespace Escapeaway.Source.States
             // Initialize Level
             roomLayout = new RoomLayout();
             roomDisclaimer = new FirstRoomDisclaimer();
-            player = new Player(null, new Point(6, 120), Color.White, defaultLives);
+            firstRoomDevil = new FirstRoomDevil();
+            player = new Player(null, new Point(16, 120), Color.White, defaultLives);
 
             // Background
             heatBG = new StaticSprite(null, new Rectangle(0, Global.resHeight - this.heatBGHeight, Global.resWidth, this.heatBGHeight), CustomColor.LightOrange);
@@ -90,7 +93,9 @@ namespace Escapeaway.Source.States
             roomLayout.GoToRoomOne();
 
             player.reachedEnd = false;
-            SetScreenColor(0);
+            SetScreenColor();
+
+            firstRoomDevil.Show();
 
             // Reset Player Values (score, lives, etc)
             player.lives = defaultLives;
@@ -101,6 +106,11 @@ namespace Escapeaway.Source.States
 
             // Reset Room
             ResetLevel();
+        }
+
+        private void SetScreenColor()
+        {
+            SetScreenColor(0);
         }
 
         private void SetScreenColor(int screenColor)
@@ -118,6 +128,7 @@ namespace Escapeaway.Source.States
                 // Update Level
                 roomLayout.Update(gameTime);
                 roomDisclaimer.Update(gameTime, player);
+                firstRoomDevil.Update(gameTime);
 
                 player.SetRoom(this.roomLayout);
                 player.Update(gameTime);
@@ -159,6 +170,9 @@ namespace Escapeaway.Source.States
                     // Update Current Sceen Count
                     currentScreen++;
 
+                    // Hide Devil
+                    if (currentScreen != 0) firstRoomDevil.Hide();
+
                     // Add to Score
                     player.score += random.Next(2, 5);
 
@@ -189,6 +203,8 @@ namespace Escapeaway.Source.States
 
             // Level
             roomLayout.Draw(spriteBatch);
+            firstRoomDevil.Draw(spriteBatch);
+
             player.Draw(spriteBatch);
 
             // Particles

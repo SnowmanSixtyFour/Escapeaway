@@ -1,0 +1,68 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Escapeaway.Source.Objects;
+
+namespace Escapeaway.Source.States.Level.Boss
+{
+    internal class FirstRoomDevil
+    {
+        private Character devil;
+        private bool visible = true;
+
+        // Movement
+        private bool movingUp = false;
+        private float
+            yVelocity = 0,
+            gravity = 0.2f, maxMovementSpeed = 1.5f,
+
+            maxUpHeight = 34, maxDownHeight = 38;
+
+        public FirstRoomDevil()
+        {
+            devil = new Character(null, new Point(100, 36), new Point(100, 100), new Point(100, 100), Color.White);
+        }
+
+        public void Hide()
+        {
+            this.visible = false;
+        }
+
+        public void Show()
+        {
+            this.visible = true;
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            devil.Update(gameTime);
+
+            // Flying Movement
+
+            if (devil.Y < maxUpHeight) movingUp = false;
+            if (devil.Y > maxDownHeight) movingUp = true;
+
+            devil.Y += Convert.ToInt32(yVelocity);
+
+            if (movingUp)
+            {
+                if (yVelocity > -maxMovementSpeed) yVelocity -= gravity;
+                else yVelocity = -maxMovementSpeed;
+            }
+            if (!movingUp)
+            {
+                if (yVelocity < maxMovementSpeed) yVelocity += gravity;
+                else yVelocity = maxMovementSpeed;
+            }
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            if (this.visible) devil.Draw(spriteBatch);
+        }
+    }
+}
