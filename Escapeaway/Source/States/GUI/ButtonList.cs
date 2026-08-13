@@ -86,7 +86,12 @@ namespace Escapeaway.Source.States.GUI
             if (state.KeyPress(Keys.Z) || state.KeyPress(Keys.Enter)
                 || state.ButtonPress(Buttons.A) || state.ButtonPress(Buttons.Start))
             {
-                if (buttonSelected == button) return true;
+                if (buttonSelected == button)
+                {
+                    SFX.intro.Play();
+
+                    return true;
+                }
                 else return false;
             }
             else return false;
