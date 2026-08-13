@@ -30,6 +30,8 @@ namespace Escapeaway.Source.States
         PauseOverlay pauseOverlay;
         HUD hud;
 
+        public bool endless;
+
         private int defaultLives = 3;
 
         public int
@@ -89,7 +91,7 @@ namespace Escapeaway.Source.States
             player.Reset();
 
             // Reset Endless Monster
-            if (main.endless) follower.MovePositionBack();
+            if (this.endless) follower.MovePositionBack();
 
             // Reset Particles
             heatParticles.Clear();
@@ -136,6 +138,9 @@ namespace Escapeaway.Source.States
 
         public override void OnUpdate(GameTime gameTime, Main main)
         {
+            // Set Global Variables
+            if (endless != main.endless) endless = main.endless;
+
             // While Unpaused
             if (!Global.paused)
             {
@@ -235,7 +240,7 @@ namespace Escapeaway.Source.States
             // Level
             roomLayout.Draw(spriteBatch);
             player.Draw(spriteBatch);
-            if (main.endless) follower.Draw(spriteBatch);
+            if (this.endless) follower.Draw(spriteBatch);
 
             // Particles
             foreach (HeatParticle heatParticle in heatParticles) heatParticle.Draw(spriteBatch);

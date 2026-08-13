@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Input;
 using Escapeaway;
 using Escapeaway.Source.Graphics;
 using Escapeaway.Source.Objects;
+using Escapeaway.Source.States.GUI;
 
 namespace Escapeaway.Source.States
 {
@@ -38,18 +39,7 @@ namespace Escapeaway.Source.States
         private Text version, highscore;
 
         // Buttons
-
-        private List<Text> buttons = new List<Text>();
-        private Text
-            start,
-            endless,
-            options,
-            story,
-            exit;
-
-        private byte
-            buttonSelected = 0,
-            maxButtons;
+        private ButtonList buttons;
         private int
             buttonX = 22,
             buttonY = 80;
@@ -70,15 +60,12 @@ namespace Escapeaway.Source.States
             version = new Text(Global.defaultFont, Global.gameVersion, new Vector2((Global.resWidth / 2) - 120, 204), CustomColor.White, 1.0f, false);
 
             // Buttons
-            buttons.Add(new Text(Global.defaultFont, "Start", new Vector2(buttonX, buttonY), CustomColor.White, 1.0f, true));
-            buttons.Add(new Text(Global.defaultFont, "Endless Mode", new Vector2(buttonX, buttonY + 20), CustomColor.White, 1.0f, true));
-            buttons.Add(new Text(Global.defaultFont, "Options", new Vector2(buttonX, buttonY + 40), CustomColor.White, 1.0f, true));
-            buttons.Add(new Text(Global.defaultFont, "Story", new Vector2(buttonX, buttonY + 60), CustomColor.White, 1.0f, true));
-            buttons.Add(new Text(Global.defaultFont, "Exit", new Vector2(buttonX, buttonY + 80), CustomColor.White, 1.0f, true));
-
-            maxButtons = Convert.ToByte(buttons.Count); // Set Num of Max Buttons
-
-            SelectButton(buttons[0]); // Select First Button by Default
+            buttons = new ButtonList();
+            buttons.Add("Start", new Vector2(buttonX, buttonY), CustomColor.White);
+            buttons.Add("Endless Mode", new Vector2(buttonX, buttonY + 20), CustomColor.White);
+            buttons.Add("Options", new Vector2(buttonX, buttonY + 40), CustomColor.White);
+            buttons.Add("Story", new Vector2(buttonX, buttonY + 60), CustomColor.White);
+            buttons.Add("Exit", new Vector2(buttonX, buttonY + 80), CustomColor.White);
         }
 
         private void SetHighscore()
@@ -112,30 +99,13 @@ namespace Escapeaway.Source.States
         public override void OnUpdate(GameTime gameTime, Main main)
         {
             // Update Selected Button
-            if (KeyPress(Keys.Up))
-            {
-                if (buttonSelected != 0) buttonSelected--;
-                else buttonSelected = Convert.ToByte(maxButtons - 1);
-            }
-            if (KeyPress(Keys.Down))
-            {
-                if (buttonSelected < Convert.ToByte(maxButtons - 1)) buttonSelected++;
-                else buttonSelected = 0;
-            }
-            if (KeyPress(Keys.Up) || KeyPress(Keys.Down))
-            {
-                // Set Color of Selected Button (don't if value is past limit)
-                if (buttonSelected < maxButtons) SelectButton(buttons[buttonSelected]);
-
-                // Select SFX
-                SFX.select.Play();
-            }
+            buttons.Update(gameTime, this);
 
             // Button Presses
             if (KeyPress(Keys.Z) || KeyPress(Keys.Enter))
             {
                 // Regular Mode
-                if (buttonSelected == 0)
+                if (buttons.ButtonSelected(0, this))
                 {
                     // Reset Level State
                     main.endless = false; // Disable Endless Mode (in case it was on)
@@ -146,7 +116,7 @@ namespace Escapeaway.Source.States
                 }
 
                 // Endless Mode
-                else if (buttonSelected == 1)
+                else if (buttons.ButtonSelected(1, this))
                 {
                     main.endless = true; // Enable Endless Mode
                     main.level.GoBackToFirstRoom();
@@ -155,13 +125,13 @@ namespace Escapeaway.Source.States
                 }
 
                 // Options
-                else if (buttonSelected == 2) SwitchState(main.options);
+                else if (buttons.ButtonSelected(2, this)) SwitchState(main.options);
 
                 // Help
-                else if (buttonSelected == 3) SwitchState(main.story);
+                else if (buttons.ButtonSelected(3, this)) SwitchState(main.story);
 
                 // Quit
-                else if (buttonSelected == 4) ExitGame();
+                else if (buttons.ButtonSelected(4, this)) ExitGame();
 
                 // Accept SFX
                 SFX.intro.Play();
@@ -169,19 +139,6 @@ namespace Escapeaway.Source.States
 
             // Animations
             logo.PlayAnimation("default");
-        }
-
-        // Update Colors of Buttons
-        private void SelectButton(Text buttonToHighlight)
-        {
-            // Reset all Button Colors
-            foreach(Text button in buttons)
-            {
-                button.setColor(CustomColor.White);
-            }
-
-            // Update Chosen Button to be Selected Color
-            buttonToHighlight.setColor(CustomColor.LightOrange);
         }
 
         public override void OnDraw(SpriteBatch spriteBatch)
@@ -194,7 +151,7 @@ namespace Escapeaway.Source.States
             if (Global.highscore != 0) highscore.Draw(spriteBatch);
             copyright.Draw(spriteBatch);
             version.Draw(spriteBatch);
-            foreach (Text button in buttons) button.Draw(spriteBatch);
+            buttons.Draw(spriteBatch);
         }
     }
 }

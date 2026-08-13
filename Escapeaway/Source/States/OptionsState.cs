@@ -1,5 +1,6 @@
 ﻿using Escapeaway;
 using Escapeaway.Source.Graphics;
+using Escapeaway.Source.States.GUI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -27,10 +28,7 @@ namespace Escapeaway.Source.States
             goBack;
 
         // Buttons
-        private List<Text> buttons = new List<Text>();
-        private byte
-            buttonSelected = 0,
-            maxButtons;
+        private ButtonList buttons;
 
         // Temporary Variables
         private int
@@ -43,47 +41,30 @@ namespace Escapeaway.Source.States
             goBack = new Text(Global.defaultFont, "Press [X] to Exit", new Vector2((Global.resWidth / 2) - 120, 204), CustomColor.White, 1.0f, false);
 
             // Buttons
-            buttons.Add(new Text(Global.defaultFont, "Fullscreen", new Vector2(6, 24), CustomColor.LightOrange, 1.0f, false));
-            buttons.Add(new Text(Global.defaultFont, "Reset HISCORE", new Vector2(6, 48), CustomColor.White, 1.0f, false));
-
-            maxButtons = Convert.ToByte(buttons.Count);
+            buttons = new ButtonList();
+            buttons.Add("Fullscreen", new Vector2(6, 24), CustomColor.White, false);
+            buttons.Add("Reset HISCORE", new Vector2(6, 48), CustomColor.White);
 
             UpdateButtonText();
         }
 
         public override void OnUpdate(GameTime gameTime, Main main)
         {
-            // Update Selected Button
-            if (KeyPress(Keys.Up))
-            {
-                if (buttonSelected != 0) buttonSelected--;
-                else buttonSelected = Convert.ToByte(maxButtons - 1);
-            }
-            if (KeyPress(Keys.Down))
-            {
-                if (buttonSelected < Convert.ToByte(maxButtons - 1)) buttonSelected++;
-                else buttonSelected = 0;
-            }
-            if (KeyPress(Keys.Up) || KeyPress(Keys.Down))
-            {
-                if (buttonSelected < maxButtons) SelectButton(buttons[buttonSelected]);
-
-                // Select SFX
-                SFX.select.Play();
-            }
+            // Update Buttons
+            buttons.Update(gameTime, this);
 
             // Button Presses
             if (KeyPress(Keys.Z) || KeyPress(Keys.Enter))
             {
                 // Toggle Fullscreen
-                if (buttonSelected == 0)
+                if (buttons.ButtonSelected(0, this))
                 {
                     Global.fullscreen = !Global.fullscreen;
                     Global.fullscreenChanged = true;
                 }
 
                 // Reset Highscore
-                if (buttonSelected == 1)
+                if (buttons.ButtonSelected(1, this))
                 {
                     Global.highscore = newHighscore;
                 }
@@ -120,19 +101,9 @@ namespace Escapeaway.Source.States
             }
         }
 
-        private void SelectButton(Text buttonToHighlight)
-        {
-            foreach (var button in buttons)
-            {
-                button.setColor(Color.White);
-            }
-
-            buttonToHighlight.setColor(CustomColor.LightOrange);
-        }
-
         private void UpdateButtonText()
         {
-            buttons[0].setText("Fullscreen " + (Global.fullscreen ? enabled : disabled));
+            buttons.GetButton(0).setText("Fullscreen " + (Global.fullscreen ? enabled : disabled));
         }
 
         public override void OnDraw(SpriteBatch spriteBatch)
@@ -144,7 +115,7 @@ namespace Escapeaway.Source.States
             goBack.Draw(spriteBatch);
 
             // Draw Buttons
-            foreach (var button in buttons) button.Draw(spriteBatch);
+            buttons.Draw(spriteBatch);
         }
     }
 }
