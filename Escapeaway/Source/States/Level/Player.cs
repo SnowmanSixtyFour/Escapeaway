@@ -181,8 +181,8 @@ namespace Escapeaway.Source.States.Level
             // Intro
             if (!moving)
             {
-                // Hide Dust Particles
-                slowParticles.Clear();
+                // Hide Particles
+                ClearParticles();
 
                 // Start Movement
                 if (KeyPress(Keys.Right) && !countdownRun)
