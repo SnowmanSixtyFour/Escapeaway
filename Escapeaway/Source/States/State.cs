@@ -22,6 +22,7 @@ namespace Escapeaway.Source.States
         // State variables
         public Main main;
         public KeyboardState keyboard, previousKeyboard;
+        public GamePadState gamepad, previousGamepad;
 
         public int screenWidth, screenHeight;
         public Camera cam;
@@ -50,12 +51,14 @@ namespace Escapeaway.Source.States
 
             // Set Controls
             keyboard = Keyboard.GetState();
+            gamepad = GamePad.GetState(PlayerIndex.One);
 
             // Override Update
             OnUpdate(gameTime, main);
 
             // Update Controls
             previousKeyboard = keyboard;
+            previousGamepad = gamepad;
         }
 
         public virtual void OnUpdate(GameTime gameTime, Main main)
@@ -135,6 +138,34 @@ namespace Escapeaway.Source.States
             if (keyboard.IsKeyDown(key))
             {
                 return true;
+            }
+            else return false;
+        }
+
+        public bool ButtonPress(Buttons button)
+        {
+            if (gamepad.IsConnected)
+            {
+                if (gamepad.IsButtonUp(button) && previousGamepad.IsButtonDown(button))
+                {
+                    return true;
+                }
+                else return false;
+
+            }
+            else return false;
+        }
+
+        public bool ButtonDown(Buttons button)
+        {
+            if (gamepad.IsConnected)
+            {
+                if (gamepad.IsButtonDown(button))
+                {
+                    return true;
+                }
+                else return false;
+
             }
             else return false;
         }

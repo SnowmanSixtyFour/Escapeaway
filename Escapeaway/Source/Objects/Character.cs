@@ -34,6 +34,7 @@ namespace Escapeaway.Source.Objects
 
         // Controls
         public KeyboardState keyboard, previousKeyboard;
+        public GamePadState gamepad, previousGamepad;
 
         public Character(Texture2D texture, Point location, Point size, Point sheetSize, Color color)
         {
@@ -74,11 +75,13 @@ namespace Escapeaway.Source.Objects
         {
             // Controls
             keyboard = Keyboard.GetState();
+            gamepad = GamePad.GetState(PlayerIndex.One);
 
             // Override Update
             OnUpdate(gameTime);
 
             previousKeyboard = keyboard;
+            previousGamepad = gamepad;
         }
 
         public virtual void OnUpdate(GameTime gameTime)
@@ -195,11 +198,39 @@ namespace Escapeaway.Source.Objects
             else return false;
         }
 
-        public bool KeyHold(Keys key)
+        public bool KeyDown(Keys key)
         {
             if (keyboard.IsKeyDown(key))
             {
                 return true;
+            }
+            else return false;
+        }
+
+        public bool ButtonPress(Buttons button)
+        {
+            if (gamepad.IsConnected)
+            {
+                if (gamepad.IsButtonUp(button) && previousGamepad.IsButtonDown(button))
+                {
+                    return true;
+                }
+                else return false;
+
+            }
+            else return false;
+        }
+
+        public bool ButtonDown(Buttons button)
+        {
+            if (gamepad.IsConnected)
+            {
+                if (gamepad.IsButtonDown(button))
+                {
+                    return true;
+                }
+                else return false;
+
             }
             else return false;
         }

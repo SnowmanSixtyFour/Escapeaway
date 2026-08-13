@@ -102,42 +102,38 @@ namespace Escapeaway.Source.States
             buttons.Update(gameTime, this);
 
             // Button Presses
-            if (KeyPress(Keys.Z) || KeyPress(Keys.Enter))
+
+            // Regular Mode
+            if (buttons.ButtonSelected(0, this))
             {
-                // Regular Mode
-                if (buttons.ButtonSelected(0, this))
-                {
-                    // Reset Level State
-                    main.endless = false; // Disable Endless Mode (in case it was on)
-                    main.level.GoBackToFirstRoom();
+                // Reset Level State
+                main.endless = false; // Disable Endless Mode (in case it was on)
+                main.level.GoBackToFirstRoom();
 
-                    // Go to Level
-                    SwitchState(main.level);
-                }
-
-                // Endless Mode
-                else if (buttons.ButtonSelected(1, this))
-                {
-                    main.endless = true; // Enable Endless Mode
-                    main.level.GoBackToFirstRoom();
-
-                    SwitchState(main.level);
-                }
-
-                // Options
-                else if (buttons.ButtonSelected(2, this)) SwitchState(main.options);
-
-                // Help
-                else if (buttons.ButtonSelected(3, this)) SwitchState(main.story);
-
-                // Quit
-                else if (buttons.ButtonSelected(4, this)) ExitGame();
-
-                // Accept SFX
-                SFX.intro.Play();
+                // Go to Level
+                SwitchState(main.level);
             }
 
+            // Endless Mode
+            else if (buttons.ButtonSelected(1, this))
+            {
+                main.endless = true; // Enable Endless Mode
+                main.level.GoBackToFirstRoom();
+
+                SwitchState(main.level);
+            }
+
+            // Options
+            else if (buttons.ButtonSelected(2, this)) SwitchState(main.options);
+
+            // Help
+            else if (buttons.ButtonSelected(3, this)) SwitchState(main.story);
+
+            // Quit
+            else if (buttons.ButtonSelected(4, this)) ExitGame();
+
             // Animations
+
             logo.PlayAnimation("default");
         }
 

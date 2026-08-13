@@ -45,7 +45,8 @@ namespace Escapeaway.Source.States
         public override void OnUpdate(GameTime gameTime, Main main)
         {
             // Switch to Title
-            if (KeyPress(Keys.Z) || KeyPress(Keys.X) || KeyPress(Keys.Enter) || KeyPress(Keys.Escape))
+            if (KeyPress(Keys.Z) || KeyPress(Keys.X) || KeyPress(Keys.Enter) || KeyPress(Keys.Escape)
+                || ButtonPress(Buttons.A) || ButtonPress(Buttons.B) || ButtonPress(Buttons.Start))
             {
                 SwitchState(main.title);
             }

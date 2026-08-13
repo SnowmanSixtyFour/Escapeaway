@@ -54,7 +54,8 @@ namespace Escapeaway.Source.States
             buttons.Update(gameTime, this);
 
             // Button Presses
-            if (KeyPress(Keys.Z) || KeyPress(Keys.Enter))
+            if (KeyPress(Keys.Z) || KeyPress(Keys.Enter)
+                || ButtonPress(Buttons.A) || ButtonPress(Buttons.Start))
             {
                 // Toggle Fullscreen
                 if (buttons.ButtonSelected(0, this))
@@ -76,7 +77,8 @@ namespace Escapeaway.Source.States
             }
 
             // Exit Options
-            if (KeyPress(Keys.X) || KeyPress(Keys.Escape))
+            if (KeyPress(Keys.X) || KeyPress(Keys.Escape)
+                || ButtonPress(Buttons.B))
             {
                 // Write to Options.xml
 

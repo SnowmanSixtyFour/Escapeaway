@@ -225,7 +225,11 @@ namespace Escapeaway.Source.States
             if (Global.paused)
             {
                 // Quit to Title
-                if (KeyPress(Keys.X)) SwitchState(main.title);
+                if (KeyPress(Keys.X)
+                    || ButtonPress(Buttons.B))
+                {
+                    SwitchState(main.title);
+                }
             }
         }
 

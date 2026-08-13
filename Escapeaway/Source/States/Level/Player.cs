@@ -189,9 +189,13 @@ namespace Escapeaway.Source.States.Level
                 ClearParticles();
 
                 // Start Movement
-                if (KeyPress(Keys.Right) && !countdownRun)
+                if (!countdownRun)
                 {
-                    StartMoving();
+                    if (KeyPress(Keys.Right)
+                        || ButtonPress(Buttons.LeftThumbstickRight) || ButtonPress(Buttons.DPadRight))
+                    {
+                        StartMoving();
+                    }
                 }
             }
 
@@ -238,14 +242,18 @@ namespace Escapeaway.Source.States.Level
                 }
 
                 // Jump
-                if (!sliding && KeyHold(Keys.Z) && !jumping)
+                if (!sliding && !jumping)
                 {
-                    yVelocity = -jumpIncrement;
+                    if (KeyDown(Keys.Z)
+                        || ButtonDown(Buttons.B) || ButtonDown(Buttons.A))
+                    {
+                        yVelocity = -jumpIncrement;
 
-                    jumping = true;
-                    aboveGround = true;
+                        jumping = true;
+                        aboveGround = true;
 
-                    SFX.jump.Play();
+                        SFX.jump.Play();
+                    }
                 }
 
                 // Gravity
@@ -332,7 +340,8 @@ namespace Escapeaway.Source.States.Level
 
                 // Slowing Down SFX
                 slowDownSfxTimer += gameTime.ElapsedGameTime.Milliseconds;
-                if (KeyHold(Keys.Left))
+                if (KeyDown(Keys.Left)
+                    || ButtonDown(Buttons.LeftThumbstickLeft) || ButtonDown(Buttons.DPadLeft))
                 {
                     if (slowDownSfxTimer > framesToPlaySlowDownSfx)
                     {
@@ -368,22 +377,36 @@ namespace Escapeaway.Source.States.Level
                 // Slide
                 if (!cantSlide)
                 {
-                    if (!sliding && KeyHold(Keys.Down) && !jumping) SFX.slide.Play();
-
-                    if (!jumping && KeyHold(Keys.Down))
+                    if (!sliding && !jumping)
                     {
-                        // Set Sliding Timer
-                        if (!sliding) slideCounter = slideStart;
-
-                        // Start Sliding
-                        sliding = true;
-
-                        if (this.Width != slidingSize.X && this.Height != slidingSize.Y)
+                        if (KeyDown(Keys.Down)
+                        || ButtonDown(Buttons.DPadDown) || ButtonDown(Buttons.LeftThumbstickDown))
                         {
-                            // Update Size
-                            this.Width = slidingSize.X;
-                            this.Height = slidingSize.Y;
-                            this.Y += slidingSize.Y;
+                            SFX.slide.Play();
+                        }
+                    }
+
+                    if (!jumping)
+                    {
+                        if (KeyDown(Keys.Down)
+                        || ButtonDown(Buttons.DPadDown) || ButtonDown(Buttons.LeftThumbstickDown))
+                        {
+
+                            {
+                                // Set Sliding Timer
+                                if (!sliding) slideCounter = slideStart;
+
+                                // Start Sliding
+                                sliding = true;
+
+                                if (this.Width != slidingSize.X && this.Height != slidingSize.Y)
+                                {
+                                    // Update Size
+                                    this.Width = slidingSize.X;
+                                    this.Height = slidingSize.Y;
+                                    this.Y += slidingSize.Y;
+                                }
+                            }
                         }
                     }
                 }
@@ -395,7 +418,8 @@ namespace Escapeaway.Source.States.Level
                     if (slideCounter > 1) slideCounter--;
                     else
                     {
-                        if (!KeyHold(Keys.Down))
+                        if (!KeyDown(Keys.Down)
+                            && !ButtonDown(Buttons.DPadDown) && !ButtonDown(Buttons.LeftThumbstickDown))
                         {
                             slideCounter = 0;
                         }

@@ -24,17 +24,21 @@ namespace Escapeaway.Source.States.GUI
 
         public void Update(GameTime gameTime, State state)
         {
-            if (state.KeyPress(Keys.Up))
+            if (state.KeyPress(Keys.Up)
+                || state.ButtonPress(Buttons.LeftThumbstickUp) || state.ButtonPress(Buttons.DPadUp))
             {
                 if (buttonSelected != 0) buttonSelected--;
                 else buttonSelected = Convert.ToByte(maxButtons - 1);
             }
-            if (state.KeyPress(Keys.Down))
+            if (state.KeyPress(Keys.Down)
+                || state.ButtonPress(Buttons.LeftThumbstickDown) || state.ButtonPress(Buttons.DPadDown))
             {
                 if (buttonSelected < Convert.ToByte(maxButtons - 1)) buttonSelected++;
                 else buttonSelected = 0;
             }
-            if (state.KeyPress(Keys.Up) || state.KeyPress(Keys.Down))
+            if (state.KeyPress(Keys.Up) || state.KeyPress(Keys.Down)
+                || state.ButtonPress(Buttons.LeftThumbstickDown) || state.ButtonPress(Buttons.DPadDown)
+                || state.ButtonPress(Buttons.LeftThumbstickUp) || state.ButtonPress(Buttons.DPadUp))
             {
                 // Set Color of Selected Button (don't if value is past limit)
                 if (buttonSelected < maxButtons) SelectButton(buttonSelected);
@@ -79,7 +83,8 @@ namespace Escapeaway.Source.States.GUI
 
         public bool ButtonSelected(int button, State state)
         {
-            if (state.KeyPress(Keys.Z) || state.KeyPress(Keys.Enter))
+            if (state.KeyPress(Keys.Z) || state.KeyPress(Keys.Enter)
+                || state.ButtonPress(Buttons.A) || state.ButtonPress(Buttons.Start))
             {
                 if (buttonSelected == button) return true;
                 else return false;
