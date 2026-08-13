@@ -122,7 +122,7 @@ namespace Escapeaway.Source.States.Level
             moving = false;
 
             // Reset Position
-            this.X = 6;
+            this.X = startingPosition.X;
             this.Y = startingPosition.Y;
 
             // Reset Values
@@ -130,6 +130,10 @@ namespace Escapeaway.Source.States.Level
 
             this.Width = size.X;
             this.Height = size.Y;
+
+            countdownRun = false;
+            flickering = false;
+            shouldFlicker = false;
         }
 
         private void LostLife()
