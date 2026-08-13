@@ -23,6 +23,7 @@ namespace Escapeaway.Source.States
         
         FirstRoomDevil firstRoomDevil;
         BackgroundDevil backgroundDevil;
+        EndlessMonster endlessMonster;
 
         Player player;
         
@@ -59,6 +60,7 @@ namespace Escapeaway.Source.States
 
             firstRoomDevil = new FirstRoomDevil();
             backgroundDevil = new BackgroundDevil();
+            endlessMonster = new EndlessMonster();
 
             player = new Player(null, new Point(16, 120), Color.White, defaultLives);
 
@@ -86,6 +88,9 @@ namespace Escapeaway.Source.States
             // Reset Player
             player.Reset();
 
+            // Reset Endless Monster
+            endlessMonster.MovePositionBack();
+
             // Reset Particles
             heatParticles.Clear();
         }
@@ -104,6 +109,7 @@ namespace Escapeaway.Source.States
 
             firstRoomDevil.Show();
             backgroundDevil.Reset();
+            endlessMonster.Reset();
 
             // Reset Player Values (score, lives, etc)
             player.lives = defaultLives;
@@ -139,6 +145,7 @@ namespace Escapeaway.Source.States
 
                 firstRoomDevil.Update(gameTime);
                 if (currentScreen == screenWithBackgroundDevil) backgroundDevil.Update(gameTime);
+                if (main.endless) endlessMonster.Update(gameTime, player, currentScreen);
 
                 player.SetRoom(this.roomLayout);
                 player.Update(gameTime);
@@ -180,8 +187,9 @@ namespace Escapeaway.Source.States
                     // Update Current Sceen Count
                     currentScreen++;
 
-                    // Hide Devil
+                    // Hide Enemies
                     if (currentScreen != 0) firstRoomDevil.Hide();
+                    if (main.endless) endlessMonster.MovePositionBack();
 
                     // Add to Score
                     player.score += random.Next(2, 5);
@@ -214,6 +222,7 @@ namespace Escapeaway.Source.States
             // Devil (Background)
             if (currentScreen == screenWithBackgroundDevil) backgroundDevil.Draw(spriteBatch);
             firstRoomDevil.Draw(spriteBatch);
+            if (main.endless) endlessMonster.Draw(spriteBatch);
 
             // Level Objects
             roomLayout.Draw(spriteBatch);

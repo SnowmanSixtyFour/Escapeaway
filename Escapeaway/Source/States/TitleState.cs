@@ -138,8 +138,8 @@ namespace Escapeaway.Source.States
                 if (buttonSelected == 0)
                 {
                     // Reset Level State
-                    main.level.GoBackToFirstRoom();
                     main.endless = false; // Disable Endless Mode (in case it was on)
+                    main.level.GoBackToFirstRoom();
 
                     // Go to Level
                     SwitchState(main.level);
@@ -148,8 +148,8 @@ namespace Escapeaway.Source.States
                 // Endless Mode
                 else if (buttonSelected == 1)
                 {
-                    main.level.GoBackToFirstRoom();
                     main.endless = true; // Enable Endless Mode
+                    main.level.GoBackToFirstRoom();
 
                     SwitchState(main.level);
                 }
