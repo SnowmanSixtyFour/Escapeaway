@@ -59,7 +59,7 @@ namespace Escapeaway.Source.States.Level
         // Conditions
         private bool
             slowingDown = false,
-            jumping = false,
+            jumping = false, aboveGround = false,
             sliding = false;
 
         // Timers
@@ -80,8 +80,10 @@ namespace Escapeaway.Source.States.Level
             shouldFlicker = false, countdownRun = false;
 
         // Particles
-        private List<DustParticle> dustParticles = new List<DustParticle>();
+        private List<DustParticle> slowParticles = new List<DustParticle>();
         private int dustParticleLimit = 4;
+
+        private List<DustParticle> jumpParticles = new List<DustParticle>();
 
         public Player(Texture2D spriteSheet, Point location, Color color, int startingLives) : base(spriteSheet, location, size, sheetSize, color)
         {
@@ -94,13 +96,19 @@ namespace Escapeaway.Source.States.Level
             this.room = newRoom;
         }
 
-        private void NewDustParticle()
+        private void NewSlowDownParticle()
         {
             // Delete Previous Particles
-            if (dustParticles.Count > dustParticleLimit) dustParticles.RemoveAt(0);
+            if (slowParticles.Count > dustParticleLimit) slowParticles.RemoveAt(0);
 
             // Create New Particle
-            dustParticles.Add(new DustParticle(this));
+            slowParticles.Add(new DustParticle(this));
+        }
+
+        private void CreateJumpParticles()
+        {
+            jumpParticles.Add(new DustParticle(this, true));
+            jumpParticles.Add(new DustParticle(this, false));
         }
 
         /// <summary>
@@ -108,6 +116,8 @@ namespace Escapeaway.Source.States.Level
         /// </summary>
         public void Reset()
         {
+            ClearParticles();
+
             // Stop Moving (wait for player input)
             moving = false;
 
@@ -154,6 +164,12 @@ namespace Escapeaway.Source.States.Level
             cantSlide = false;
         }
 
+        private void ClearParticles()
+        {
+            slowParticles.Clear();
+            jumpParticles.Clear();
+        }
+
         public override void OnUpdate(GameTime gameTime)
         {
             // Prevent an illegal score
@@ -166,7 +182,7 @@ namespace Escapeaway.Source.States.Level
             if (!moving)
             {
                 // Hide Dust Particles
-                dustParticles.Clear();
+                slowParticles.Clear();
 
                 // Start Movement
                 if (KeyPress(Keys.Right) && !countdownRun)
@@ -223,6 +239,7 @@ namespace Escapeaway.Source.States.Level
                     yVelocity = -jumpIncrement;
 
                     jumping = true;
+                    aboveGround = true;
 
                     SFX.jump.Play();
                 }
@@ -245,9 +262,20 @@ namespace Escapeaway.Source.States.Level
                         // Place Player on Ground
                         if (this.Y <= sprite.GetDestRect().Y)
                         {
-                            // Stop Jump
+                            // Set Y Position
                             this.Y = sprite.GetDestRect().Y - this.Height;
+                            
+                            // Create Jump Particles
+                            if (jumping && aboveGround)
+                            {
+                                CreateJumpParticles();
+                                aboveGround = false;
+                            }
+                            
+                            // Set Y Velocity
                             yVelocity = 0;
+
+                            // Stop Jump
                             jumping = false;
 
                             // Don't End Collision Until Player Stops Touching Sprite
@@ -310,7 +338,7 @@ namespace Escapeaway.Source.States.Level
                             SFX.skid.Play();
 
                             // Create new Dust
-                            NewDustParticle();
+                            NewSlowDownParticle();
                         }
 
                         slowDownSfxTimer = 0f;
@@ -391,14 +419,12 @@ namespace Escapeaway.Source.States.Level
                     if (reachedEnd) this.X = 0 - this.Width;
 
                     // Reset Particles
-                    dustParticles.Clear();
+                    ClearParticles();
                 }
 
                 // Update Particles
-                foreach (DustParticle dust in dustParticles)
-                {
-                    dust.Update(gameTime);
-                }
+                foreach (var slowDust in slowParticles) slowDust.Update(gameTime);
+                foreach (var jumpDust in jumpParticles) jumpDust.Update(gameTime);
             }
         }
 
@@ -408,10 +434,8 @@ namespace Escapeaway.Source.States.Level
             if (!flickering) base.Draw(spriteBatch);
 
             // Draw Particles
-            foreach (DustParticle dust in dustParticles)
-            {
-                dust.Draw(spriteBatch);
-            }
+            foreach (var slowDust in slowParticles) slowDust.Draw(spriteBatch);
+            foreach (var jumpDust in jumpParticles) jumpDust.Draw(spriteBatch);
         }
     }
 }

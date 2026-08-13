@@ -20,15 +20,20 @@ namespace Escapeaway.Source.States.Level.Particles
             sheetSize = new Point(16, 8);
         private int offsetToPlayer = 6; // How far in front of player to spawn
 
-        private int pixelsToMoveBack = 1;
+        private bool moveLeft;
+        private int pixelsToMove = 1;
 
         private float
             timeExisted = 0f,
             timeToExist = 220f; // Frames to exist until deleted
         private bool draw = true;
 
-        public DustParticle(Player player)
+        public DustParticle(Player player, bool moveLeft = true)
         {
+            // Set Variables
+
+            this.moveLeft = moveLeft;
+
             // Set Sprite
 
             dust = new Character(
@@ -57,8 +62,11 @@ namespace Escapeaway.Source.States.Level.Particles
             dust.PlayAnimation("default");
             dust.animSpeed = 100; // Slowwww
 
-            // Move Backwards
-            dust.X -= pixelsToMoveBack;
+            // Move Left
+            if (moveLeft) dust.X -= pixelsToMove;
+
+            // Move Right
+            else dust.X += pixelsToMove;
 
             timeExisted += gameTime.ElapsedGameTime.Milliseconds;
 
