@@ -23,7 +23,7 @@ namespace Escapeaway.Source.States
         
         FirstRoomDevil firstRoomDevil;
         BackgroundDevil backgroundDevil;
-        EndlessMonster endlessMonster;
+        EndlessFollower follower;
 
         Player player;
         
@@ -60,7 +60,7 @@ namespace Escapeaway.Source.States
 
             firstRoomDevil = new FirstRoomDevil();
             backgroundDevil = new BackgroundDevil();
-            endlessMonster = new EndlessMonster();
+            follower = new EndlessFollower();
 
             player = new Player(null, new Point(16, 120), Color.White, defaultLives);
 
@@ -89,7 +89,7 @@ namespace Escapeaway.Source.States
             player.Reset();
 
             // Reset Endless Monster
-            endlessMonster.MovePositionBack();
+            if (main.endless) follower.MovePositionBack();
 
             // Reset Particles
             heatParticles.Clear();
@@ -109,7 +109,7 @@ namespace Escapeaway.Source.States
 
             firstRoomDevil.Show();
             backgroundDevil.Reset();
-            endlessMonster.Reset();
+            follower.Reset();
 
             // Reset Player Values (score, lives, etc)
             player.lives = defaultLives;
@@ -143,9 +143,20 @@ namespace Escapeaway.Source.States
                 roomLayout.Update(gameTime);
                 roomDisclaimer.Update(gameTime, player);
 
+                // Update Enemies
                 firstRoomDevil.Update(gameTime);
                 if (currentScreen == screenWithBackgroundDevil) backgroundDevil.Update(gameTime);
-                if (main.endless) endlessMonster.Update(gameTime, player, currentScreen);
+                
+                if (player.moving) // Enemies to only update while player is moving
+                {
+                    // Endless Follower
+                    if (main.endless) follower.Update(gameTime, player, currentScreen);
+                }
+                // Reset Enemy Positions
+                else
+                {
+                    follower.MovePositionBack();
+                }
 
                 player.SetRoom(this.roomLayout);
                 player.Update(gameTime);
@@ -189,7 +200,7 @@ namespace Escapeaway.Source.States
 
                     // Hide Enemies
                     if (currentScreen != 0) firstRoomDevil.Hide();
-                    if (main.endless) endlessMonster.MovePositionBack();
+                    if (main.endless) follower.MovePositionBack();
 
                     // Add to Score
                     player.score += random.Next(2, 5);
@@ -218,16 +229,13 @@ namespace Escapeaway.Source.States
             // Background
             graphicsDevice.Clear(screenColor);
             heatBG.Draw(spriteBatch);
-            
-            // Devil (Background)
             if (currentScreen == screenWithBackgroundDevil) backgroundDevil.Draw(spriteBatch);
             firstRoomDevil.Draw(spriteBatch);
-            if (main.endless) endlessMonster.Draw(spriteBatch);
 
-            // Level Objects
+            // Level
             roomLayout.Draw(spriteBatch);
-
             player.Draw(spriteBatch);
+            if (main.endless) follower.Draw(spriteBatch);
 
             // Particles
             foreach (HeatParticle heatParticle in heatParticles) heatParticle.Draw(spriteBatch);
