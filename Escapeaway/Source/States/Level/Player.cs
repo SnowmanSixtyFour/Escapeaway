@@ -340,11 +340,11 @@ namespace Escapeaway.Source.States.Level
 
                     if (!jumping && KeyHold(Keys.Down))
                     {
+                        // Set Sliding Timer
+                        if (!sliding) slideCounter = slideStart;
+
                         // Start Sliding
                         sliding = true;
-
-                        // Set Sliding Timer
-                        slideCounter = slideStart;
 
                         if (this.Width != slidingSize.X && this.Height != slidingSize.Y)
                         {
@@ -360,7 +360,14 @@ namespace Escapeaway.Source.States.Level
                 if (sliding)
                 {
                     // Sliding Timer
-                    slideCounter--;
+                    if (slideCounter > 1) slideCounter--;
+                    else
+                    {
+                        if (!KeyHold(Keys.Down))
+                        {
+                            slideCounter = 0;
+                        }
+                    }
 
                     // When Sliding is Finished
                     if (slideCounter <= 0)

@@ -17,11 +17,23 @@ namespace Escapeaway.Source.States.Level.Boss
             sheetSize = new Point(20, 20);
         private int
             yOffset = 25,
-            pixelsToMove = 4;
+            pixelsToMove = 4,
+
+            startingPosition = 0;
 
         public BackgroundDevil()
         {
-            devil = new Character(null, new Point(-this.size.X, (Global.resHeight / 2) - (this.size.Y / 2) - yOffset), sheetSize, size, Color.White);
+            // Set Starting Position
+            this.startingPosition = -Global.resWidth;
+
+            // Set Sprite
+            devil = new Character(null, new Point(startingPosition, (Global.resHeight / 2) - (this.size.Y / 2) - yOffset), sheetSize, size, Color.White);
+        }
+
+        public void Reset()
+        {
+            // Set Position
+            devil.X = -Global.resWidth;
         }
 
         public void Update(GameTime gameTime)

@@ -103,6 +103,7 @@ namespace Escapeaway.Source.States
             SetScreenColor();
 
             firstRoomDevil.Show();
+            backgroundDevil.Reset();
 
             // Reset Player Values (score, lives, etc)
             player.lives = defaultLives;
@@ -209,11 +210,13 @@ namespace Escapeaway.Source.States
             // Background
             graphicsDevice.Clear(screenColor);
             heatBG.Draw(spriteBatch);
-
-            // Level
-            roomLayout.Draw(spriteBatch);
-            firstRoomDevil.Draw(spriteBatch);
+            
+            // Devil (Background)
             if (currentScreen == screenWithBackgroundDevil) backgroundDevil.Draw(spriteBatch);
+            firstRoomDevil.Draw(spriteBatch);
+
+            // Level Objects
+            roomLayout.Draw(spriteBatch);
 
             player.Draw(spriteBatch);
 
