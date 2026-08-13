@@ -1,16 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Escapeaway;
+using Escapeaway.Source;
+using Escapeaway.Source.Objects;
+using Escapeaway.Source.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-using Escapeaway;
-using Escapeaway.Source;
-using Escapeaway.Source.Objects;
-using Escapeaway.Source.States;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Escapeaway.Source.States
 {
@@ -29,6 +32,11 @@ namespace Escapeaway.Source.States
 
         // Pausing
         public bool canPause = true;
+
+        // Temporary Variables
+        private int
+            newHighscore = 0,
+            newEndlessHighscore = 0;
 
         public State()
         {
@@ -120,6 +128,28 @@ namespace Escapeaway.Source.States
         {
             // Switch to New State IF Condition is Met
             if (entry) SwitchState(newState);
+        }
+
+        public void WriteToOptions(int newScore = 0, int newEndlessScore = 0)
+        {
+            // Write to Options.xml
+
+            if (File.Exists("C:/Users/" + Environment.UserName + "/Documents/My Games/ESCAPEAWAY!/Options.xml"))
+            {
+                XDocument settingsDoc = XDocument.Load("C:/Users/" + Environment.UserName + "/Documents/My Games/ESCAPEAWAY!/Options.xml");
+
+                settingsDoc.Descendants("Fullscreen").First().Value = Convert.ToString(Global.fullscreen);
+                if (Global.highscore != newScore) settingsDoc.Descendants("Highscore").First().Value = Convert.ToString(newScore);
+                if (Global.endlessHighscore != newScore) settingsDoc.Descendants("EndlessHighscore").First().Value = Convert.ToString(newEndlessScore);
+
+                settingsDoc.Save("C:/Users/" + Environment.UserName + "/Documents/My Games/ESCAPEAWAY!/Options.xml", SaveOptions.None);
+
+                Debug.Print("Saved to Options.xml.");
+            }
+            else // If Options.xml does not exist
+            {
+                Global.checkAndCreateOptions = true;
+            }
         }
 
         // Controls

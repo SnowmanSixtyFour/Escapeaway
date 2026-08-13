@@ -36,13 +36,16 @@ namespace Escapeaway.Source.States
             Made for BOSS BASH JAM 4
             """;
 
-        private Text version, highscore;
+        private Text
+            version,
+            highscore, endlessHighscore;
 
         // Buttons
         private ButtonList buttons;
         private int
             buttonX = 22,
             buttonY = 80;
+        private Vector2 endlessHighscorePosition;
 
         public TitleState()
         {
@@ -52,6 +55,11 @@ namespace Escapeaway.Source.States
             logo.CreateAnimation("default", 0, 6);
 
             highscore = new Text(Global.defaultFont, "", new Vector2(62, logoY + 34), CustomColor.Yellow, 1.0f, false);
+
+            if (Global.highscore != 0) endlessHighscorePosition = new Vector2(72, (logoY + 48));
+            else endlessHighscorePosition = new Vector2(66, (logoY + 34));
+            endlessHighscore = new Text(Global.defaultFont, "", endlessHighscorePosition, CustomColor.Yellow, 1.0f, false);
+
             SetHighscore();
 
             overlay = new StaticSprite(Global.titleOverlay, new Rectangle(0, 0, Global.resWidth, Global.resHeight), CustomColor.White);
@@ -68,9 +76,10 @@ namespace Escapeaway.Source.States
             buttons.Add("Exit", new Vector2(buttonX, buttonY + 80), CustomColor.White);
         }
 
-        private void SetHighscore()
+        public void SetHighscore()
         {
             highscore.setText("HISCORE " + Global.highscore);
+            endlessHighscore.setText("Endless HISCORE " + Global.endlessHighscore);
 
             // Little easter eggs, they're unoptimized but I don't care :)
 
@@ -85,14 +94,28 @@ namespace Escapeaway.Source.States
             {
                 highscore.setColor(CustomColor.Red);
             }
+            if (Global.endlessHighscore == 6 ||
+                Global.endlessHighscore == 66 ||
+                Global.endlessHighscore == 666 ||
+                Global.endlessHighscore == 6666 ||
+                Global.endlessHighscore == 66666 ||
+                Global.endlessHighscore == 666666 ||
+                Global.endlessHighscore == 6666666)
+            {
+                endlessHighscore.setColor(CustomColor.Red);
+            }
 
             // Illegal score
-            if (Global.highscore < 0 || Global.highscore > Global.maxScore)
+            if (Global.highscore < 0 || Global.highscore > Global.maxScore
+                || Global.endlessHighscore < 0 || Global.endlessHighscore > Global.maxScore)
             {
                 highscore.setText("""
                     THE DEVIL KNOWS
                          A CHEATER!
                     """);
+                endlessHighscore.setText("");
+
+                highscore.setColor(CustomColor.Red);
             }
         }
 
@@ -145,6 +168,7 @@ namespace Escapeaway.Source.States
 
             logo.Draw(spriteBatch);
             if (Global.highscore != 0) highscore.Draw(spriteBatch);
+            if (Global.endlessHighscore != 0) endlessHighscore.Draw(spriteBatch);
             copyright.Draw(spriteBatch);
             version.Draw(spriteBatch);
             buttons.Draw(spriteBatch);

@@ -172,6 +172,15 @@ namespace Escapeaway.Source.States
                     // Go to Game Over Screen
                     SwitchState(main.title);
 
+                    // Set Endless Mode Score
+                    if (this.endless)
+                    {
+                        Global.endlessHighscore = player.score;
+
+                        WriteToOptions(newEndlessScore: player.score);
+                        main.title.SetHighscore();
+                    }
+
                     // Reset Game Over Flag
                     player.gameOver = false;
                 }

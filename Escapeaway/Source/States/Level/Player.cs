@@ -145,10 +145,13 @@ namespace Escapeaway.Source.States.Level
             shouldFlicker = true;
             countdownRun = true;
 
-            // If score is above 1, cut it in half after death
-            if (score > 1) score /= 2;
-            // If score is THAT low, set to 0
-            else score = 0;
+            if (lives > 0)
+            {
+                // If score is above 1, cut it in half after death
+                if (score > 1) score /= 2;
+                // If score is THAT low, set to 0
+                else score = 0;
+            }
             
             // Take a life
             if (lives > 0) lives--;

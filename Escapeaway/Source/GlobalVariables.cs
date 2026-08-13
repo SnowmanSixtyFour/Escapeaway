@@ -28,7 +28,9 @@ namespace Escapeaway.Source
 
         public static string gameVersion = "1.0.0";
 
-        public static int highscore = 0;
+        public static int
+            highscore = 0,
+            endlessHighscore = 0;
 
         // Bools not to be messed with (window properties)
         public static bool

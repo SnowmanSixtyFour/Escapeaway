@@ -30,10 +30,6 @@ namespace Escapeaway.Source.States
         // Buttons
         private ButtonList buttons;
 
-        // Temporary Variables
-        private int
-            newHighscore = 0;
-
         public OptionsState()
         {
             // Display Text
@@ -43,7 +39,7 @@ namespace Escapeaway.Source.States
             // Buttons
             buttons = new ButtonList();
             buttons.Add("Fullscreen", new Vector2(6, 24), CustomColor.White, false);
-            buttons.Add("Reset HISCORE", new Vector2(6, 48), CustomColor.White);
+            buttons.Add("Reset HISCOREs", new Vector2(6, 48), CustomColor.White);
 
             UpdateButtonText();
         }
@@ -67,7 +63,8 @@ namespace Escapeaway.Source.States
                 // Reset Highscore
                 if (buttons.ButtonSelected(1, this))
                 {
-                    Global.highscore = newHighscore;
+                    Global.highscore = 0;
+                    Global.highscore = 0;
                 }
 
                 // Accept SFX
@@ -80,23 +77,7 @@ namespace Escapeaway.Source.States
             if (KeyPress(Keys.X) || KeyPress(Keys.Escape)
                 || ButtonPress(Buttons.B))
             {
-                // Write to Options.xml
-
-                if (File.Exists("C:/Users/" + Environment.UserName + "/Documents/My Games/ESCAPEAWAY!/Options.xml"))
-                {
-                    XDocument settingsDoc = XDocument.Load("C:/Users/" + Environment.UserName + "/Documents/My Games/ESCAPEAWAY!/Options.xml");
-
-                    settingsDoc.Descendants("Fullscreen").First().Value = Convert.ToString(Global.fullscreen);
-                    if (Global.highscore == this.newHighscore) settingsDoc.Descendants("Highscore").First().Value = Convert.ToString(this.newHighscore);
-
-                    settingsDoc.Save("C:/Users/" + Environment.UserName + "/Documents/My Games/ESCAPEAWAY!/Options.xml", SaveOptions.None);
-
-                    Debug.Print("Saved to Options.xml.");
-                }
-                else // If Options.xml does not exist
-                {
-                    Global.checkAndCreateOptions = true;
-                }
+                WriteToOptions();
 
                 // Go to Title
                 SwitchState(main.title);
