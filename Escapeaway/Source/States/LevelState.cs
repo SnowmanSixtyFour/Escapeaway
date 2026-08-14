@@ -22,7 +22,7 @@ namespace Escapeaway.Source.States
         RoomLayout roomLayout;
         FirstRoomDisclaimer roomDisclaimer;
 
-        Clouds clouds;
+        Clouds levelBackground;
 
         FirstRoomDevil firstRoomDevil;
         BackgroundDevil backgroundDevil;
@@ -51,9 +51,6 @@ namespace Escapeaway.Source.States
             timeBeforeNewHeatParticle = 360f;
         int heatParticleLimit = 14;
 
-        private StaticSprite heatBG;
-        private int heatBGHeight = 22;
-
         public LevelState()
         {
             // Set Variables
@@ -63,16 +60,13 @@ namespace Escapeaway.Source.States
             roomLayout = new RoomLayout();
             roomDisclaimer = new FirstRoomDisclaimer();
 
-            clouds = new Clouds();
+            levelBackground = new Clouds();
 
             firstRoomDevil = new FirstRoomDevil();
             backgroundDevil = new BackgroundDevil();
             follower = new EndlessFollower();
 
             player = new Player(null, new Point(16, 120), Color.White, defaultLives);
-
-            // Background
-            heatBG = new StaticSprite(Global.heatBG, new Rectangle(0, Global.resHeight - this.heatBGHeight, Global.resWidth, this.heatBGHeight), CustomColor.LightOrange);
 
             // HUD
             hud = new HUD();
@@ -142,7 +136,7 @@ namespace Escapeaway.Source.States
                 roomLayout.Update(gameTime);
                 roomDisclaimer.Update(gameTime, player);
 
-                clouds.Update(gameTime);
+                levelBackground.Update(gameTime);
 
                 // Update Enemies
                 firstRoomDevil.Update(gameTime);
@@ -243,9 +237,7 @@ namespace Escapeaway.Source.States
         {
             // Background
             graphicsDevice.Clear(screenColor);
-            heatBG.Draw(spriteBatch);
-
-            clouds.Draw(spriteBatch);
+            levelBackground.Draw(spriteBatch);
 
             if (currentScreen == screenWithBackgroundDevil) backgroundDevil.Draw(spriteBatch);
             firstRoomDevil.Draw(spriteBatch);
