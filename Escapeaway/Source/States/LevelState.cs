@@ -43,7 +43,7 @@ namespace Escapeaway.Source.States
             
             randomScreenColor = 0;
         private Random random;
-        private Color screenColor = CustomColor.Red;
+        private Color screenColor = new Color(255, 110, 160);
 
         private List<HeatParticle> heatParticles = new List<HeatParticle>();
         private float
@@ -72,7 +72,7 @@ namespace Escapeaway.Source.States
             player = new Player(null, new Point(16, 120), Color.White, defaultLives);
 
             // Background
-            heatBG = new StaticSprite(null, new Rectangle(0, Global.resHeight - this.heatBGHeight, Global.resWidth, this.heatBGHeight), CustomColor.LightOrange);
+            heatBG = new StaticSprite(Global.heatBG, new Rectangle(0, Global.resHeight - this.heatBGHeight, Global.resWidth, this.heatBGHeight), CustomColor.LightOrange);
 
             // HUD
             hud = new HUD();
@@ -112,7 +112,8 @@ namespace Escapeaway.Source.States
             roomLayout.GoToRoomOne();
 
             player.reachedEnd = false;
-            SetScreenColor();
+
+            this.screenColor = CustomColor.Red;
 
             firstRoomDevil.Show();
             backgroundDevil.Reset();
@@ -127,18 +128,6 @@ namespace Escapeaway.Source.States
 
             // Reset Room
             ResetLevel();
-        }
-
-        private void SetScreenColor()
-        {
-            SetScreenColor(0);
-        }
-
-        private void SetScreenColor(int screenColor)
-        {
-            if (screenColor == 0) this.screenColor = CustomColor.Red;
-            else if (screenColor == 1) this.screenColor = CustomColor.DarkRed;
-            else if (screenColor == 2) this.screenColor = CustomColor.Brown;
         }
 
         public override void OnUpdate(GameTime gameTime, Main main)
@@ -219,16 +208,17 @@ namespace Escapeaway.Source.States
                     // Update Current Sceen Count
                     currentScreen++;
 
+                    // Change Screen Color
+                    screenColor = new Color(screenColor.R - 1, screenColor.G, screenColor.B);
+                    if (screenColor.G < 140) screenColor = new Color(screenColor.R, screenColor.G + 1, screenColor.B);
+                    screenColor = new Color(screenColor.R, screenColor.G, screenColor.B + 1);
+
                     // Hide Enemies
                     if (currentScreen != 0) firstRoomDevil.Hide();
                     if (main.endless) follower.MovePositionBack();
 
                     // Add to Score
                     player.score += random.Next(2, 5);
-
-                    // Randomize Screen Colour
-                    randomScreenColor = random.Next(0, 3);
-                    SetScreenColor(randomScreenColor);
 
                     // Set Flag to False
                     player.reachedEnd = false;

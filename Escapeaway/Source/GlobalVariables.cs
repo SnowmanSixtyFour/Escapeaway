@@ -59,7 +59,7 @@ namespace Escapeaway.Source
             logo, titleOverlay,
 
             // Gameplay
-            clouds,
+            clouds, heatBG,
 
             // Particles
             dustParticle, heatParticle;
@@ -76,6 +76,7 @@ namespace Escapeaway.Source
             titleOverlay = Content.Load<Texture2D>("Assets/Images/Title/titleOverlay");
 
             clouds = Content.Load<Texture2D>("Assets/Images/Level/clouds");
+            heatBG = Content.Load<Texture2D>("Assets/Images/Level/heatBG");
 
             dustParticle = Content.Load<Texture2D>("Assets/Images/Level/dust");
             heatParticle = Content.Load<Texture2D>("Assets/Images/Level/heat");

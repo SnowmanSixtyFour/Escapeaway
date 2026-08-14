@@ -16,7 +16,7 @@ namespace Escapeaway.Source.Graphics
         protected Color color;
 
         public bool tiled;
-        public float offset; // Offset value for tiled scrolling
+        public float xOffset, yOffset; // Offset values for tiled scrolling
 
         public StaticSprite(Texture2D texture, Rectangle rect, Color color, bool tiled = false)
         {
@@ -48,7 +48,7 @@ namespace Escapeaway.Source.Graphics
             if (!tiled) spriteBatch.Draw(texture, destRect, color);
 
             // Draw Tiled Sprite (With Offset)
-            else spriteBatch.Draw(texture, destRect, new Rectangle(new Point((int)offset, destRect.Y), destRect.Size), color);
+            else spriteBatch.Draw(texture, destRect, new Rectangle(new Point((int)xOffset, (int)yOffset), destRect.Size), color);
 
             // End Tiled SpriteBatch
             if (tiled) spriteBatch.End();

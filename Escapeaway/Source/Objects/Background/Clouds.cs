@@ -11,24 +11,29 @@ namespace Escapeaway.Source.Objects.Background
 {
     internal class Clouds
     {
-        private StaticSprite clouds;
-
-        private float cloudScrollSpeed = 3.0f;
+        private StaticSprite clouds, clouds2;
 
         public Clouds()
         {
-            clouds = new StaticSprite(Global.clouds, new Rectangle(0, 32, Global.resWidth, Global.resHeight / 3), (Color.White * 0.5f), true);
+            clouds = new StaticSprite(Global.clouds, new Rectangle(0, 0, Global.resWidth, Global.resHeight), (Color.White * 0.15f), true);
+            clouds2 = new StaticSprite(Global.clouds, new Rectangle(0, 0, Global.resWidth, Global.resHeight), (Color.White * 0.25f), true);
+
+            clouds2.xOffset += 14f;
+            clouds2.yOffset += 20f;
         }
 
         public void Update(GameTime gameTime)
         {
-            float cloudsOffset = cloudScrollSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            clouds.xOffset += (float)(4.0f * (float)gameTime.ElapsedGameTime.TotalSeconds);
+            clouds.yOffset += (float)(-1.5f * (float)gameTime.ElapsedGameTime.TotalSeconds);
 
-            clouds.offset += cloudsOffset;
+            clouds2.xOffset += (float)(12.0f * (float)gameTime.ElapsedGameTime.TotalSeconds);
+            clouds2.yOffset += (float)(-5.0f * (float)gameTime.ElapsedGameTime.TotalSeconds);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            clouds2.Draw(spriteBatch);
             clouds.Draw(spriteBatch);
         }
     }
