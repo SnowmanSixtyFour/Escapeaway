@@ -5,9 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Escapeaway.Source.Objects;
 
-namespace Escapeaway.Source.States.Level.Boss
+namespace Escapeaway.Source.Objects.Level.Background.Boss
 {
     internal class FirstRoomDevil
     {
@@ -32,12 +31,12 @@ namespace Escapeaway.Source.States.Level.Boss
 
         public void Hide()
         {
-            this.visible = false;
+            visible = false;
         }
 
         public void Show()
         {
-            this.visible = true;
+            visible = true;
         }
 
         public void Update(GameTime gameTime)
@@ -65,7 +64,7 @@ namespace Escapeaway.Source.States.Level.Boss
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (this.visible) devil.Draw(spriteBatch);
+            if (visible) devil.Draw(spriteBatch);
         }
     }
 }

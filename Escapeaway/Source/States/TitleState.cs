@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Input;
 using Escapeaway;
 using Escapeaway.Source.Graphics;
 using Escapeaway.Source.Objects;
-using Escapeaway.Source.States.GUI;
+using Escapeaway.Source.Graphics.GUI;
 
 namespace Escapeaway.Source.States
 {

@@ -7,8 +7,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Escapeaway.Source.Graphics;
+using Escapeaway.Source.States;
 
-namespace Escapeaway.Source.States.GUI
+namespace Escapeaway.Source.Graphics.GUI
 {
     internal class ButtonList
     {
@@ -48,12 +49,12 @@ namespace Escapeaway.Source.States.GUI
             }
         }
 
-        public void Add(String text, Vector2 position, Color color)
+        public void Add(string text, Vector2 position, Color color)
         {
             Add(text, position, color, true);
         }
 
-        public void Add(String text, Vector2 position, Color color, bool centered)
+        public void Add(string text, Vector2 position, Color color, bool centered)
         {
             buttons.Add(new Text(Global.defaultFont, text, position, color, 1.0f, centered));
 
@@ -64,12 +65,12 @@ namespace Escapeaway.Source.States.GUI
 
         public Text GetButton(int button)
         {
-            return this.buttons[button];
+            return buttons[button];
         }
 
         public Text GetSelectedButton()
         {
-            return this.buttons[buttonSelected];
+            return buttons[buttonSelected];
         }
 
         private void SelectButton(int button)

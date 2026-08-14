@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Escapeaway.Source.Graphics;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Escapeaway.Source.States.Level.Rooms
+namespace Escapeaway.Source.Objects.Level.Rooms
 {
     internal class RoomGround
     {
@@ -17,7 +17,7 @@ namespace Escapeaway.Source.States.Level.Rooms
         {
             this.sprites = sprites;
 
-            foreach (var sprite in sprites) this.Y.Add(sprite.GetDestRect().Y);
+            foreach (var sprite in sprites) Y.Add(sprite.GetDestRect().Y);
         }
 
         public void Draw(SpriteBatch spriteBatch)

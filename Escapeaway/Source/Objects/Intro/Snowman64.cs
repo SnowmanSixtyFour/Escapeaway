@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Escapeaway.Source.Graphics;
 using Escapeaway.Source.Objects;
 
-namespace Escapeaway.Source.States.Intro
+namespace Escapeaway.Source.Objects.Intro
 {
     internal class Snowman64
     {
@@ -24,7 +24,7 @@ namespace Escapeaway.Source.States.Intro
         {
             logo = new Character(
                 Global.snowman64,
-                new Point((Global.resWidth / 2) - (size.X / 2), (Global.resHeight / 2) - (size.Y / 2)),
+                new Point(Global.resWidth / 2 - size.X / 2, Global.resHeight / 2 - size.Y / 2),
                 new Point(1620, 20),
                 new Point(size.X, size.Y),
                 Color.White);

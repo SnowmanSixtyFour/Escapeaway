@@ -9,8 +9,9 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Audio;
 using Escapeaway.Source.Objects;
 using Escapeaway.Source.Graphics;
+using Escapeaway.Source.Objects.Level;
 
-namespace Escapeaway.Source.States.Level.Particles
+namespace Escapeaway.Source.Objects.Level.Particles
 {
     internal class DustParticle
     {

@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 using Escapeaway.Source.Graphics;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Escapeaway.Source.States.Level.Particles
+namespace Escapeaway.Source.Objects.Level.Particles
 {
     internal class HeatParticle
     {
@@ -30,7 +30,7 @@ namespace Escapeaway.Source.States.Level.Particles
             random = new Random();
 
             // Set Sprite
-            heat = new StaticSprite(Global.heatParticle, new Rectangle(location, this.size), CustomColor.LightOrange);
+            heat = new StaticSprite(Global.heatParticle, new Rectangle(location, size), CustomColor.LightOrange);
 
             // Set Direction to Move
             int moveLeft = random.Next(0, 2);

@@ -5,15 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Escapeaway.Source;
 using Escapeaway.Source.Graphics;
 
-namespace Escapeaway.Source.States.Level
+namespace Escapeaway.Source.Objects.Level
 {
     internal class PauseOverlay
     {
         private Text pause, options;
-        private String optionsText =
+        private string optionsText =
             """
             Press [ESCAPE] to Resume
 

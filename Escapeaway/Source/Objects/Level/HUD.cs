@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Escapeaway.Source;
 using Escapeaway.Source.Graphics;
+using Escapeaway.Source.States;
 
-namespace Escapeaway.Source.States.Level
+namespace Escapeaway.Source.Objects.Level
 {
     internal class HUD
     {

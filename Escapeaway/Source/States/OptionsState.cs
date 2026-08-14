@@ -1,6 +1,6 @@
 ﻿using Escapeaway;
 using Escapeaway.Source.Graphics;
-using Escapeaway.Source.States.GUI;
+using Escapeaway.Source.Graphics.GUI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;

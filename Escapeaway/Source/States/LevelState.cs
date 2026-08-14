@@ -9,11 +9,11 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Escapeaway;
 using Escapeaway.Source.Graphics;
-using Escapeaway.Source.States.Level;
-using Escapeaway.Source.States.Level.Boss;
-using Escapeaway.Source.States.Level.Particles;
-using Escapeaway.Source.States.Level.Rooms;
-using Escapeaway.Source.Objects.Background;
+using Escapeaway.Source.Objects.Level;
+using Escapeaway.Source.Objects.Level.Particles;
+using Escapeaway.Source.Objects.Level.Background;
+using Escapeaway.Source.Objects.Level.Background.Boss;
+using Escapeaway.Source.Objects.Level.Rooms;
 
 namespace Escapeaway.Source.States
 {

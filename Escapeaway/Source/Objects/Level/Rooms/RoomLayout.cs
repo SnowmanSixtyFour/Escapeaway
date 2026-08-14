@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Escapeaway.Source.Graphics;
 
-namespace Escapeaway.Source.States.Level.Rooms
+namespace Escapeaway.Source.Objects.Level.Rooms
 {
     internal class RoomLayout
     {

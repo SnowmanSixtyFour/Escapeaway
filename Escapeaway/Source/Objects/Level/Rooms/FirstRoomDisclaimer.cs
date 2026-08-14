@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Escapeaway.Source.Graphics;
+using Escapeaway.Source.Objects.Level;
 
-namespace Escapeaway.Source.States.Level.Rooms
+namespace Escapeaway.Source.Objects.Level.Rooms
 {
     internal class FirstRoomDisclaimer
     {
@@ -15,7 +16,7 @@ namespace Escapeaway.Source.States.Level.Rooms
 
         private Text controls, start;
 
-        private String controlsString =
+        private string controlsString =
             """
                 [Z] - Jump
             [Left Arrow] - Slow Down
@@ -61,7 +62,7 @@ namespace Escapeaway.Source.States.Level.Rooms
             }
 
             // Hide when Player Moves
-            if (player.moving) this.visible = false;
+            if (player.moving) visible = false;
         }
 
         public void Draw(SpriteBatch spriteBatch)

@@ -5,9 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Escapeaway.Source.Objects;
 
-namespace Escapeaway.Source.States.Level.Boss
+namespace Escapeaway.Source.Objects.Level.Background.Boss
 {
     internal class BackgroundDevil
     {
@@ -24,10 +23,10 @@ namespace Escapeaway.Source.States.Level.Boss
         public BackgroundDevil()
         {
             // Set Starting Position
-            this.startingPosition = -Global.resWidth;
+            startingPosition = -Global.resWidth;
 
             // Set Sprite
-            devil = new Character(null, new Point(startingPosition, (Global.resHeight / 2) - (this.size.Y / 2) - yOffset), sheetSize, size, Color.White);
+            devil = new Character(null, new Point(startingPosition, Global.resHeight / 2 - size.Y / 2 - yOffset), sheetSize, size, Color.White);
         }
 
         public void Reset()

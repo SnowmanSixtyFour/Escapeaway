@@ -8,10 +8,10 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Audio;
 using Escapeaway.Source.Objects;
-using Escapeaway.Source.States.Level.Particles;
-using Escapeaway.Source.States.Level.Rooms;
+using Escapeaway.Source.Objects.Level.Particles;
+using Escapeaway.Source.Objects.Level.Rooms;
 
-namespace Escapeaway.Source.States.Level
+namespace Escapeaway.Source.Objects.Level
 {
     internal class Player : Character
     {
@@ -87,13 +87,13 @@ namespace Escapeaway.Source.States.Level
 
         public Player(Texture2D spriteSheet, Point location, Color color, int startingLives) : base(spriteSheet, location, size, sheetSize, color)
         {
-            this.startingPosition = location;
-            this.lives = startingLives;
+            startingPosition = location;
+            lives = startingLives;
         }
 
         public void SetRoom(RoomLayout newRoom)
         {
-            this.room = newRoom;
+            room = newRoom;
         }
 
         private void NewSlowDownParticle()
@@ -122,14 +122,14 @@ namespace Escapeaway.Source.States.Level
             moving = false;
 
             // Reset Position
-            this.X = startingPosition.X;
-            this.Y = startingPosition.Y;
+            X = startingPosition.X;
+            Y = startingPosition.Y;
 
             // Reset Values
             cantSlide = true;
 
-            this.Width = size.X;
-            this.Height = size.Y;
+            Width = size.X;
+            Height = size.Y;
 
             countdownRun = false;
             flickering = false;
@@ -239,7 +239,7 @@ namespace Escapeaway.Source.States.Level
             if (moving)
             {
                 // Lost a Life
-                if (this.Y > Global.resHeight)
+                if (Y > Global.resHeight)
                 {
                     LostLife();
                 }
@@ -267,18 +267,18 @@ namespace Escapeaway.Source.States.Level
                 }
 
                 // Update Y Position
-                this.Y += yVelocity;
+                Y += yVelocity;
 
                 // Room Collision
                 foreach (var sprite in room.ground.sprites)
                 {
-                    if (this.CollidesWith(sprite))
+                    if (CollidesWith(sprite))
                     {
                         // Place Player on Ground
-                        if (this.Y <= sprite.GetDestRect().Y)
+                        if (Y <= sprite.GetDestRect().Y)
                         {
                             // Set Y Position
-                            this.Y = sprite.GetDestRect().Y - this.Height;
+                            Y = sprite.GetDestRect().Y - Height;
                             
                             // Create Jump Particles
                             if (jumping && aboveGround)
@@ -298,21 +298,21 @@ namespace Escapeaway.Source.States.Level
                         }
 
                         // Stop Movement if Touching Wall
-                        if (this.X >= sprite.GetDestRect().X - this.Width && this.X <= sprite.GetDestRect().X + sprite.GetDestRect().Width) blocked = true;
+                        if (X >= sprite.GetDestRect().X - Width && X <= sprite.GetDestRect().X + sprite.GetDestRect().Width) blocked = true;
                         else blocked = false;
                     }
                     // Player is not Touching Ground
                     else
                     {
                         // Apply Gravity
-                        this.jumping = true;
+                        jumping = true;
 
                         blocked = false;
                     }
                 }
 
                 // Move Right
-                if (!blocked) this.X += runSpeed;
+                if (!blocked) X += runSpeed;
 
                 // Penalize Score while Blocked
                 else
@@ -402,12 +402,12 @@ namespace Escapeaway.Source.States.Level
                                 // Start Sliding
                                 sliding = true;
 
-                                if (this.Width != slidingSize.X && this.Height != slidingSize.Y)
+                                if (Width != slidingSize.X && Height != slidingSize.Y)
                                 {
                                     // Update Size
-                                    this.Width = slidingSize.X;
-                                    this.Height = slidingSize.Y;
-                                    this.Y += slidingSize.Y;
+                                    Width = slidingSize.X;
+                                    Height = slidingSize.Y;
+                                    Y += slidingSize.Y;
                                 }
                             }
                         }
@@ -432,9 +432,9 @@ namespace Escapeaway.Source.States.Level
                     if (slideCounter <= 0)
                     {
                         // Reset Size
-                        this.Width = size.X;
-                        this.Height = size.Y;
-                        this.Y -= slidingSize.Y;
+                        Width = size.X;
+                        Height = size.Y;
+                        Y -= slidingSize.Y;
 
                         // Stop Sliding
                         sliding = false;
@@ -442,12 +442,12 @@ namespace Escapeaway.Source.States.Level
                 }
 
                 // Reaching End of Screen
-                if (this.X > Global.resWidth)
+                if (X > Global.resWidth)
                 {
                     reachedEnd = true;
 
                     // Prevent Player From Leaving Screen
-                    if (reachedEnd) this.X = 0 - this.Width;
+                    if (reachedEnd) X = 0 - Width;
 
                     // Reset Particles
                     ClearParticles();

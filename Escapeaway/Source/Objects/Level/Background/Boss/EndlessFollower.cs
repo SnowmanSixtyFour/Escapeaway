@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Escapeaway.Source.Objects;
+using Escapeaway.Source.Objects.Level;
 
-namespace Escapeaway.Source.States.Level.Boss
+namespace Escapeaway.Source.Objects.Level.Background.Boss
 {
     internal class EndlessFollower
     {
@@ -42,7 +42,7 @@ namespace Escapeaway.Source.States.Level.Boss
         public void MovePositionBack()
         {
             // If Not Already Behind a Room
-            if (follower.X >= -this.size.X - 120)
+            if (follower.X >= -size.X - 120)
             {
                 // Move Follower Behind a Room
                 follower.X -= Global.resWidth;
@@ -72,7 +72,7 @@ namespace Escapeaway.Source.States.Level.Boss
         public void Draw(SpriteBatch spriteBatch)
         {
             // Draw Follower
-            if (this.currentScreen != 0) follower.Draw(spriteBatch);
+            if (currentScreen != 0) follower.Draw(spriteBatch);
         }
     }
 }

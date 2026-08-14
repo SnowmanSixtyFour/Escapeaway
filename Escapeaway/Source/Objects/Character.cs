@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Escapeaway;
 using Escapeaway.Source.Graphics;
-using Escapeaway.Source.States.Level.Rooms;
+using Escapeaway.Source.Objects.Level.Rooms;
 
 namespace Escapeaway.Source.Objects
 {
