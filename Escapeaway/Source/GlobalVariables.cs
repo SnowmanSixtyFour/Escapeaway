@@ -58,6 +58,9 @@ namespace Escapeaway.Source
             snowman64,
             logo, titleOverlay,
 
+            // Gameplay
+            clouds,
+
             // Particles
             dustParticle, heatParticle;
         public static SpriteFont
@@ -71,6 +74,8 @@ namespace Escapeaway.Source
             snowman64 = Content.Load<Texture2D>("Assets/Images/Title/snowman64Logo");
             logo = Content.Load<Texture2D>("Assets/Images/Title/logo");
             titleOverlay = Content.Load<Texture2D>("Assets/Images/Title/titleOverlay");
+
+            clouds = Content.Load<Texture2D>("Assets/Images/Level/clouds");
 
             dustParticle = Content.Load<Texture2D>("Assets/Images/Level/dust");
             heatParticle = Content.Load<Texture2D>("Assets/Images/Level/heat");

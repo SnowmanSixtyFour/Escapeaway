@@ -13,6 +13,7 @@ using Escapeaway.Source.States.Level;
 using Escapeaway.Source.States.Level.Boss;
 using Escapeaway.Source.States.Level.Particles;
 using Escapeaway.Source.States.Level.Rooms;
+using Escapeaway.Source.Objects.Background;
 
 namespace Escapeaway.Source.States
 {
@@ -20,7 +21,9 @@ namespace Escapeaway.Source.States
     {
         RoomLayout roomLayout;
         FirstRoomDisclaimer roomDisclaimer;
-        
+
+        Clouds clouds;
+
         FirstRoomDevil firstRoomDevil;
         BackgroundDevil backgroundDevil;
         EndlessFollower follower;
@@ -59,6 +62,8 @@ namespace Escapeaway.Source.States
             // Initialize Level
             roomLayout = new RoomLayout();
             roomDisclaimer = new FirstRoomDisclaimer();
+
+            clouds = new Clouds();
 
             firstRoomDevil = new FirstRoomDevil();
             backgroundDevil = new BackgroundDevil();
@@ -147,6 +152,8 @@ namespace Escapeaway.Source.States
                 // Update Level
                 roomLayout.Update(gameTime);
                 roomDisclaimer.Update(gameTime, player);
+
+                clouds.Update(gameTime);
 
                 // Update Enemies
                 firstRoomDevil.Update(gameTime);
@@ -247,6 +254,9 @@ namespace Escapeaway.Source.States
             // Background
             graphicsDevice.Clear(screenColor);
             heatBG.Draw(spriteBatch);
+
+            clouds.Draw(spriteBatch);
+
             if (currentScreen == screenWithBackgroundDevil) backgroundDevil.Draw(spriteBatch);
             firstRoomDevil.Draw(spriteBatch);
 
