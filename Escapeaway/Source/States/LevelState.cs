@@ -22,7 +22,7 @@ namespace Escapeaway.Source.States
         RoomLayout roomLayout;
         FirstRoomDisclaimer roomDisclaimer;
 
-        Clouds levelBackground;
+        UnderdepthsBackground levelBackground;
 
         FirstRoomDevil firstRoomDevil;
         BackgroundDevil backgroundDevil;
@@ -43,7 +43,7 @@ namespace Escapeaway.Source.States
             
             randomScreenColor = 0;
         private Random random;
-        private Color screenColor = new Color(255, 110, 160);
+        private Color screenColor = CustomColor.Red;
 
         private List<HeatParticle> heatParticles = new List<HeatParticle>();
         private float
@@ -60,7 +60,7 @@ namespace Escapeaway.Source.States
             roomLayout = new RoomLayout();
             roomDisclaimer = new FirstRoomDisclaimer();
 
-            levelBackground = new Clouds();
+            levelBackground = new UnderdepthsBackground();
 
             firstRoomDevil = new FirstRoomDevil();
             backgroundDevil = new BackgroundDevil();
@@ -133,10 +133,10 @@ namespace Escapeaway.Source.States
             if (!Global.paused)
             {
                 // Update Level
-                roomLayout.Update(gameTime);
+                roomLayout.Update(gameTime, this.screenColor);
                 roomDisclaimer.Update(gameTime, player);
 
-                levelBackground.Update(gameTime);
+                levelBackground.Update(gameTime, this.screenColor);
 
                 // Update Enemies
                 firstRoomDevil.Update(gameTime);
@@ -203,9 +203,9 @@ namespace Escapeaway.Source.States
                     currentScreen++;
 
                     // Change Screen Color
-                    screenColor = new Color(screenColor.R - 1, screenColor.G, screenColor.B);
+                    if (screenColor.R > 70) screenColor = new Color(screenColor.R - 1, screenColor.G, screenColor.B);
                     if (screenColor.G < 140) screenColor = new Color(screenColor.R, screenColor.G + 1, screenColor.B);
-                    screenColor = new Color(screenColor.R, screenColor.G, screenColor.B + 1);
+                    if (screenColor.B < 220) screenColor = new Color(screenColor.R, screenColor.G, screenColor.B + 1);
 
                     // Hide Enemies
                     if (currentScreen != 0) firstRoomDevil.Hide();

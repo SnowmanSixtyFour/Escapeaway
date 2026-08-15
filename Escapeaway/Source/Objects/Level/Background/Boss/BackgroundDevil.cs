@@ -18,12 +18,12 @@ namespace Escapeaway.Source.Objects.Level.Background.Boss
             yOffset = 25,
             pixelsToMove = 4,
 
-            startingPosition = 0;
+            startingPosition;
 
         public BackgroundDevil()
         {
             // Set Starting Position
-            startingPosition = -Global.resWidth;
+            startingPosition = (0 - size.X);
 
             // Set Sprite
             devil = new Character(null, new Point(startingPosition, Global.resHeight / 2 - size.Y / 2 - yOffset), sheetSize, size, Color.White);
@@ -32,7 +32,7 @@ namespace Escapeaway.Source.Objects.Level.Background.Boss
         public void Reset()
         {
             // Set Position
-            devil.X = -Global.resWidth;
+            devil.X = startingPosition;
         }
 
         public void Update(GameTime gameTime)

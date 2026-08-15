@@ -126,6 +126,7 @@ namespace Escapeaway.Source.Objects.Level
             Y = startingPosition.Y;
 
             // Reset Values
+            blocked = false;
             cantSlide = true;
 
             Width = size.X;
@@ -260,10 +261,13 @@ namespace Escapeaway.Source.Objects.Level
                 }
 
                 // Gravity
-                if (jumping)
+                if (X >= 0 || X < Global.resWidth)
                 {
-                    if (yVelocity < maxJumpHeight) yVelocity += gravity;
-                    else yVelocity = maxJumpHeight;
+                    if (jumping)
+                    {
+                        if (yVelocity < maxJumpHeight) yVelocity += gravity;
+                        else yVelocity = maxJumpHeight;
+                    }
                 }
 
                 // Update Y Position
@@ -279,14 +283,14 @@ namespace Escapeaway.Source.Objects.Level
                         {
                             // Set Y Position
                             Y = sprite.GetDestRect().Y - Height;
-                            
+
                             // Create Jump Particles
                             if (jumping && aboveGround)
                             {
                                 CreateJumpParticles();
                                 aboveGround = false;
                             }
-                            
+
                             // Set Y Velocity
                             yVelocity = 0;
 
@@ -297,34 +301,24 @@ namespace Escapeaway.Source.Objects.Level
                             break;
                         }
 
-                        // Stop Movement if Touching Wall
-                        if (X >= sprite.GetDestRect().X - Width && X <= sprite.GetDestRect().X + sprite.GetDestRect().Width) blocked = true;
-                        else blocked = false;
+                        if (X >= sprite.GetDestRect().X - Width)
+                        {
+                            blocked = true;
+                        }
+                        else
+                        {
+                            blocked = false;
+                        }
                     }
                     // Player is not Touching Ground
                     else
                     {
                         // Apply Gravity
                         jumping = true;
-
-                        blocked = false;
                     }
-                }
 
-                // Move Right
-                if (!blocked) X += runSpeed;
-
-                // Penalize Score while Blocked
-                else
-                {
-                    scorePenalizeTimer += gameTime.ElapsedGameTime.Milliseconds;
-
-                    if (scorePenalizeTimer > framesUntilScorePenalized)
-                    {
-                        if (score > 0) score--;
-
-                        scorePenalizeTimer = 0f;
-                    }
+                    // Cancel Blocked if Sliding and Not Touching Another Wall
+                    if (sliding && !(CollidesWith(sprite))) blocked = false;
                 }
 
                 // Footstep SFX
@@ -367,14 +361,37 @@ namespace Escapeaway.Source.Objects.Level
                     slowingDown = false;
                 }
 
-                // Slow Down
-                if (slowingDown && !jumping) // Only works when not jumping
-                {
-                    runSpeed = slowRunSpeed;
-                }
+                // Movement Speed
+                if (blocked) runSpeed = 0;
                 else
                 {
-                    runSpeed = defaultRunSpeed;
+                    // Slow Down
+                    if (slowingDown && !jumping) // Only works when not jumping
+                    {
+                        runSpeed = slowRunSpeed;
+                    }
+
+                    // Default Speed
+                    else
+                    {
+                        runSpeed = defaultRunSpeed;
+                    }
+                }
+
+                // Move Right
+                if (!blocked) X += runSpeed;
+
+                // Penalize Score while Blocked
+                else
+                {
+                    scorePenalizeTimer += gameTime.ElapsedGameTime.Milliseconds;
+
+                    if (scorePenalizeTimer > framesUntilScorePenalized)
+                    {
+                        if (score > 0) score--;
+
+                        scorePenalizeTimer = 0f;
+                    }
                 }
 
                 // Slide
