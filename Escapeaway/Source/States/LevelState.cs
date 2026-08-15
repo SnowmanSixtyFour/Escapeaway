@@ -239,7 +239,7 @@ namespace Escapeaway.Source.States
             graphicsDevice.Clear(screenColor);
             levelBackground.Draw(spriteBatch);
 
-            if (currentScreen == screenWithBackgroundDevil) backgroundDevil.Draw(spriteBatch);
+            if (!this.endless) if (currentScreen == screenWithBackgroundDevil) backgroundDevil.Draw(spriteBatch);
             firstRoomDevil.Draw(spriteBatch);
 
             // Level
