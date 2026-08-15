@@ -466,6 +466,10 @@ namespace Escapeaway.Source.Objects.Level
                     // Prevent Player From Leaving Screen
                     if (reachedEnd) X = 0 - Width;
 
+                    // Make Sure Player Doesn't Fall
+                    if (!sliding) Y = startingPosition.Y;
+                    else Y = startingPosition.Y + slidingSize.Y;
+
                     // Reset Particles
                     ClearParticles();
                 }
