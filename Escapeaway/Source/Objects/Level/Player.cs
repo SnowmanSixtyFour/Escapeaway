@@ -24,6 +24,7 @@ namespace Escapeaway.Source.Objects.Level
         // Screen
         public bool
             moving = false,
+            speedUpOverTime = false,
             gameOver = false;
         private bool
             blocked = false,
@@ -44,7 +45,7 @@ namespace Escapeaway.Source.Objects.Level
             yVelocity = 0,
 
             // Running Speeds
-            defaultRunSpeed = 3,
+            defaultRunSpeed = 0,
             slowRunSpeed = 1,
 
             // Jumping
@@ -148,8 +149,8 @@ namespace Escapeaway.Source.Objects.Level
 
             if (lives > 0)
             {
-                // If score is above 1, cut it in half after death
-                if (score > 1) score /= 2;
+                // If score is above 1, take away a quarter of it after death
+                if (score > 1) score -= (score /= 4);
                 // If score is THAT low, set to 0
                 else score = 0;
             }
@@ -176,6 +177,29 @@ namespace Escapeaway.Source.Objects.Level
         {
             slowParticles.Clear();
             jumpParticles.Clear();
+        }
+
+        public void SetSpeed(bool endless, int currentScreen)
+        {
+            if (endless)
+            {
+                if (currentScreen > 200)
+                {
+                    defaultRunSpeed = 5;
+                }
+                else if (currentScreen > 100)
+                {
+                    defaultRunSpeed = 4;
+                }
+                else
+                {
+                    defaultRunSpeed = 3;
+                }
+            }
+            else
+            {
+                defaultRunSpeed = 3;
+            }
         }
 
         public override void OnUpdate(GameTime gameTime)

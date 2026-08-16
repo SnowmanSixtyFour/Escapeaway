@@ -89,8 +89,12 @@ namespace Escapeaway.Source.States
             // Reset Player
             player.Reset();
 
-            // Reset Endless Monster
-            if (this.endless) follower.MovePositionBack();
+            // Endless Mode Properties
+            if (this.endless)
+            {
+                // Reset Follower
+                follower.MovePositionBack();
+            }
 
             // Reset Particles
             heatParticles.Clear();
@@ -155,6 +159,7 @@ namespace Escapeaway.Source.States
 
                 player.SetRoom(this.roomLayout);
                 player.Update(gameTime);
+                player.SetSpeed(this.endless, currentScreen);
 
                 // Game Over
                 if (player.gameOver)
