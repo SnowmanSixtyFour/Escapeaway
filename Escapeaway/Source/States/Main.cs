@@ -20,6 +20,8 @@ namespace Escapeaway.Source.States
         public OptionsState options;
         public StoryState story;
         public LevelState level;
+        public WinState win;
+        public GameOverState gameOver;
 
         // Endless Mode
         public bool endless = false;
@@ -32,6 +34,8 @@ namespace Escapeaway.Source.States
             options = new OptionsState();
             story = new StoryState();
             level = new LevelState();
+            win = new WinState();
+            gameOver = new GameOverState();
 
             // Set Current State
             currentState = intro;

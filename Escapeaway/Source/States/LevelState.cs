@@ -177,7 +177,7 @@ namespace Escapeaway.Source.States
                 if (player.gameOver)
                 {
                     // Go to Game Over Screen
-                    SwitchState(main.title);
+                    SwitchState(main.gameOver);
 
                     // Set Endless Mode Score
                     if (this.endless)

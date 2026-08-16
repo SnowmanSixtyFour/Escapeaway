@@ -73,6 +73,12 @@ namespace Escapeaway.Source.Graphics.GUI
             return buttons[buttonSelected];
         }
 
+        public void SetSelectedButton(int button)
+        {
+            this.buttonSelected = button;
+            SelectButton(button);
+        }
+
         private void SelectButton(int button)
         {
             // Reset all Button Colors
