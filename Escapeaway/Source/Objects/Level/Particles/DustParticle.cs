@@ -22,7 +22,7 @@ namespace Escapeaway.Source.Objects.Level.Particles
         private int offsetToPlayer = 6; // How far in front of player to spawn
 
         private bool moveLeft;
-        private int pixelsToMove = 1;
+        public int pixelsToMove = 1;
 
         private float
             timeExisted = 0f,
@@ -31,11 +31,7 @@ namespace Escapeaway.Source.Objects.Level.Particles
 
         public DustParticle(Player player, bool moveLeft = true)
         {
-            // Set Variables
-
             this.moveLeft = moveLeft;
-
-            // Set Sprite
 
             dust = new Character(
                 Global.dustParticle,
@@ -53,6 +49,33 @@ namespace Escapeaway.Source.Objects.Level.Particles
                     ),
                 Color.White);
 
+            SetAnimations();
+        }
+        public DustParticle(int X, int Y, bool moveLeft = true)
+        {
+            this.moveLeft = moveLeft;
+
+            dust = new Character(
+                Global.dustParticle,
+                new Point(
+                    X,
+                    Y
+                    ),
+                new Point(
+                    sheetSize.X,
+                    sheetSize.Y
+                    ),
+                new Point(
+                    size.X,
+                    size.Y
+                    ),
+                Color.White);
+
+            SetAnimations();
+        }
+
+        public void SetAnimations()
+        {
             // Animations
 
             dust.CreateAnimation("default", 0, 1);

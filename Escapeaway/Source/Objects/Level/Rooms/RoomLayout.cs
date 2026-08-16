@@ -12,10 +12,10 @@ namespace Escapeaway.Source.Objects.Level.Rooms
     internal class RoomLayout
     {
         private List<RoomGround> currentRoomLayout = new List<RoomGround>();
-        public Color screenColor = CustomColor.White;
+        public Color screenColor = CustomColor.Red;
 
         private List<StaticSprite>
-            room0 = new List<StaticSprite>(),
+            firstRoom = new List<StaticSprite>(),
             room1 = new List<StaticSprite>(),
             room2 = new List<StaticSprite>(),
             room3 = new List<StaticSprite>(),
@@ -35,7 +35,8 @@ namespace Escapeaway.Source.Objects.Level.Rooms
             room17 = new List<StaticSprite>(),
             room18 = new List<StaticSprite>(),
             room19 = new List<StaticSprite>(),
-            room20 = new List<StaticSprite>();
+            room20 = new List<StaticSprite>(),
+            lastRoom = new List<StaticSprite>();
 
         public RoomGround ground;
 
@@ -48,7 +49,7 @@ namespace Escapeaway.Source.Objects.Level.Rooms
         public RoomLayout()
         {
             // Set Rooms
-            room0.Add(new StaticSprite(Global.ground, new Rectangle(0, 160, Global.resWidth, 120), screenColor, true));
+            firstRoom.Add(new StaticSprite(Global.ground, new Rectangle(0, 160, Global.resWidth, 120), screenColor, true));
 
             room1.Add(new StaticSprite(Global.ground, new Rectangle(0, 160, Global.resWidth / 4, 120), screenColor, true));
             room1.Add(new StaticSprite(Global.ground, new Rectangle(Global.resWidth / 2 - 20, 160, 40, 120), screenColor, true));
@@ -86,8 +87,10 @@ namespace Escapeaway.Source.Objects.Level.Rooms
             room8.Add(new StaticSprite(Global.ground, new Rectangle(Global.resWidth / 2 + 60, 160, 80, 120), screenColor, true));
             room8.Add(new StaticSprite(Global.ground, new Rectangle(Global.resWidth - 42, 32, 20, 98), screenColor, true));
 
+            lastRoom.Add(new StaticSprite(Global.ground, new Rectangle(0, 160, Global.resWidth, 120), screenColor, true));
+
             // Add Rooms to List
-            currentRoomLayout.Add(new RoomGround(room0));
+            currentRoomLayout.Add(new RoomGround(firstRoom));
             currentRoomLayout.Add(new RoomGround(room1));
             currentRoomLayout.Add(new RoomGround(room2));
             currentRoomLayout.Add(new RoomGround(room3));
@@ -96,20 +99,25 @@ namespace Escapeaway.Source.Objects.Level.Rooms
             currentRoomLayout.Add(new RoomGround(room6));
             currentRoomLayout.Add(new RoomGround(room7));
             currentRoomLayout.Add(new RoomGround(room8));
+            currentRoomLayout.Add(new RoomGround(lastRoom));
 
             // Set Max Rooms
-            maxRooms = currentRoomLayout.Count();
+            maxRooms = (currentRoomLayout.Count() - 1);
 
             SetRoom();
         }
 
-        /// <summary>
-        /// Go back to the very first default room. Useful when restarting the game.
-        /// </summary>
-        public void GoToRoomOne()
+        public void GoToFirstRoom()
         {
-            // Set Current Room
+            // Set Current Room to First Room
             selectedRoomLayout = 0;
+            SetRoom();
+        }
+
+        public void GoToLastRoom()
+        {
+            // Set Current Room to Last Room
+            selectedRoomLayout = currentRoomLayout.Count() - 1;
             SetRoom();
         }
 
@@ -135,7 +143,7 @@ namespace Escapeaway.Source.Objects.Level.Rooms
         {
             // I know it's bad, I KNOW, this was temporary code for the game jam. PLEASE don't smite me
 
-            foreach (var room in room0) room.SetColor(color);
+            foreach (var room in firstRoom) room.SetColor(color);
             foreach (var room in room1) room.SetColor(color);
             foreach (var room in room2) room.SetColor(color);
             foreach (var room in room3) room.SetColor(color);
@@ -156,12 +164,34 @@ namespace Escapeaway.Source.Objects.Level.Rooms
             foreach (var room in room18) room.SetColor(color);
             foreach (var room in room19) room.SetColor(color);
             foreach (var room in room20) room.SetColor(color);
+            foreach (var room in lastRoom) room.SetColor(color);
         }
 
-        public void Update(GameTime gameTime, Color screenColor)
+        public void Update(GameTime gameTime, Color screenColor, Player player)
         {
             UpdateColor(screenColor);
             SetRoom();
+
+            // If in Final Boss Room
+            if (selectedRoomLayout == maxRooms)
+            {
+                if (player.centered)
+                {
+                    // Move Ground Texture to Simulate Room Movement
+                    foreach (var sprite in lastRoom)
+                    {
+                        // Slower Move Speed
+                        if (player.slowingDown) sprite.xOffset += 60f * (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+                        // Regular Move Speed
+                        else sprite.xOffset += 120f * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    }
+                }
+                else
+                {
+                    foreach (var sprite in lastRoom) sprite.xOffset = 0f;
+                }
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)

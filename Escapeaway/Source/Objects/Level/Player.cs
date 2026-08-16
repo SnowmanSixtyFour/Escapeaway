@@ -25,6 +25,8 @@ namespace Escapeaway.Source.Objects.Level
         public bool
             moving = false,
             speedUpOverTime = false,
+            slowingDown = false,
+            centered = false, // For Final Boss Room
             gameOver = false;
         private bool
             blocked = false,
@@ -59,7 +61,6 @@ namespace Escapeaway.Source.Objects.Level
 
         // Conditions
         private bool
-            slowingDown = false,
             jumping = false, aboveGround = false,
             sliding = false;
 
@@ -108,8 +109,22 @@ namespace Escapeaway.Source.Objects.Level
 
         private void CreateJumpParticles()
         {
-            jumpParticles.Add(new DustParticle(this, true));
-            jumpParticles.Add(new DustParticle(this, false));
+            // In Boss Room
+            if (centered)
+            {
+                int particleX = (this.X + 4);
+                int particleY = (this.Y + this.Height - 8);
+
+                jumpParticles.Add(new DustParticle(particleX, particleY, true));
+                jumpParticles.Add(new DustParticle(particleX, particleY, false));
+            }
+
+            // In any other room
+            else
+            {
+                jumpParticles.Add(new DustParticle(this, true));
+                jumpParticles.Add(new DustParticle(this, false));
+            }
         }
 
         /// <summary>
@@ -121,6 +136,7 @@ namespace Escapeaway.Source.Objects.Level
 
             // Stop Moving (wait for player input)
             moving = false;
+            centered = false;
 
             // Reset Position
             X = startingPosition.X;
@@ -183,11 +199,11 @@ namespace Escapeaway.Source.Objects.Level
         {
             if (endless)
             {
-                if (currentScreen > 200)
+                if (currentScreen > 198)
                 {
                     defaultRunSpeed = 5;
                 }
-                else if (currentScreen > 100)
+                else if (currentScreen > 98)
                 {
                     defaultRunSpeed = 4;
                 }
@@ -501,6 +517,32 @@ namespace Escapeaway.Source.Objects.Level
                 // Update Particles
                 foreach (var slowDust in slowParticles) slowDust.Update(gameTime);
                 foreach (var jumpDust in jumpParticles) jumpDust.Update(gameTime);
+
+                // If in Boss Room
+                if (centered)
+                {
+                    // Speed up Slowdown Particle Movement
+                    foreach (var slowDust in slowParticles)
+                    {
+                        int fasterMoveSpeed = 3;
+                        if (slowDust.pixelsToMove != fasterMoveSpeed)
+                        {
+                            slowDust.pixelsToMove = fasterMoveSpeed;
+                        }
+                    }
+                }
+                // Regular Speed
+                else
+                {
+                    foreach (var slowDust in slowParticles)
+                    {
+                        int regularMoveSpeed = 1;
+                        if (slowDust.pixelsToMove != regularMoveSpeed)
+                        {
+                            slowDust.pixelsToMove = regularMoveSpeed;
+                        }
+                    }
+                }
             }
         }
 

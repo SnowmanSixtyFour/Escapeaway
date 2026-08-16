@@ -9,7 +9,7 @@ using Escapeaway.Source.Objects.Level;
 
 namespace Escapeaway.Source.Objects.Level.Background.Boss
 {
-    internal class EndlessFollower
+    internal class Follower
     {
         private Character follower;
         private int currentScreen = 0;
@@ -22,7 +22,7 @@ namespace Escapeaway.Source.Objects.Level.Background.Boss
 
         private int pixelsToMove = 2;
 
-        public EndlessFollower()
+        public Follower()
         {
             follower = new Character(null, startingPosition, sheetSize, size, Color.White);
         }

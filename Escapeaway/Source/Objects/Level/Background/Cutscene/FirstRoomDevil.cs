@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Escapeaway.Source.Objects.Level.Background.Boss
+namespace Escapeaway.Source.Objects.Level.Background.Cutscene
 {
     internal class FirstRoomDevil
     {
@@ -24,9 +24,9 @@ namespace Escapeaway.Source.Objects.Level.Background.Boss
 
             maxUpHeight = 34, maxDownHeight = 38;
 
-        public FirstRoomDevil()
+        public FirstRoomDevil(Point location)
         {
-            devil = new Character(null, new Point(100, 36), sheetSize, size, Color.White);
+            devil = new Character(null, location, sheetSize, size, Color.White);
         }
 
         public void Hide()

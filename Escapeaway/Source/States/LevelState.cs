@@ -14,6 +14,7 @@ using Escapeaway.Source.Objects.Level.Particles;
 using Escapeaway.Source.Objects.Level.Background;
 using Escapeaway.Source.Objects.Level.Background.Boss;
 using Escapeaway.Source.Objects.Level.Rooms;
+using Escapeaway.Source.Objects.Level.Background.Cutscene;
 
 namespace Escapeaway.Source.States
 {
@@ -26,7 +27,7 @@ namespace Escapeaway.Source.States
 
         FirstRoomDevil firstRoomDevil;
         BackgroundDevil backgroundDevil;
-        EndlessFollower follower;
+        Follower follower;
 
         Player player;
         
@@ -36,6 +37,16 @@ namespace Escapeaway.Source.States
         public bool endless;
 
         private int defaultLives = 3;
+
+        /*
+         * currentScreen keeps track of the current Room the Player is in.
+         * This is VERY useful for updating the room layout, player variables, and so on.
+         * 
+         * 0 = Room 1
+         * 99 = Room 11
+         * etc, subtract 1 from the Room you wish to apply code in
+         * 
+         * */
 
         public int
             currentScreen = 0,
@@ -62,9 +73,9 @@ namespace Escapeaway.Source.States
 
             levelBackground = new UnderdepthsBackground();
 
-            firstRoomDevil = new FirstRoomDevil();
+            firstRoomDevil = new FirstRoomDevil(new Point(32, 36));
             backgroundDevil = new BackgroundDevil();
-            follower = new EndlessFollower();
+            follower = new Follower();
 
             player = new Player(null, new Point(16, 120), Color.White, defaultLives);
 
@@ -88,6 +99,7 @@ namespace Escapeaway.Source.States
         {
             // Reset Player
             player.Reset();
+            player.X = 172; // Make sure position in first room is ahead of devil
 
             // Endless Mode Properties
             if (this.endless)
@@ -107,7 +119,7 @@ namespace Escapeaway.Source.States
         {
             // Reset Screen
             currentScreen = 0;
-            roomLayout.GoToRoomOne();
+            roomLayout.GoToFirstRoom();
 
             player.reachedEnd = false;
 
@@ -137,7 +149,7 @@ namespace Escapeaway.Source.States
             if (!Global.paused)
             {
                 // Update Level
-                roomLayout.Update(gameTime, this.screenColor);
+                roomLayout.Update(gameTime, this.screenColor, player);
                 roomDisclaimer.Update(gameTime, player);
 
                 levelBackground.Update(gameTime, this.screenColor);
@@ -221,6 +233,25 @@ namespace Escapeaway.Source.States
 
                     // Set Flag to False
                     player.reachedEnd = false;
+                }
+
+                // Regular Mode Content
+                if (!endless)
+                {
+                    // Final Room Boss
+                    if (currentScreen >= 99)
+                    {
+                        // Set Room Layout to Last Room
+                        if (roomLayout.selectedRoomLayout != 9) roomLayout.GoToLastRoom();
+
+                        // Put Player in Center of Screen
+                        int middleOfRoom = ((Global.resWidth / 2) - (player.Width / 2));
+                        if (player.X > middleOfRoom)
+                        {
+                            player.X = middleOfRoom;
+                            player.centered = true;
+                        }
+                    }
                 }
             }
 

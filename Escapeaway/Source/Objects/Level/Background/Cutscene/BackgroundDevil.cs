@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Escapeaway.Source.Objects.Level.Background.Boss
+namespace Escapeaway.Source.Objects.Level.Background.Cutscene
 {
     internal class BackgroundDevil
     {
@@ -23,7 +23,7 @@ namespace Escapeaway.Source.Objects.Level.Background.Boss
         public BackgroundDevil()
         {
             // Set Starting Position
-            startingPosition = (0 - size.X);
+            startingPosition = 0 - size.X;
 
             // Set Sprite
             devil = new Character(null, new Point(startingPosition, Global.resHeight / 2 - size.Y / 2 - yOffset), sheetSize, size, Color.White);
