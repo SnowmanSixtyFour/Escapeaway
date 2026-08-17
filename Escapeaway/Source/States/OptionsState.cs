@@ -1,10 +1,4 @@
-﻿using Escapeaway;
-using Escapeaway.Source.Graphics;
-using Escapeaway.Source.Graphics.GUI;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,6 +6,12 @@ using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Xml.Linq;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Escapeaway;
+using Escapeaway.Source.Graphics;
+using Escapeaway.Source.Graphics.GUI;
 
 namespace Escapeaway.Source.States
 {

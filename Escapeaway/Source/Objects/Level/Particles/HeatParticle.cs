@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
-using Escapeaway.Source.Graphics;
 using Microsoft.Xna.Framework.Graphics;
+using Escapeaway.Source.Graphics;
 
 namespace Escapeaway.Source.Objects.Level.Particles
 {

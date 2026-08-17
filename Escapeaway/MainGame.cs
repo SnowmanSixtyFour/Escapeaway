@@ -162,14 +162,14 @@ namespace Escapeaway
                 Debug.Print("Loading Options.xml.");
 
                 // Load File
-                XDocument settingsDoc = XDocument.Load("C:/Users/" + Environment.UserName + "/Documents/My Games/ESCAPEAWAY!/Options.xml");
+                XDocument optionsDoc = XDocument.Load("C:/Users/" + Environment.UserName + "/Documents/My Games/ESCAPEAWAY!/Options.xml");
 
                 // Set Settings to File Properties
                 try
                 {
-                    Global.fullscreen = Convert.ToBoolean(settingsDoc.Descendants("Fullscreen").First().Value);
-                    Global.highscore = Convert.ToInt32(settingsDoc.Descendants("Highscore").First().Value);
-                    Global.endlessHighscore = Convert.ToInt32(settingsDoc.Descendants("EndlessHighscore").First().Value);
+                    Global.fullscreen = Convert.ToBoolean(optionsDoc.Descendants("Fullscreen").First().Value);
+                    Global.highscore = Convert.ToInt32(optionsDoc.Descendants("Highscore").First().Value);
+                    Global.endlessHighscore = Convert.ToInt32(optionsDoc.Descendants("EndlessHighscore").First().Value);
                 }
                 catch (Exception e)
                 {
@@ -241,14 +241,14 @@ namespace Escapeaway
         private void CreateOptionsFile()
         {
             // Create Settings.xml File
-            var settingsDoc = new XDocument(new XElement("Settings",
+            var optionsDoc = new XDocument(new XElement("Settings",
                 new XElement("Fullscreen", new XElement("Value", graphics.IsFullScreen)),
                 new XElement("Highscore", new XElement("Value", Global.highscore)),
                 new XElement("EndlessHighscore", new XElement("Value", Global.endlessHighscore))
                 ));
 
             // Save File
-            settingsDoc.Save("C:/Users/" + Environment.UserName + "/Documents/My Games/ESCAPEAWAY!/Options.xml", SaveOptions.None);
+            optionsDoc.Save("C:/Users/" + Environment.UserName + "/Documents/My Games/ESCAPEAWAY!/Options.xml", SaveOptions.None);
 
             Debug.Print("Created Options.xml.");
         }

@@ -1,28 +1,36 @@
-﻿using Microsoft.Xna.Framework.Input;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using Escapeaway;
 using Escapeaway.Source.Graphics;
 using Escapeaway.Source.Graphics.GUI;
+using Escapeaway.Source.Objects.Level;
 
 namespace Escapeaway.Source.States
 {
     internal class GameOverState : State
     {
+        // Variables
+        private int score = 0;
         private bool endless = false;
 
+        public bool saveNewScore = false;
+
+        // Text
         private Text header, newEndlessHighscore;
 
+        // Buttons
         private ButtonList buttons;
         private int buttonX = 20, buttonY = 174;
 
         public GameOverState()
         {
+            // Text
             header = new Text(Global.defaultFont, "GAME OVER", new Vector2((Global.resWidth / 2) - 32, 16), CustomColor.White, 1.0f, false);
             newEndlessHighscore = new Text(Global.defaultFont, "", new Vector2(8, 32), CustomColor.Yellow, 1.0f, false);
 
@@ -38,7 +46,6 @@ namespace Escapeaway.Source.States
             this.endless = main.endless;
 
             // Update Objects
-            if (this.endless) if (newEndlessHighscore.getText() == "") newEndlessHighscore.setText("YOUR ENDLESS HISCORE IS " + Global.endlessHighscore + "!");
             buttons.Update(gameTime, main);
 
             // Button Selected
@@ -59,6 +66,27 @@ namespace Escapeaway.Source.States
                 Reset();
 
                 SwitchState(main.title);
+            }
+        }
+
+        public void SetEndlessScore(int newScore)
+        {
+            this.score = newScore;
+
+            // Update Text
+
+            if (this.score > Global.endlessHighscore)
+            {
+                // Announce New Score to Player
+                newEndlessHighscore.setText("YOUR ENDLESS HISCORE IS " + this.score + "!");
+
+                // Update Global Variable for Score
+                Global.endlessHighscore = this.score;
+                WriteToOptions(newEndlessScore: this.score);
+            }
+            else
+            {
+                newEndlessHighscore.setText("AIM FOR A NEW HISCORE!");
             }
         }
 
