@@ -13,6 +13,10 @@ namespace Escapeaway.Source
 {
     internal class Global
     {
+        // Debug Mode
+
+        public static bool debug = false;
+
         // Properties
 
         public static bool quit = false;

@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Audio;
 using Escapeaway.Source.Objects;
 using Escapeaway.Source.Objects.Level.Particles;
 using Escapeaway.Source.Objects.Level.Rooms;
+using Escapeaway.Source.Graphics;
 
 namespace Escapeaway.Source.Objects.Level
 {
@@ -81,6 +82,11 @@ namespace Escapeaway.Source.Objects.Level
             flickering = false,
             shouldFlicker = false, countdownRun = false;
 
+        // Checks
+        private StaticSprite
+            keepSlidingCheck, // Prevent slide from ending while under wall
+            canSlideCheck; // If slide is possible
+
         // Particles
         private List<DustParticle> slowParticles = new List<DustParticle>();
         private int dustParticleLimit = 4;
@@ -89,8 +95,13 @@ namespace Escapeaway.Source.Objects.Level
 
         public Player(Texture2D spriteSheet, Point location, Color color, int startingLives) : base(spriteSheet, location, size, sheetSize, color)
         {
+            // Set Variables
             startingPosition = location;
             lives = startingLives;
+
+            // Set Checks
+            keepSlidingCheck = new StaticSprite(null, new Rectangle(0, 0, 20, 20), Color.Red * 0.5f);
+            canSlideCheck = new StaticSprite(null, new Rectangle(0, 0, 20, 20), Color.Lime * 0.5f);
         }
 
         public void SetRoom(RoomLayout newRoom)
@@ -279,6 +290,12 @@ namespace Escapeaway.Source.Objects.Level
             // Movement
             if (moving)
             {
+                // Movement Checks
+                keepSlidingCheck.SetDestRect(new Rectangle(this.X, this.Y - 23, 20, 20));
+                
+                if (!sliding) canSlideCheck.SetDestRect(new Rectangle(this.X + 23, this.Y + 22, 16, 16));
+                else canSlideCheck.SetDestRect(new Rectangle(this.X + 23, this.Y, 16, 16));
+
                 // Lost a Life
                 if (Y > Global.resHeight)
                 {
@@ -316,10 +333,30 @@ namespace Escapeaway.Source.Objects.Level
                 // Room Collision
                 foreach (var sprite in room.ground.sprites)
                 {
+                    // If Not Touching Wall
+                    if (sliding || !jumping)
+                    {
+                        if (!(CollidesWith(sprite)))
+                        {
+                            blocked = false;
+                        }
+                    }
+
+                    // Keep Slide Going
+                    if (keepSlidingCheck.GetDestRect().Intersects(sprite.GetDestRect()))
+                    {
+                        if (sliding && slideCounter <= 5)
+                        {
+                            slideCounter++;
+                        }
+                    }
+
+                    // When Touching Ground / Wall
                     if (CollidesWith(sprite))
                     {
                         // Place Player on Ground
-                        if (Y <= sprite.GetDestRect().Y)
+                        if (yVelocity > 0 &&
+                            Y <= sprite.GetDestRect().Y)
                         {
                             // Set Y Position
                             Y = sprite.GetDestRect().Y - Height;
@@ -341,6 +378,11 @@ namespace Escapeaway.Source.Objects.Level
                             break;
                         }
 
+                        // Prevent Slide
+                        if (canSlideCheck.GetDestRect().Intersects(sprite.GetDestRect())) cantSlide = true;
+                        else cantSlide = false;
+
+                        // Block Player if Touching Wall
                         if (X >= sprite.GetDestRect().X - Width)
                         {
                             blocked = true;
@@ -356,9 +398,6 @@ namespace Escapeaway.Source.Objects.Level
                         // Apply Gravity
                         jumping = true;
                     }
-
-                    // Cancel Blocked if Sliding and Not Touching Another Wall
-                    if (sliding && !(CollidesWith(sprite))) blocked = false;
                 }
 
                 // Footstep SFX
@@ -435,7 +474,7 @@ namespace Escapeaway.Source.Objects.Level
                 }
 
                 // Slide
-                if (!cantSlide)
+                if (!cantSlide && !aboveGround)
                 {
                     if (!sliding && !jumping)
                     {
@@ -554,6 +593,14 @@ namespace Escapeaway.Source.Objects.Level
             // Draw Particles
             foreach (var slowDust in slowParticles) slowDust.Draw(spriteBatch);
             foreach (var jumpDust in jumpParticles) jumpDust.Draw(spriteBatch);
+
+            // Debug Mode
+            if (Global.debug)
+            {
+                // Movement Checks
+                keepSlidingCheck.Draw(spriteBatch);
+                canSlideCheck.Draw(spriteBatch);
+            }
         }
     }
 }
