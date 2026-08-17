@@ -58,7 +58,7 @@ namespace Escapeaway.Source.Objects.Level
 
             // Sliding
             slideCounter = 0,
-            slideStart = 60;
+            slideStart = 30;
 
         // Conditions
         private bool
@@ -73,7 +73,7 @@ namespace Escapeaway.Source.Objects.Level
 
             // Events
             scorePenalizeTimer = 0f, startRunningTimer = 0f,
-            framesUntilScorePenalized = 260f, timeUntilMovingAgain = 810f,
+            framesUntilScorePenalized = 260f, timeUntilMovingAgain = 1000f,
 
             // SFX
             footstepSfxTimer = 0f, slowDownSfxTimer,
@@ -81,6 +81,9 @@ namespace Escapeaway.Source.Objects.Level
         private bool
             flickering = false,
             shouldFlicker = false, countdownRun = false;
+
+        // Respawn Timer Text
+        private Text respawnTimer;
 
         // Checks
         private StaticSprite
@@ -99,7 +102,10 @@ namespace Escapeaway.Source.Objects.Level
             startingPosition = location;
             lives = startingLives;
 
-            // Set Checks
+            // Set Text
+            respawnTimer = new Text(Global.defaultFont, "", Vector2.Zero, CustomColor.White, 1.0f, false);
+
+            // Set Movement Checks
             keepSlidingCheck = new StaticSprite(null, new Rectangle(0, 0, 20, 20), Color.Red * 0.5f);
             canSlideCheck = new StaticSprite(null, new Rectangle(0, 0, 20, 20), Color.Lime * 0.5f);
         }
@@ -160,7 +166,9 @@ namespace Escapeaway.Source.Objects.Level
             Width = size.X;
             Height = size.Y;
 
+            startRunningTimer = 0f;
             countdownRun = false;
+            
             flickering = false;
             shouldFlicker = false;
         }
@@ -269,7 +277,17 @@ namespace Escapeaway.Source.Objects.Level
             // Timer until Running Again
             if (countdownRun)
             {
+                // Update Timer Variable
                 startRunningTimer += gameTime.ElapsedGameTime.Milliseconds;
+
+                // Update Display Text
+                respawnTimer.setPosition(new Vector2(this.X + 6, this.Y - 16)); // Place above Player
+
+                if (startRunningTimer > timeUntilMovingAgain - (timeUntilMovingAgain / 4)) respawnTimer.setText("1");
+                else if (startRunningTimer > (timeUntilMovingAgain / 2)) respawnTimer.setText("2");
+                else if (startRunningTimer > (timeUntilMovingAgain / 4)) respawnTimer.setText("3");
+
+                // When Timer is Up
                 if (startRunningTimer > timeUntilMovingAgain)
                 {
                     // Stop Timer Flag
@@ -281,6 +299,9 @@ namespace Escapeaway.Source.Objects.Level
 
                     // Start Moving Again
                     StartMoving();
+
+                    // Reset Display Text
+                    respawnTimer.setText("");
 
                     // Reset Timer
                     startRunningTimer = 0f;
@@ -593,6 +614,9 @@ namespace Escapeaway.Source.Objects.Level
             // Draw Particles
             foreach (var slowDust in slowParticles) slowDust.Draw(spriteBatch);
             foreach (var jumpDust in jumpParticles) jumpDust.Draw(spriteBatch);
+
+            // Draw Respawn Timer
+            if (countdownRun) respawnTimer.Draw(spriteBatch);
 
             // Debug Mode
             if (Global.debug)
