@@ -14,6 +14,7 @@ namespace Escapeaway.Source.Objects.Level.Rooms
         private List<RoomGround> currentRoomLayout = new List<RoomGround>();
         public Color screenColor = CustomColor.Red;
 
+        // Very unoptimized, I rushed it for the game jam
         private List<StaticSprite>
             firstRoom = new List<StaticSprite>(),
             room1 = new List<StaticSprite>(),
