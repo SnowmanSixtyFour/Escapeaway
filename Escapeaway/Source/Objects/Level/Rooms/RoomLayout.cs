@@ -205,7 +205,7 @@ namespace Escapeaway.Source.Objects.Level.Rooms
                     foreach (var sprite in lastRoom)
                     {
                         // Slower Move Speed
-                        if (player.slowingDown) sprite.xOffset += 60f * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                        if (player.slowingDown) sprite.xOffset += 90f * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
                         // Regular Move Speed
                         else sprite.xOffset += 120f * (float)gameTime.ElapsedGameTime.TotalSeconds;
