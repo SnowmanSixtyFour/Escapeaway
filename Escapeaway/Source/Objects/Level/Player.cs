@@ -50,6 +50,7 @@ namespace Escapeaway.Source.Objects.Level
             // Running Speeds
             defaultRunSpeed = 0,
             slowRunSpeed = 1,
+            bossRunSpeed = 2,
 
             // Jumping
             jumpIncrement = 12,
@@ -489,14 +490,14 @@ namespace Escapeaway.Source.Objects.Level
                     {
                         if (X >= 1) // Prevent Player from Going Offscreen
                         {
-                            X -= slowRunSpeed;
+                            X -= bossRunSpeed;
                         }
                     }
 
                     // Move Slowly to Center
                     else
                     {
-                        X += slowRunSpeed;
+                        X += bossRunSpeed;
                     }
                 }
 
@@ -603,7 +604,7 @@ namespace Escapeaway.Source.Objects.Level
                     // Speed up Slowdown Particle Movement
                     foreach (var slowDust in slowParticles)
                     {
-                        int fasterMoveSpeed = 4;
+                        int fasterMoveSpeed = 5;
                         if (slowDust.pixelsToMove != fasterMoveSpeed)
                         {
                             slowDust.pixelsToMove = fasterMoveSpeed;
