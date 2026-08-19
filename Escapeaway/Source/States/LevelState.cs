@@ -251,7 +251,7 @@ namespace Escapeaway.Source.States
                         int middleOfRoom = ((Global.resWidth / 2) - (player.Width / 2));
                         if (player.X > middleOfRoom)
                         {
-                            player.X = middleOfRoom;
+                            if (!player.slowingDown) player.X = middleOfRoom;
                             player.centered = true;
                         }
 

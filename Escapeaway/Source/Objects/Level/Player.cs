@@ -479,7 +479,26 @@ namespace Escapeaway.Source.Objects.Level
                 }
 
                 // Move Right
-                if (!blocked) X += runSpeed;
+                if (!blocked && !centered) X += runSpeed;
+
+                // Centered On-Screen
+                if (centered)
+                {
+                    // Move Backwards when Slowing Down
+                    if (slowingDown)
+                    {
+                        if (X >= 1) // Prevent Player from Going Offscreen
+                        {
+                            X -= slowRunSpeed;
+                        }
+                    }
+
+                    // Move Slowly to Center
+                    else
+                    {
+                        X += slowRunSpeed;
+                    }
+                }
 
                 // Penalize Score while Blocked
                 else
@@ -584,7 +603,7 @@ namespace Escapeaway.Source.Objects.Level
                     // Speed up Slowdown Particle Movement
                     foreach (var slowDust in slowParticles)
                     {
-                        int fasterMoveSpeed = 3;
+                        int fasterMoveSpeed = 4;
                         if (slowDust.pixelsToMove != fasterMoveSpeed)
                         {
                             slowDust.pixelsToMove = fasterMoveSpeed;

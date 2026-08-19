@@ -141,7 +141,7 @@ namespace Escapeaway.Source.Objects.Level.Rooms
         public void GoToLastRoom()
         {
             // Set Current Room to Last Room
-            selectedRoomLayout = currentRoomLayout.Count() - 1;
+            selectedRoomLayout = maxRooms;
             SetRoom();
         }
 
