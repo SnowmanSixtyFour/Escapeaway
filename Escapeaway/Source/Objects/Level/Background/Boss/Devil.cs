@@ -16,9 +16,17 @@ namespace Escapeaway.Source.Objects.Level.Background.Boss
             size = new Point(80, 80),
             sheetSize = new Point(80, 80);
 
+        // Movement
+        private bool movingUp = false;
+        private float
+            yVelocity = 0,
+            gravity = 0.2f, maxMovementSpeed = 1.5f,
+
+            maxUpHeight = 30, maxDownHeight = 34;
+
         // Properties
         private Point
-            fightPosition = new Point(Global.resWidth - 100, 30);
+            fightPosition = new Point(Global.resWidth - 100, 32);
         private bool
             movedOnscreen = false;
 
@@ -30,6 +38,24 @@ namespace Escapeaway.Source.Objects.Level.Background.Boss
         public void Update(GameTime gameTime, Player player)
         {
             devil.Update(gameTime);
+
+            // Flying Movement
+
+            if (devil.Y < maxUpHeight) movingUp = false;
+            if (devil.Y > maxDownHeight) movingUp = true;
+
+            devil.Y += Convert.ToInt32(yVelocity);
+
+            if (movingUp)
+            {
+                if (yVelocity > -maxMovementSpeed) yVelocity -= gravity;
+                else yVelocity = -maxMovementSpeed;
+            }
+            if (!movingUp)
+            {
+                if (yVelocity < maxMovementSpeed) yVelocity += gravity;
+                else yVelocity = maxMovementSpeed;
+            }
 
             // If Player is in Center of Screen
             if (player.centered)

@@ -29,14 +29,6 @@ namespace Escapeaway.Source.Objects.Level.Rooms
             room10 = new List<StaticSprite>(),
             room11 = new List<StaticSprite>(),
             room12 = new List<StaticSprite>(),
-            room13 = new List<StaticSprite>(),
-            room14 = new List<StaticSprite>(),
-            room15 = new List<StaticSprite>(),
-            room16 = new List<StaticSprite>(),
-            room17 = new List<StaticSprite>(),
-            room18 = new List<StaticSprite>(),
-            room19 = new List<StaticSprite>(),
-            room20 = new List<StaticSprite>(),
             lastRoom = new List<StaticSprite>();
 
         public RoomGround ground;
@@ -44,8 +36,6 @@ namespace Escapeaway.Source.Objects.Level.Rooms
         public int selectedRoomLayout = 0;
 
         private Random random = new Random();
-        private int
-            maxRooms = 0;
 
         public RoomLayout()
         {
@@ -125,9 +115,6 @@ namespace Escapeaway.Source.Objects.Level.Rooms
             currentRoomLayout.Add(new RoomGround(room12));
             currentRoomLayout.Add(new RoomGround(lastRoom));
 
-            // Set Max Rooms
-            maxRooms = (currentRoomLayout.Count() - 1);
-
             SetRoom();
         }
 
@@ -141,7 +128,7 @@ namespace Escapeaway.Source.Objects.Level.Rooms
         public void GoToLastRoom()
         {
             // Set Current Room to Last Room
-            selectedRoomLayout = maxRooms;
+            selectedRoomLayout = (currentRoomLayout.Count - 1);
             SetRoom();
         }
 
@@ -151,7 +138,7 @@ namespace Escapeaway.Source.Objects.Level.Rooms
         public void RandomizeRoom()
         {
             // Randomize next room
-            int nextRoomLayout = random.Next(1, maxRooms);
+            int nextRoomLayout = random.Next(1, (currentRoomLayout.Count - 1));
             
             // Randomize again if next room is the same
             if (nextRoomLayout == selectedRoomLayout) RandomizeRoom();
@@ -180,14 +167,6 @@ namespace Escapeaway.Source.Objects.Level.Rooms
             foreach (var room in room10) room.SetColor(color);
             foreach (var room in room11) room.SetColor(color);
             foreach (var room in room12) room.SetColor(color);
-            foreach (var room in room13) room.SetColor(color);
-            foreach (var room in room14) room.SetColor(color);
-            foreach (var room in room15) room.SetColor(color);
-            foreach (var room in room16) room.SetColor(color);
-            foreach (var room in room17) room.SetColor(color);
-            foreach (var room in room18) room.SetColor(color);
-            foreach (var room in room19) room.SetColor(color);
-            foreach (var room in room20) room.SetColor(color);
             foreach (var room in lastRoom) room.SetColor(color);
         }
 
@@ -197,7 +176,7 @@ namespace Escapeaway.Source.Objects.Level.Rooms
             SetRoom();
 
             // If in Final Boss Room
-            if (selectedRoomLayout == maxRooms)
+            if (selectedRoomLayout == (currentRoomLayout.Count - 1))
             {
                 if (player.centered)
                 {
