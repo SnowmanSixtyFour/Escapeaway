@@ -100,6 +100,8 @@ namespace Escapeaway.Source
             SFX.footsteps = Content.Load<SoundEffect>("Assets/Audio/footsteps");
             SFX.slide = Content.Load<SoundEffect>("Assets/Audio/slide");
             SFX.skid = Content.Load<SoundEffect>("Assets/Audio/skid");
+
+            SFX.projectile = Content.Load<SoundEffect>("Assets/Audio/projectile");
         }
     }
 
@@ -124,11 +126,13 @@ namespace Escapeaway.Source
 
             // Menus
             select,
-            
+
             // Level
             jump,
             footsteps,
             slide,
-            skid;
+            skid,
+
+            projectile;
     }
 }

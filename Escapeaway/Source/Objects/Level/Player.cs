@@ -128,13 +128,21 @@ namespace Escapeaway.Source.Objects.Level
         private void CreateJumpParticles()
         {
             // In Boss Room
-            if (centered && this.X == ((Global.resWidth / 2) - (this.Width / 2)))
+            if (centered && !slowingDown) // Regular Speed
             {
                 int particleX = (this.X + 4);
                 int particleY = (this.Y + this.Height - 8);
 
                 jumpParticles.Add(new DustParticle(particleX, particleY, true));
                 jumpParticles.Add(new DustParticle(particleX, particleY, false));
+            }
+
+            else if (centered && slowingDown) // Slowing Down
+            {
+                int particleY = (this.Y + this.Height - 8);
+
+                jumpParticles.Add(new DustParticle(this.X, particleY, true));
+                jumpParticles.Add(new DustParticle(this.X, particleY, false));
             }
 
             // In any other room
@@ -479,11 +487,28 @@ namespace Escapeaway.Source.Objects.Level
                     }
                 }
 
-                // Move Right
-                if (!blocked && !centered) X += runSpeed;
+                // When Not Centered Onscreen
+                if (!centered)
+                {
+                    // Move Right
+                    if (!blocked) X += runSpeed;
 
-                // Centered On-Screen
-                if (centered)
+                    // Penalize Score while Blocked
+                    else
+                    {
+                        scorePenalizeTimer += gameTime.ElapsedGameTime.Milliseconds;
+
+                        if (scorePenalizeTimer > framesUntilScorePenalized)
+                        {
+                            if (score > 0) score--;
+
+                            scorePenalizeTimer = 0f;
+                        }
+                    }
+                }
+
+                // Centered Onscreen
+                else
                 {
                     // Move Backwards when Slowing Down
                     if (slowingDown)
@@ -498,19 +523,6 @@ namespace Escapeaway.Source.Objects.Level
                     else
                     {
                         X += bossRunSpeed;
-                    }
-                }
-
-                // Penalize Score while Blocked
-                else
-                {
-                    scorePenalizeTimer += gameTime.ElapsedGameTime.Milliseconds;
-
-                    if (scorePenalizeTimer > framesUntilScorePenalized)
-                    {
-                        if (score > 0) score--;
-
-                        scorePenalizeTimer = 0f;
                     }
                 }
 
