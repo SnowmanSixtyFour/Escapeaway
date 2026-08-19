@@ -27,7 +27,9 @@ namespace Escapeaway.Source.States
 
         FirstRoomDevil firstRoomDevil;
         BackgroundDevil backgroundDevil;
+
         Follower follower;
+        Devil devil;
 
         Player player;
         
@@ -49,7 +51,7 @@ namespace Escapeaway.Source.States
          * */
 
         public int
-            currentScreen = 0,
+            currentScreen = 98,
             screenWithBackgroundDevil = 49,
             
             randomScreenColor = 0;
@@ -75,6 +77,8 @@ namespace Escapeaway.Source.States
 
             firstRoomDevil = new FirstRoomDevil(new Point(32, 36));
             backgroundDevil = new BackgroundDevil();
+
+            devil = new Devil();
             follower = new Follower();
 
             player = new Player(null, new Point(16, 120), Color.White, defaultLives);
@@ -250,6 +254,9 @@ namespace Escapeaway.Source.States
                             player.X = middleOfRoom;
                             player.centered = true;
                         }
+
+                        // Update Devil Boss
+                        devil.Update(gameTime, player);
                     }
                 }
             }
@@ -281,6 +288,7 @@ namespace Escapeaway.Source.States
             roomLayout.Draw(spriteBatch);
             player.Draw(spriteBatch);
             if (this.endless) follower.Draw(spriteBatch);
+            if (currentScreen >= 99) devil.Draw(spriteBatch);
 
             // Particles
             foreach (HeatParticle heatParticle in heatParticles) heatParticle.Draw(spriteBatch);
