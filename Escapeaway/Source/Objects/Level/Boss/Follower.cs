@@ -5,9 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Escapeaway.Source.Objects.Level;
 
-namespace Escapeaway.Source.Objects.Level.Background.Boss
+namespace Escapeaway.Source.Objects.Level.Boss
 {
     internal class Follower
     {

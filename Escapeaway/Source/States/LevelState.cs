@@ -12,9 +12,9 @@ using Escapeaway.Source.Graphics;
 using Escapeaway.Source.Objects.Level;
 using Escapeaway.Source.Objects.Level.Particles;
 using Escapeaway.Source.Objects.Level.Background;
-using Escapeaway.Source.Objects.Level.Background.Boss;
 using Escapeaway.Source.Objects.Level.Rooms;
 using Escapeaway.Source.Objects.Level.Background.Cutscene;
+using Escapeaway.Source.Objects.Level.Boss;
 
 namespace Escapeaway.Source.States
 {

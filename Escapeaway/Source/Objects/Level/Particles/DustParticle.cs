@@ -39,14 +39,7 @@ namespace Escapeaway.Source.Objects.Level.Particles
                     player.X + (player.Width - size.X) + offsetToPlayer,
                     player.Y + (player.Height - size.Y)
                     ),
-                new Point(
-                    sheetSize.X,
-                    sheetSize.Y
-                    ),
-                new Point(
-                    size.X,
-                    size.Y
-                    ),
+                sheetSize, size,
                 Color.White);
 
             SetAnimations();
@@ -55,21 +48,7 @@ namespace Escapeaway.Source.Objects.Level.Particles
         {
             this.moveLeft = moveLeft;
 
-            dust = new Character(
-                Global.dustParticle,
-                new Point(
-                    X,
-                    Y
-                    ),
-                new Point(
-                    sheetSize.X,
-                    sheetSize.Y
-                    ),
-                new Point(
-                    size.X,
-                    size.Y
-                    ),
-                Color.White);
+            dust = new Character(Global.dustParticle, new Point(X, Y), sheetSize, size, Color.White);
 
             SetAnimations();
         }

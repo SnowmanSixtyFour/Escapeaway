@@ -128,7 +128,7 @@ namespace Escapeaway.Source.Objects.Level
         private void CreateJumpParticles()
         {
             // In Boss Room
-            if (centered)
+            if (centered && this.X == ((Global.resWidth / 2) - (this.Width / 2)))
             {
                 int particleX = (this.X + 4);
                 int particleY = (this.Y + this.Height - 8);
@@ -599,7 +599,7 @@ namespace Escapeaway.Source.Objects.Level
                 foreach (var jumpDust in jumpParticles) jumpDust.Update(gameTime);
 
                 // If in Boss Room
-                if (centered)
+                if (centered && slowingDown)
                 {
                     // Speed up Slowdown Particle Movement
                     foreach (var slowDust in slowParticles)

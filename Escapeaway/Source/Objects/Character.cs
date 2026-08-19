@@ -187,6 +187,11 @@ namespace Escapeaway.Source.Objects
             Height = defaultHeight * resize;
         }
 
+        public void SetColor(Color newColor)
+        {
+            sprite.SetColor(newColor);
+        }
+
         // Controls
 
         public bool KeyPress(Keys key)

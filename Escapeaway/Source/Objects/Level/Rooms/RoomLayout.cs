@@ -181,14 +181,7 @@ namespace Escapeaway.Source.Objects.Level.Rooms
                 if (player.centered)
                 {
                     // Move Ground Texture to Simulate Room Movement
-                    foreach (var sprite in lastRoom)
-                    {
-                        // Slower Move Speed
-                        if (player.slowingDown) sprite.xOffset += 90f * (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-                        // Regular Move Speed
-                        else sprite.xOffset += 120f * (float)gameTime.ElapsedGameTime.TotalSeconds;
-                    }
+                    foreach (var sprite in lastRoom) sprite.xOffset += 120f * (float)gameTime.ElapsedGameTime.TotalSeconds;
                 }
                 else
                 {

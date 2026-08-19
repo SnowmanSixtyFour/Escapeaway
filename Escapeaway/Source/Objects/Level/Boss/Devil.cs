@@ -5,8 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Escapeaway.Source.Objects.Level.Projectiles;
 
-namespace Escapeaway.Source.Objects.Level.Background.Boss
+namespace Escapeaway.Source.Objects.Level.Boss
 {
     internal class Devil
     {
@@ -30,14 +31,24 @@ namespace Escapeaway.Source.Objects.Level.Background.Boss
         private bool
             movedOnscreen = false;
 
+        // Projectiles
+        private List<Bullet> bullets = new List<Bullet>();
+
+        private float bulletTimer = 0f, createNewBullet = 1000f; // Timer
+        private bool
+            createBullets = false; // Create Bullets
+
         public Devil()
         {
+            // Set Character
             devil = new Character(null, new Point(Global.resWidth, fightPosition.Y), size, sheetSize, Color.White);
         }
 
         public void Update(GameTime gameTime, Player player)
         {
+            // Update Devil
             devil.Update(gameTime);
+            foreach (var bullet in bullets) bullet.Update(gameTime);
 
             // Flying Movement
 
@@ -58,6 +69,7 @@ namespace Escapeaway.Source.Objects.Level.Background.Boss
             }
 
             // If Player is in Center of Screen
+            
             if (player.centered)
             {
                 // Intro to Boss Fight
@@ -75,11 +87,35 @@ namespace Escapeaway.Source.Objects.Level.Background.Boss
                     }
                 }
             }
+
+            // Set Variables after Onscreen
+            if (movedOnscreen)
+            {
+                // Projectiles
+                if (!createBullets) createBullets = true;
+            }
+
+            // Projectiles
+
+            if (createBullets)
+            {
+                bulletTimer += gameTime.ElapsedGameTime.Milliseconds;
+                if (bulletTimer > createNewBullet)
+                {
+                    bullets.Add(new Bullet(true));
+
+                    bulletTimer = 0f;
+                }
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            // Draw Character
             devil.Draw(spriteBatch);
+
+            // Draw Projectiles
+            foreach (var bullet in bullets) bullet.Draw(spriteBatch);
         }
     }
 }
