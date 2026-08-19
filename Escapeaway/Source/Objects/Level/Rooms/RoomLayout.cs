@@ -90,6 +90,22 @@ namespace Escapeaway.Source.Objects.Level.Rooms
 
             room9.Add(new StaticSprite(Global.ground, new Rectangle(0, 160, 60, 120), screenColor, true));
             room9.Add(new StaticSprite(Global.ground, new Rectangle(Global.resWidth - 40, 160, 40, 120), screenColor, true));
+            room9.Add(new StaticSprite(Global.ground, new Rectangle(90, 130, Global.resWidth - 160, 20), screenColor, true));
+            room9.Add(new StaticSprite(Global.ground, new Rectangle(Global.resWidth - 90, 25, 20, 80), screenColor, true));
+
+            room10.Add(new StaticSprite(Global.ground, new Rectangle(0, 160, Global.resWidth, 120), screenColor, true));
+            room10.Add(new StaticSprite(Global.ground, new Rectangle(50, 32, 20, 98), screenColor, true));
+            room10.Add(new StaticSprite(Global.ground, new Rectangle(Global.resWidth - 50, 32, 20, 98), screenColor, true));
+            room10.Add(new StaticSprite(Global.ground, new Rectangle(110, 140, 50, 20), screenColor, true));
+
+            room11.Add(new StaticSprite(Global.ground, new Rectangle(0, 160, Global.resWidth, 120), screenColor, true));
+            room11.Add(new StaticSprite(Global.ground, new Rectangle(50, 32, 20, 98), screenColor, true));
+            room11.Add(new StaticSprite(Global.ground, new Rectangle(Global.resWidth - 50, 32, 20, 98), screenColor, true));
+
+            room12.Add(new StaticSprite(Global.ground, new Rectangle(0, 160, Global.resWidth - 70, 120), screenColor, true));
+            room12.Add(new StaticSprite(Global.ground, new Rectangle(Global.resWidth - 20, 160, 20, 120), screenColor, true));
+            room12.Add(new StaticSprite(Global.ground, new Rectangle(40, 25, 20, 110), screenColor, true));
+            room12.Add(new StaticSprite(Global.ground, new Rectangle(Global.resWidth - 120, 115, 50, 20), screenColor, true));
 
             lastRoom.Add(new StaticSprite(Global.ground, new Rectangle(0, 160, Global.resWidth, 120), screenColor, true));
 
@@ -104,6 +120,9 @@ namespace Escapeaway.Source.Objects.Level.Rooms
             currentRoomLayout.Add(new RoomGround(room7));
             currentRoomLayout.Add(new RoomGround(room8));
             currentRoomLayout.Add(new RoomGround(room9));
+            currentRoomLayout.Add(new RoomGround(room10));
+            currentRoomLayout.Add(new RoomGround(room11));
+            currentRoomLayout.Add(new RoomGround(room12));
             currentRoomLayout.Add(new RoomGround(lastRoom));
 
             // Set Max Rooms
