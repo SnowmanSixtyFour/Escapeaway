@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Escapeaway.Source.Objects.Level.Boss
 {
-    internal class Follower
+    internal class FollowerBoss : Boss
     {
         private Character follower;
         private int currentScreen = 0;
@@ -21,7 +21,7 @@ namespace Escapeaway.Source.Objects.Level.Boss
 
         private int pixelsToMove = 2;
 
-        public Follower()
+        public FollowerBoss() : base()
         {
             follower = new Character(null, startingPosition, sheetSize, size, Color.White);
         }

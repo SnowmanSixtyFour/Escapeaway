@@ -28,8 +28,8 @@ namespace Escapeaway.Source.States
         FirstRoomDevil firstRoomDevil;
         BackgroundDevil backgroundDevil;
 
-        Follower follower;
-        Devil devil;
+        FollowerBoss follower;
+        DevilBoss devil;
 
         Player player;
         
@@ -78,8 +78,8 @@ namespace Escapeaway.Source.States
             firstRoomDevil = new FirstRoomDevil(new Point(32, 36));
             backgroundDevil = new BackgroundDevil();
 
-            devil = new Devil();
-            follower = new Follower();
+            devil = new DevilBoss();
+            follower = new FollowerBoss();
 
             player = new Player(null, new Point(16, 120), Color.White, defaultLives);
 

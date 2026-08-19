@@ -1,17 +1,17 @@
-﻿using Escapeaway.Source.Objects.Level.Projectiles;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Escapeaway.Source.Objects.Level.Projectiles;
 
 namespace Escapeaway.Source.Objects.Level.Boss
 {
-    internal class Devil
+    internal class DevilBoss : Boss
     {
         // Variables
         private Random random;
@@ -21,6 +21,9 @@ namespace Escapeaway.Source.Objects.Level.Boss
         private Point
             size = new Point(80, 80),
             sheetSize = new Point(80, 80);
+
+        // Health Bar
+        private BossHealthBar healthBar;
 
         // Movement
         private bool movingUp = false;
@@ -63,13 +66,19 @@ namespace Escapeaway.Source.Objects.Level.Boss
             maxAnimationBullets = 3, // Max Bullets in Animation
             maxBullets = 3; // Max Bullets Before Erasing First Created
 
-        public Devil()
+        public DevilBoss() : base()
         {
             // Initialize Variables
             random = new Random();
 
-            // Set Character
+            // Set Boss
             devil = new Character(null, new Point(Global.resWidth, fightPosition.Y), size, sheetSize, Color.White);
+
+            this.maxHealth = 200;
+            this.health = 200;
+
+            // Set Objects
+            healthBar = new BossHealthBar("The Devil");
         }
 
         public void Update(GameTime gameTime, Player player)
@@ -77,6 +86,8 @@ namespace Escapeaway.Source.Objects.Level.Boss
             // Update Objects
 
             devil.Update(gameTime);
+
+            healthBar.Update(gameTime, this);
 
             foreach (var bullet in bullets) bullet.Update(gameTime);
             foreach (var animationBullet in animationBullets) animationBullet.Update(gameTime);
@@ -237,6 +248,9 @@ namespace Escapeaway.Source.Objects.Level.Boss
             // Draw Projectiles
             foreach (var bullet in bullets) bullet.Draw(spriteBatch);
             foreach (var animationBullet in animationBullets) animationBullet.Draw(spriteBatch);
+
+            // Draw Health Bar
+            if (movedOnscreen) healthBar.Draw(spriteBatch);
         }
     }
 }
