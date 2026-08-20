@@ -79,7 +79,7 @@ namespace Escapeaway.Source.States
             backgroundDevil = new BackgroundDevil();
 
             devil = new DevilBoss(200);
-            follower = new FollowerBoss(1);
+            follower = new FollowerBoss();
 
             player = new Player(Global.player, new Point(16, 128), Color.White, defaultLives);
 

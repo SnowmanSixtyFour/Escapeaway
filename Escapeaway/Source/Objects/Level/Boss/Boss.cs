@@ -11,7 +11,7 @@ namespace Escapeaway.Source.Objects.Level.Boss
         public int health, maxHealth;
         private int previousHealth, previousMaxHealth;
 
-        public Boss(int health)
+        public Boss(int health = 100)
         {
             this.health = health;
             this.maxHealth = health;

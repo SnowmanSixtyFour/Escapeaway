@@ -21,7 +21,7 @@ namespace Escapeaway.Source.Objects.Level.Boss
 
         private int pixelsToMove = 2;
 
-        public FollowerBoss(int health) : base(health)
+        public FollowerBoss() : base()
         {
             follower = new Character(null, startingPosition, sheetSize, size, Color.White);
         }
@@ -33,8 +33,8 @@ namespace Escapeaway.Source.Objects.Level.Boss
         {
             base.Reset();
 
-            follower.X = startingPosition.X;
-            follower.Y = startingPosition.Y;
+            // Reset Position
+            follower.SetLocation(startingPosition);
         }
 
         /// <summary>
