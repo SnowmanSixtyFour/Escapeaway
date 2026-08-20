@@ -167,6 +167,8 @@ namespace Escapeaway.Source.Objects.Level.Boss
                     animationBullets.Add(new Bullet(new Point(devil.X + 30, fightPosition.Y), shouldHurt, true));
                     currentBullet++;
 
+                    SFX.projectile.Play();
+
                     // Reset Timer
                     animateTimer = 0f;
                 }

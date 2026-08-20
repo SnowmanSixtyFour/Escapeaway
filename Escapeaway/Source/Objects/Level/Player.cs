@@ -651,9 +651,16 @@ namespace Escapeaway.Source.Objects.Level
                     {
                         if (!sliding)
                         {
-                            PlayAnimation("running");
+                            if (slowingDown)
+                            {
+                                PlayAnimation("falling");
+                            }
+                            else
+                            {
+                                PlayAnimation("running");
 
-                            animSpeed = 30;
+                                animSpeed = 30;
+                            }
                         }
                         else
                         {
