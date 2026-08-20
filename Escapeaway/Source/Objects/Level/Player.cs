@@ -38,7 +38,7 @@ namespace Escapeaway.Source.Objects.Level
         private RoomLayout room;
         public static Point
             size = new Point(32, 32),
-            sheetSize = new Point(160, 32),
+            sheetSize = new Point(320, 32),
 
             slidingSize = new Point(32, 16);
 
@@ -112,11 +112,11 @@ namespace Escapeaway.Source.Objects.Level
 
             // Create Animations
 
-            CreateAnimation("default", 0, 0);
-            CreateAnimation("running", 1, 3);
-            CreateAnimation("jumping", 4, 4);
-            CreateAnimation("falling", 5, 5);
-            CreateAnimation("sliding", 6, 6);
+            CreateAnimation("default", 0, 3);
+            CreateAnimation("running", 4, 6);
+            CreateAnimation("jumping", 7, 7);
+            CreateAnimation("falling", 8, 8);
+            CreateAnimation("sliding", 9, 9);
         }
 
         public void SetRoom(RoomLayout newRoom)
@@ -265,6 +265,10 @@ namespace Escapeaway.Source.Objects.Level
             // Intro
             if (!moving)
             {
+                // Animate Player
+                PlayAnimation("default");
+                animSpeed = 70;
+
                 // Hide Particles
                 ClearParticles();
 
@@ -651,14 +655,18 @@ namespace Escapeaway.Source.Objects.Level
                     {
                         if (!sliding)
                         {
-                            if (slowingDown)
+                            if (blocked)
+                            {
+                                PlayAnimation("default");
+                                animSpeed = 70;
+                            }
+                            else if (slowingDown)
                             {
                                 PlayAnimation("falling");
                             }
                             else
                             {
                                 PlayAnimation("running");
-
                                 animSpeed = 30;
                             }
                         }
@@ -678,10 +686,6 @@ namespace Escapeaway.Source.Objects.Level
                             if (aboveGround) PlayAnimation("falling");
                         }
                     }
-                }
-                else
-                {
-                    PlayAnimation("default");
                 }
             }
         }
