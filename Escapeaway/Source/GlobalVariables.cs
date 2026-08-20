@@ -66,6 +66,7 @@ namespace Escapeaway.Source
             clouds, heatBG, endOverlay,
             ground,
 
+            devil,
             player,
 
             // Particles
@@ -89,6 +90,7 @@ namespace Escapeaway.Source
 
             ground = Content.Load<Texture2D>("Assets/Images/Level/ground");
 
+            devil = Content.Load<Texture2D>("Assets/Images/Level/devil");
             player = Content.Load<Texture2D>("Assets/Images/Level/player");
 
             dustParticle = Content.Load<Texture2D>("Assets/Images/Level/dust");

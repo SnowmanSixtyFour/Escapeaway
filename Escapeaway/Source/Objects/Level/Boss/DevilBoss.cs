@@ -20,8 +20,8 @@ namespace Escapeaway.Source.Objects.Level.Boss
         // Sprite
         private Character devil;
         private Point
-            size = new Point(80, 80),
-            sheetSize = new Point(80, 80);
+            size = new Point(80, 64),
+            sheetSize = new Point(80, 64);
 
         // Health Bar
         private BossHealthBar healthBar;
@@ -76,7 +76,7 @@ namespace Escapeaway.Source.Objects.Level.Boss
             random = new Random();
 
             // Set Boss
-            devil = new Character(null, new Point(Global.resWidth, fightPosition.Y), size, sheetSize, Color.White);
+            devil = new Character(Global.devil, new Point(Global.resWidth, fightPosition.Y), size, sheetSize, Color.White);
 
             // Set Objects
             healthBar = new BossHealthBar("The Devil");

@@ -13,8 +13,8 @@ namespace Escapeaway.Source.Objects.Level.Background.Cutscene
         private Character devil;
         private bool visible = true;
         private Point
-            size = new Point(100, 100),
-            sheetSize = new Point(100, 100);
+            size = new Point(80, 64),
+            sheetSize = new Point(80, 64);
 
         // Movement
         private bool movingUp = false;
@@ -22,11 +22,14 @@ namespace Escapeaway.Source.Objects.Level.Background.Cutscene
             yVelocity = 0,
             gravity = 0.2f, maxMovementSpeed = 1.5f,
 
-            maxUpHeight = 34, maxDownHeight = 38;
+            maxUpHeight, maxDownHeight;
 
         public FirstRoomDevil(Point location)
         {
-            devil = new Character(null, location, sheetSize, size, Color.White);
+            devil = new Character(Global.devil, location, sheetSize, size, Color.White);
+
+            maxUpHeight = (location.Y - 2);
+            maxDownHeight = (location.Y + 2);
         }
 
         public void Hide()

@@ -16,14 +16,14 @@ namespace Escapeaway.Source.Objects.Level.Boss
         private Point
             startingPosition = new Point(0, 0),
 
-            size = new Point(40, 40),
-            sheetSize = new Point(40, 40);
+            size = new Point(80, 64),
+            sheetSize = new Point(80, 64);
 
         private int pixelsToMove = 2;
 
         public FollowerBoss() : base()
         {
-            follower = new Character(null, startingPosition, sheetSize, size, Color.White);
+            follower = new Character(Global.devil, startingPosition, sheetSize, size, Color.White);
         }
 
         /// <summary>

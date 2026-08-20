@@ -76,7 +76,7 @@ namespace Escapeaway.Source.States
 
             levelBackground = new UnderdepthsBackground();
 
-            firstRoomDevil = new FirstRoomDevil(new Point(32, 36));
+            firstRoomDevil = new FirstRoomDevil(new Point(32, 76));
             backgroundDevil = new BackgroundDevil();
 
             devil = new DevilBoss(200);
