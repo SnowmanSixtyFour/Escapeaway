@@ -32,7 +32,8 @@ namespace Escapeaway.Source.States
         DevilBoss devil;
 
         Player player;
-        
+
+        LevelEndOverlay endOverlay;
         PauseOverlay pauseOverlay;
         HUD hud;
 
@@ -83,6 +84,8 @@ namespace Escapeaway.Source.States
 
             player = new Player(Global.player, new Point(16, 128), Color.White, defaultLives);
 
+            endOverlay = new LevelEndOverlay();
+
             // HUD
             hud = new HUD();
             pauseOverlay = new PauseOverlay();
@@ -114,6 +117,9 @@ namespace Escapeaway.Source.States
 
             // Reset Particles
             heatParticles.Clear();
+
+            // Reset Foreground
+            endOverlay.Reset();
         }
 
         /// <summary>
@@ -159,6 +165,16 @@ namespace Escapeaway.Source.States
                 roomDisclaimer.Update(gameTime, player);
 
                 levelBackground.Update(gameTime, this.screenColor);
+
+                endOverlay.Update(gameTime);
+
+                // When Game Won
+                if (endOverlay.isCentered)
+                {
+                    SwitchState(main.win);
+
+                    endOverlay.Reset();
+                }
 
                 // Update Enemies
                 firstRoomDevil.Update(gameTime);
@@ -260,6 +276,11 @@ namespace Escapeaway.Source.States
 
                         // Update Devil Boss
                         devil.Update(gameTime, player);
+
+                        if (devil.defeated)
+                        {
+                            endOverlay.move = true;
+                        }
                     }
                 }
             }
@@ -299,6 +320,7 @@ namespace Escapeaway.Source.States
             // HUD
             roomDisclaimer.Draw(spriteBatch);
             hud.Draw(spriteBatch);
+            endOverlay.Draw(spriteBatch);
             pauseOverlay.Draw(spriteBatch);
         }
     }

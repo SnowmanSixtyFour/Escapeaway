@@ -24,6 +24,8 @@ namespace Escapeaway.Source.Objects.Level.Boss
 
         public virtual void Reset()
         {
+            defeated = false;
+
             health = previousHealth;
             maxHealth = previousMaxHealth;
         }

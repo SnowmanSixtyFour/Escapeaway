@@ -13,18 +13,31 @@ namespace Escapeaway.Source.Objects.Level.Background.Cutscene
     {
         private StaticSprite sprite;
 
+        private Point startingPosition = new Point((Global.resWidth + 250), 0);
+
         public bool move = false;
         private int pixelsToMove = 2;
 
-        private int centered;
+        private int centerOfScreen;
+        public bool isCentered = false;
 
         public LevelEndOverlay()
         {
             // Set Sprite
-            sprite = new StaticSprite(Global.endOverlay, new Rectangle(Global.resWidth, 0, 280, 224), CustomColor.White);
+            sprite = new StaticSprite(Global.endOverlay, new Rectangle(startingPosition.X, startingPosition.Y, 280, 224), CustomColor.White);
 
             // Set Destination
-            centered = (sprite.GetWidth() - Global.resWidth);
+            centerOfScreen = (Global.resWidth - sprite.GetWidth());
+        }
+
+        public void Reset()
+        {
+            // Reset Events
+            this.isCentered = false;
+            this.move = false;
+
+            // Reset Sprite
+            this.sprite.SetX(startingPosition.X);
         }
 
         public void Update(GameTime gameTime)
@@ -33,18 +46,20 @@ namespace Escapeaway.Source.Objects.Level.Background.Cutscene
             if (move)
             {
                 // If Sprite is Not Centered (Middle of Screen)
-                if (sprite.GetX() >= centered)
+                if (sprite.GetX() > centerOfScreen)
                 {
                     // Move Sprite to Center
                     sprite.SetX(sprite.GetX() - pixelsToMove);
                 }
                 else
                 {
-                    // Center Sprite
-                    sprite.SetX(centered);
-
                     // End Move Event
                     move = false;
+
+                    // Center Sprite
+                    sprite.SetX(centerOfScreen);
+
+                    isCentered = true;
                 }
             }
         }
