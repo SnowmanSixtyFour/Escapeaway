@@ -1,5 +1,5 @@
 <div align="center">
-<a href="https://snowman64.itch.io/escapeaway" target="_blank">
+<a href="https://store.steampowered.com/app/5143520/ESCAPEAWAY/" target="_blank">
   <img align="center" src="repo/logo.png" alt="ESCAPEAWAY!">
 </a>
 </div>
@@ -24,7 +24,7 @@ Dodge obstacles, and make it to the end of the game while avoiding <b>the Devil<
 <i>"How do you stop running?" <b>You CAN'T!</b></i>
 
 ## Downloads
-The game can be downloaded on [itch.io](https://snowman64.itch.io/escapeaway) and [Game Jolt](https://gamejolt.com/games/escapeaway/1090448) for free!
+The game can be downloaded on [Steam](https://store.steampowered.com/app/5143520/ESCAPEAWAY/), [itch.io](https://snowman64.itch.io/escapeaway), and [Game Jolt](https://gamejolt.com/games/escapeaway/1090448) for free!
 
 Alternatively, you can browse the [releases](https://github.com/SnowmanSixtyFour/Escapeaway/releases) in the GitHub repository.
 
