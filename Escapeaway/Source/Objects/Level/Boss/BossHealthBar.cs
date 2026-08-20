@@ -16,6 +16,11 @@ namespace Escapeaway.Source.Objects.Level.Boss
 
         private int newWidth;
 
+        private bool flicker = false;
+        private float
+            flickerTimer = 0f,
+            timeUntilFlicker = 90f;
+
         /// <summary>
         /// Create a health bar for a boss fight.
         /// </summary>

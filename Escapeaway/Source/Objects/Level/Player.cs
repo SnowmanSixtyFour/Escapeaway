@@ -352,10 +352,13 @@ namespace Escapeaway.Source.Objects.Level
                 if (!sliding) canSlideCheck.SetDestRect(new Rectangle(this.X + 23, this.Y + 22, 16, 16));
                 else canSlideCheck.SetDestRect(new Rectangle(this.X + 23, this.Y, 16, 16));
 
-                // Lost a Life
-                if (Y > Global.resHeight)
+                // Lose a Life
+                if (X < (Global.resWidth - this.Width))
                 {
-                    LoseLife();
+                    if (Y > Global.resHeight)
+                    {
+                        LoseLife();
+                    }
                 }
 
                 // Jump
@@ -524,10 +527,22 @@ namespace Escapeaway.Source.Objects.Level
                     {
                         scorePenalizeTimer += gameTime.ElapsedGameTime.Milliseconds;
 
-                        if (scorePenalizeTimer > framesUntilScorePenalized)
+                        // While Not Jumping
+                        if (!aboveGround)
                         {
-                            if (score > 0) score--;
+                            // Penalize Score
+                            if (scorePenalizeTimer > framesUntilScorePenalized)
+                            {
+                                if (score > 0) score--;
 
+                                scorePenalizeTimer = 0f;
+                            }
+                        }
+
+                        // If Jumping
+                        else
+                        {
+                            // Reset Timer Event
                             scorePenalizeTimer = 0f;
                         }
                     }
@@ -569,7 +584,6 @@ namespace Escapeaway.Source.Objects.Level
                         if (KeyDown(Keys.Down)
                         || ButtonDown(Buttons.DPadDown) || ButtonDown(Buttons.LeftThumbstickDown))
                         {
-
                             {
                                 // Set Sliding Timer
                                 if (!sliding) slideCounter = slideStart;
