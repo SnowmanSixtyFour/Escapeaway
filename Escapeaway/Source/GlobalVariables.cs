@@ -66,6 +66,8 @@ namespace Escapeaway.Source
             clouds, heatBG,
             ground,
 
+            player,
+
             // Particles
             dustParticle, heatParticle;
         public static SpriteFont
@@ -84,6 +86,8 @@ namespace Escapeaway.Source
             heatBG = Content.Load<Texture2D>("Assets/Images/Level/heatBG");
 
             ground = Content.Load<Texture2D>("Assets/Images/Level/ground");
+
+            player = Content.Load<Texture2D>("Assets/Images/Level/player");
 
             dustParticle = Content.Load<Texture2D>("Assets/Images/Level/dust");
             heatParticle = Content.Load<Texture2D>("Assets/Images/Level/heat");

@@ -37,10 +37,10 @@ namespace Escapeaway.Source.Objects.Level
         // Properties
         private RoomLayout room;
         public static Point
-            size = new Point(20, 40),
-            sheetSize = new Point(20, 40),
+            size = new Point(32, 32),
+            sheetSize = new Point(160, 32),
 
-            slidingSize = new Point(40, 20);
+            slidingSize = new Point(32, 16);
 
         private int
             // Default Variables
@@ -97,7 +97,7 @@ namespace Escapeaway.Source.Objects.Level
 
         private List<DustParticle> jumpParticles = new List<DustParticle>();
 
-        public Player(Texture2D spriteSheet, Point location, Color color, int startingLives) : base(spriteSheet, location, size, sheetSize, color)
+        public Player(Texture2D spriteSheet, Point location, Color color, int startingLives) : base(spriteSheet, location, sheetSize, size, color)
         {
             // Set Variables
             startingPosition = location;
@@ -109,6 +109,14 @@ namespace Escapeaway.Source.Objects.Level
             // Set Movement Checks
             keepSlidingCheck = new StaticSprite(null, new Rectangle(0, 0, 20, 20), Color.Red * 0.5f);
             canSlideCheck = new StaticSprite(null, new Rectangle(0, 0, 20, 20), Color.Lime * 0.5f);
+
+            // Create Animations
+
+            CreateAnimation("default", 0, 0);
+            CreateAnimation("running", 1, 3);
+            CreateAnimation("jumping", 4, 4);
+            CreateAnimation("falling", 5, 5);
+            CreateAnimation("sliding", 6, 6);
         }
 
         public void SetRoom(RoomLayout newRoom)
@@ -633,6 +641,32 @@ namespace Escapeaway.Source.Objects.Level
                         {
                             slowDust.pixelsToMove = regularMoveSpeed;
                         }
+                    }
+                }
+
+                // Animate Player
+                if (!jumping)
+                {
+                    if (!sliding)
+                    {
+                        PlayAnimation("running");
+
+                        animSpeed = 30;
+                    }
+                    else
+                    {
+                        PlayAnimation("sliding");
+                    }
+                }
+                else
+                {
+                    if (yVelocity < 0)
+                    {
+                        PlayAnimation("jumping");
+                    }
+                    else
+                    {
+                        if (aboveGround) PlayAnimation("falling");
                     }
                 }
             }

@@ -81,7 +81,7 @@ namespace Escapeaway.Source.States
             devil = new DevilBoss();
             follower = new FollowerBoss();
 
-            player = new Player(null, new Point(16, 120), Color.White, defaultLives);
+            player = new Player(Global.player, new Point(16, 128), Color.White, defaultLives);
 
             // HUD
             hud = new HUD();
