@@ -66,7 +66,7 @@ namespace Escapeaway.Source.Objects.Level.Boss
             maxAnimationBullets = 3, // Max Bullets in Animation
             maxBullets = 3; // Max Bullets Before Erasing First Created
 
-        public DevilBoss() : base()
+        public DevilBoss(int health) : base(health)
         {
             // Initialize Variables
             random = new Random();
@@ -74,11 +74,25 @@ namespace Escapeaway.Source.Objects.Level.Boss
             // Set Boss
             devil = new Character(null, new Point(Global.resWidth, fightPosition.Y), size, sheetSize, Color.White);
 
-            this.maxHealth = 200;
-            this.health = 200;
-
             // Set Objects
             healthBar = new BossHealthBar("The Devil");
+        }
+
+        public override void Reset()
+        {
+            // Reset Health
+            base.Reset();
+
+            // Reset Properties
+            devil.SetLocation(new Point(Global.resWidth, fightPosition.Y));
+            movedOnscreen = false;
+
+            bullets.Clear();
+            animationBullets.Clear();
+
+            startAttack = false;
+            animateBullets = false;
+            createBullets = false;
         }
 
         public void Update(GameTime gameTime, Player player)

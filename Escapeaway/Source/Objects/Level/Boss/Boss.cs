@@ -9,5 +9,21 @@ namespace Escapeaway.Source.Objects.Level.Boss
     internal class Boss
     {
         public int health, maxHealth;
+        private int previousHealth, previousMaxHealth;
+
+        public Boss(int health)
+        {
+            this.health = health;
+            this.maxHealth = health;
+
+            this.previousHealth = health;
+            this.previousMaxHealth = health;
+        }
+
+        public virtual void Reset()
+        {
+            health = previousHealth;
+            maxHealth = previousMaxHealth;
+        }
     }
 }

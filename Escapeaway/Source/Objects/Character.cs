@@ -192,6 +192,12 @@ namespace Escapeaway.Source.Objects
             sprite.SetColor(newColor);
         }
 
+        public void SetLocation(Point point)
+        {
+            X = point.X;
+            Y = point.Y;
+        }
+
         // Controls
 
         public bool KeyPress(Keys key)

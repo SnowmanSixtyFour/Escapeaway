@@ -78,8 +78,8 @@ namespace Escapeaway.Source.States
             firstRoomDevil = new FirstRoomDevil(new Point(32, 36));
             backgroundDevil = new BackgroundDevil();
 
-            devil = new DevilBoss();
-            follower = new FollowerBoss();
+            devil = new DevilBoss(200);
+            follower = new FollowerBoss(1);
 
             player = new Player(Global.player, new Point(16, 128), Color.White, defaultLives);
 
@@ -131,7 +131,9 @@ namespace Escapeaway.Source.States
 
             firstRoomDevil.Show();
             backgroundDevil.Reset();
+
             follower.Reset();
+            devil.Reset();
 
             // Reset Player Values (score, lives, etc)
             player.lives = defaultLives;

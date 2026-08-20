@@ -21,7 +21,7 @@ namespace Escapeaway.Source.Objects.Level.Boss
 
         private int pixelsToMove = 2;
 
-        public FollowerBoss() : base()
+        public FollowerBoss(int health) : base(health)
         {
             follower = new Character(null, startingPosition, sheetSize, size, Color.White);
         }
@@ -29,8 +29,10 @@ namespace Escapeaway.Source.Objects.Level.Boss
         /// <summary>
         /// Resets the follower back to its state when endless mode first begins.
         /// </summary>
-        public void Reset()
+        public override void Reset()
         {
+            base.Reset();
+
             follower.X = startingPosition.X;
             follower.Y = startingPosition.Y;
         }
