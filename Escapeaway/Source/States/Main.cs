@@ -19,6 +19,7 @@ namespace Escapeaway.Source.States
         public TitleState title;
         public OptionsState options;
         public StoryState story;
+        public CreditsState credits;
         public LevelState level;
         public WinState win;
         public GameOverState gameOver;
@@ -33,6 +34,7 @@ namespace Escapeaway.Source.States
             title = new TitleState();
             options = new OptionsState();
             story = new StoryState();
+            credits = new CreditsState();
             level = new LevelState();
             win = new WinState();
             gameOver = new GameOverState();

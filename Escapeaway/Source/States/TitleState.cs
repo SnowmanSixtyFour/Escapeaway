@@ -24,7 +24,7 @@ namespace Escapeaway.Source.States
             logoWidth = 170,
             logoHeight = 27,
 
-            logoY = 24;
+            logoY = 14;
 
         private StaticSprite overlay;
 
@@ -69,11 +69,12 @@ namespace Escapeaway.Source.States
 
             // Buttons
             buttons = new ButtonList();
-            buttons.Add("Start", new Vector2(buttonX, buttonY), CustomColor.White);
-            buttons.Add("Endless Mode", new Vector2(buttonX, buttonY + 20), CustomColor.White);
-            buttons.Add("Options", new Vector2(buttonX, buttonY + 40), CustomColor.White);
-            buttons.Add("Story", new Vector2(buttonX, buttonY + 60), CustomColor.White);
-            buttons.Add("Exit", new Vector2(buttonX, buttonY + 80), CustomColor.White);
+            buttons.Add("Start", new Vector2(buttonX, buttonY - 10), CustomColor.White);
+            buttons.Add("Endless Mode", new Vector2(buttonX, buttonY + 10), CustomColor.White);
+            buttons.Add("Options", new Vector2(buttonX, buttonY + 30), CustomColor.White);
+            buttons.Add("Story", new Vector2(buttonX, buttonY + 50), CustomColor.White);
+            buttons.Add("Credits", new Vector2(buttonX, buttonY + 70), CustomColor.White);
+            buttons.Add("Exit", new Vector2(buttonX, buttonY + 90), CustomColor.White);
         }
 
         public void SetHighscore()
@@ -149,11 +150,14 @@ namespace Escapeaway.Source.States
             // Options
             else if (buttons.ButtonSelected(2, this)) SwitchState(main.options);
 
-            // Help
+            // Story
             else if (buttons.ButtonSelected(3, this)) SwitchState(main.story);
 
+            // Credits
+            else if (buttons.ButtonSelected(4, this)) SwitchState(main.credits);
+
             // Quit
-            else if (buttons.ButtonSelected(4, this)) ExitGame();
+            else if (buttons.ButtonSelected(5, this)) ExitGame();
 
             // Animations
 

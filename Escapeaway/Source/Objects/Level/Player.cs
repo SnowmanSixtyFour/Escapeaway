@@ -298,7 +298,7 @@ namespace Escapeaway.Source.Objects.Level
                 startRunningTimer += gameTime.ElapsedGameTime.Milliseconds;
 
                 // Update Display Text
-                respawnTimer.setPosition(new Vector2(this.X + 6, this.Y - 16)); // Place above Player
+                respawnTimer.setPosition(new Vector2(this.X + 14, this.Y - 16)); // Place above Player
 
                 if (startRunningTimer > timeUntilMovingAgain - (timeUntilMovingAgain / 4)) respawnTimer.setText("1");
                 else if (startRunningTimer > (timeUntilMovingAgain / 2)) respawnTimer.setText("2");
@@ -559,7 +559,7 @@ namespace Escapeaway.Source.Objects.Level
                                 // Start Sliding
                                 sliding = true;
 
-                                if (Width != slidingSize.X && Height != slidingSize.Y)
+                                if (Height != slidingSize.Y)
                                 {
                                     // Update Size
                                     Width = slidingSize.X;
@@ -645,29 +645,36 @@ namespace Escapeaway.Source.Objects.Level
                 }
 
                 // Animate Player
-                if (!jumping)
+                if (moving)
                 {
-                    if (!sliding)
+                    if (!jumping)
                     {
-                        PlayAnimation("running");
+                        if (!sliding)
+                        {
+                            PlayAnimation("running");
 
-                        animSpeed = 30;
+                            animSpeed = 30;
+                        }
+                        else
+                        {
+                            PlayAnimation("sliding");
+                        }
                     }
                     else
                     {
-                        PlayAnimation("sliding");
+                        if (yVelocity < 0)
+                        {
+                            PlayAnimation("jumping");
+                        }
+                        else
+                        {
+                            if (aboveGround) PlayAnimation("falling");
+                        }
                     }
                 }
                 else
                 {
-                    if (yVelocity < 0)
-                    {
-                        PlayAnimation("jumping");
-                    }
-                    else
-                    {
-                        if (aboveGround) PlayAnimation("falling");
-                    }
+                    PlayAnimation("default");
                 }
             }
         }

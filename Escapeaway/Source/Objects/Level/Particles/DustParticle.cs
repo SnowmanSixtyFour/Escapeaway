@@ -19,7 +19,7 @@ namespace Escapeaway.Source.Objects.Level.Particles
         private Point
             size = new Point(8, 8),
             sheetSize = new Point(16, 8);
-        private int offsetToPlayer = 6; // How far in front of player to spawn
+        private int offsetToPlayer = -2; // How far in front of player to spawn
 
         private bool moveLeft;
         public int pixelsToMove = 1;
