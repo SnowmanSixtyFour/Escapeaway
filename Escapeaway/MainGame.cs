@@ -1,5 +1,5 @@
 ﻿// ESCAPEAWAY!
-// https://snowman64.itch.io/escapeaway
+// https://store.steampowered.com/app/5143520/ESCAPEAWAY/
 
 // Created by Snowman64
 // Developed from August 8, 2026 - TBA

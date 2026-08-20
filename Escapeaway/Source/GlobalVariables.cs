@@ -63,7 +63,7 @@ namespace Escapeaway.Source
             logo, titleOverlay,
 
             // Gameplay
-            clouds, heatBG,
+            clouds, heatBG, endOverlay,
             ground,
 
             player,
@@ -84,6 +84,8 @@ namespace Escapeaway.Source
 
             clouds = Content.Load<Texture2D>("Assets/Images/Level/clouds");
             heatBG = Content.Load<Texture2D>("Assets/Images/Level/heatBG");
+
+            endOverlay = Content.Load<Texture2D>("Assets/Images/Level/endOverlay");
 
             ground = Content.Load<Texture2D>("Assets/Images/Level/ground");
 
