@@ -13,10 +13,10 @@ namespace Escapeaway.Source.Objects.Level.Background.Cutscene
     {
         private StaticSprite sprite;
 
-        private Point startingPosition = new Point((Global.resWidth + 250), 0);
+        private Point startingPosition = new Point((Global.resWidth + 160), 0);
 
         public bool move = false;
-        private int pixelsToMove = 2;
+        private int pixelsToMove = 1;
 
         private int centerOfScreen;
         public bool isCentered = false;

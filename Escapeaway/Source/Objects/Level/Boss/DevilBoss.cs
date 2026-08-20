@@ -90,6 +90,7 @@ namespace Escapeaway.Source.Objects.Level.Boss
             // Reset Properties
             devil.SetLocation(new Point(Global.resWidth, fightPosition.Y));
             movedOnscreen = false;
+            falling = false;
 
             bullets.Clear();
             animationBullets.Clear();
