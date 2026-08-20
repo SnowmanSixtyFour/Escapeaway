@@ -7,3 +7,6 @@
 /Escapeaway/obj
 /Escapeaway/Content/bin
 /Escapeaway/Content/obj
+
+# Game Assets
+Escapeaway/Content/Assets/Images/Level/player.png
