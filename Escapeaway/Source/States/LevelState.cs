@@ -178,6 +178,7 @@ namespace Escapeaway.Source.States
                 player.SetRoom(this.roomLayout);
                 player.Update(gameTime);
                 player.SetSpeed(this.endless, currentScreen);
+                player.BossFight(this.devil);
 
                 // Game Over
                 if (player.gameOver)

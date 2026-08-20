@@ -178,7 +178,7 @@ namespace Escapeaway.Source.Objects.Level.Rooms
             // If in Final Boss Room
             if (selectedRoomLayout == (currentRoomLayout.Count - 1))
             {
-                if (player.centered)
+                if (player.centered && player.moving)
                 {
                     // Move Ground Texture to Simulate Room Movement
                     foreach (var sprite in lastRoom) sprite.xOffset += 120f * (float)gameTime.ElapsedGameTime.TotalSeconds;

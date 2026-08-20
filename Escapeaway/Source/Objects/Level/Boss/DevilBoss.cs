@@ -40,8 +40,8 @@ namespace Escapeaway.Source.Objects.Level.Boss
             movedOnscreen = false;
 
         // Projectiles
-        private List<Bullet> animationBullets = new List<Bullet>();
-        private List<Bullet> bullets = new List<Bullet>();
+        private List<DevilFireball> animationBullets = new List<DevilFireball>();
+        public List<DevilFireball> bullets = new List<DevilFireball>();
 
         private List<bool> hurtBullets = new List<bool>(); // Keep track of which bullets hurt
 
@@ -53,7 +53,7 @@ namespace Escapeaway.Source.Objects.Level.Boss
         private float
             animateTimer = 0f, createNewAnimation = 250f,
             bulletTimer = 0f, createNewBullet = 1000f,
-            waitTimer = 0f, waitMax = 2200f;
+            waitTimer = 0f, waitMax = 3300f;
         private bool
             startAttack = false, // Start Attack Process
             animateBullets = false, // Animate Bullets being Created
@@ -95,6 +95,34 @@ namespace Escapeaway.Source.Objects.Level.Boss
             createBullets = false;
         }
 
+        /// <summary>
+        /// Moves the bullets back a certain amount of pixels. Useful when the player is respawning.
+        /// </summary>
+        /// <param name="amountToMove">The amount of pixels to move each bullet back by.</param>
+        public void MoveBulletsAway(int amountToMove)
+        {
+            foreach (var bullet in bullets)
+            {
+                bullet.sprite.X += amountToMove;
+            }
+        }
+
+        /// <summary>
+        /// Parry the devil's bullet back into him.
+        /// </summary>
+        public void ParryBullet(DevilFireball bullet)
+        {
+            bullet.moving = false;
+            bullet.parry = true;
+        }
+
+        private void HurtDevil()
+        {
+            int damageDealt = random.Next(10, 25);
+
+            if (health > 0) health -= damageDealt;
+        }
+
         public void Update(GameTime gameTime, Player player)
         {
             // Update Objects
@@ -106,40 +134,51 @@ namespace Escapeaway.Source.Objects.Level.Boss
             foreach (var bullet in bullets) bullet.Update(gameTime);
             foreach (var animationBullet in animationBullets) animationBullet.Update(gameTime);
 
-            // Flying Movement
+            // Defeat
 
-            if (devil.Y < maxUpHeight) movingUp = false;
-            if (devil.Y > maxDownHeight) movingUp = true;
+            if (health <= 0) if (!defeated) defeated = true;
 
-            devil.Y += Convert.ToInt32(yVelocity);
-
-            if (movingUp)
+            if (defeated)
             {
-                if (yVelocity > -maxMovementSpeed) yVelocity -= gravity;
-                else yVelocity = -maxMovementSpeed;
+
             }
-            if (!movingUp)
+            else
             {
-                if (yVelocity < maxMovementSpeed) yVelocity += gravity;
-                else yVelocity = maxMovementSpeed;
-            }
+                // Flying Movement
 
-            // If Player is in Center of Screen
-            
-            if (player.centered)
-            {
-                // Intro to Boss Fight
-                if (!movedOnscreen)
+                if (devil.Y < maxUpHeight) movingUp = false;
+                if (devil.Y > maxDownHeight) movingUp = true;
+
+                devil.Y += Convert.ToInt32(yVelocity);
+
+                if (movingUp)
                 {
-                    if (devil.X > fightPosition.X)
-                    {
-                        devil.X--;
-                    }
-                    else
-                    {
-                        movedOnscreen = true;
+                    if (yVelocity > -maxMovementSpeed) yVelocity -= gravity;
+                    else yVelocity = -maxMovementSpeed;
+                }
+                if (!movingUp)
+                {
+                    if (yVelocity < maxMovementSpeed) yVelocity += gravity;
+                    else yVelocity = maxMovementSpeed;
+                }
 
-                        devil.X = fightPosition.X;
+                // If Player is in Center of Screen
+
+                if (player.centered)
+                {
+                    // Intro to Boss Fight
+                    if (!movedOnscreen)
+                    {
+                        if (devil.X > fightPosition.X)
+                        {
+                            devil.X--;
+                        }
+                        else
+                        {
+                            movedOnscreen = true;
+
+                            devil.X = fightPosition.X;
+                        }
                     }
                 }
             }
@@ -163,96 +202,120 @@ namespace Escapeaway.Source.Objects.Level.Boss
 
             // Projectiles
 
-            // Animation Bullets
-            if (animateBullets)
+            try
             {
-                // Create New Bullets
-                animateTimer += gameTime.ElapsedGameTime.Milliseconds;
-                if (animateTimer > createNewAnimation)
+                // Animation Bullets
+                if (animateBullets)
                 {
-                    // Randomize if Bullet should Hurt
-                    randomHurt = random.Next(0, 2);
-                    if (randomHurt == 0) shouldHurt = false;
-                    else shouldHurt = true;
-
-                    hurtBullets.Add(shouldHurt);
-
-                    // Add New Bullet to List
-                    animationBullets.Add(new Bullet(new Point(devil.X + 30, fightPosition.Y), shouldHurt, true));
-                    currentBullet++;
-
-                    SFX.projectile.Play();
-
-                    // Reset Timer
-                    animateTimer = 0f;
-                }
-
-                // When Max Bullets in Animation Reached
-                if (animationBullets.Count > maxAnimationBullets)
-                {
-                    // End Animation
-                    animateBullets = false;
-                    currentBullet = 0;
-
-                    // Start Creating Interactive Bullets
-                    createBullets = true;
-                }
-            }
-
-            // Interactive Bullets
-            if (createBullets)
-            {
-                bulletTimer += gameTime.ElapsedGameTime.Milliseconds;
-                if (bulletTimer > createNewBullet)
-                {
-                    // Set if Bullet should Hurt from Animation
-                    bool shouldHurt = hurtBullets[currentBullet];
-
-                    // Create New Bullet
-                    bullets.Add(new Bullet(new Point(Global.resWidth, 140), shouldHurt, false));
-                    currentBullet++;
-
-                    // Remove Bullet Once Offscreen
-                    int index = 0;
-                    foreach (var bullet in bullets)
+                    // Create New Bullets
+                    animateTimer += gameTime.ElapsedGameTime.Milliseconds;
+                    if (animateTimer > createNewAnimation)
                     {
-                        index++;
-                        if (bullet.X < -bullet.Width) bullets.RemoveAt(index);
+                        // Randomize if Bullet should Hurt
+                        randomHurt = random.Next(0, 2);
+                        if (randomHurt == 0) shouldHurt = false;
+                        else shouldHurt = true;
+
+                        hurtBullets.Add(shouldHurt);
+
+                        // Add New Bullet to List
+                        Point offset = new Point(5, 40); // Offset for Creating Bullet
+                        animationBullets.Add(new DevilFireball(new Point(devil.X + offset.X, fightPosition.Y + offset.Y), shouldHurt, true));
+                        currentBullet++;
+
+                        SFX.projectile.Play();
+
+                        // Reset Timer
+                        animateTimer = 0f;
                     }
 
-                    // Stop Creating Bullets at Max Amount
-                    if (bullets.Count > maxBullets)
+                    // When Max Bullets in Animation Reached
+                    if (animationBullets.Count > maxAnimationBullets)
                     {
-                        createBullets = false;
-
+                        // End Animation
+                        animateBullets = false;
                         currentBullet = 0;
-                    }
 
-                    // Reset Timer
-                    bulletTimer = 0f;
+                        // Start Creating Interactive Bullets
+                        createBullets = true;
+                    }
+                }
+
+                // Interactive Bullets
+                if (createBullets)
+                {
+                    bulletTimer += gameTime.ElapsedGameTime.Milliseconds;
+                    if (bulletTimer > createNewBullet)
+                    {
+                        // Set if Bullet should Hurt from Animation
+                        bool shouldHurt = hurtBullets[currentBullet];
+
+                        // Create New Bullet
+                        bullets.Add(new DevilFireball(new Point(Global.resWidth, 140), shouldHurt, false));
+                        currentBullet++;
+
+                        // Remove Bullet Once Offscreen
+                        int index = 0;
+                        foreach (var bullet in bullets)
+                        {
+                            index++;
+                            if (bullet.sprite.X < -bullet.sprite.Width) bullets.RemoveAt(index);
+                        }
+
+                        // Stop Creating Bullets at Max Amount
+                        if (bullets.Count > maxBullets)
+                        {
+                            createBullets = false;
+
+                            currentBullet = 0;
+                        }
+
+                        // Reset Timer
+                        bulletTimer = 0f;
+                    }
+                }
+
+                // Restart Attack
+                if (!animateBullets && !createBullets && animationBullets.Count > 0)
+                {
+                    waitTimer += gameTime.ElapsedGameTime.Milliseconds;
+
+                    if (waitTimer > waitMax)
+                    {
+                        // Reset Bullets
+                        bullets.Clear();
+                        animationBullets.Clear();
+
+                        // Reset Hurt Pattern
+                        if (hurtBullets.Count > 0) hurtBullets.Clear();
+
+                        // Restart Attack
+                        startAttack = true;
+
+                        // Reset Timer
+                        waitTimer = 0f;
+                    }
+                }
+
+                // When Hurt
+                foreach (var bullet in bullets)
+                {
+                    // Parried Bullet
+                    if (bullet.parry)
+                    {
+                        // Touching Devil
+                        if (devil.CollidesWith(bullet.sprite))
+                        {
+                            bullet.gone = true;
+
+                            HurtDevil();
+                        }
+                    }
                 }
             }
-
-            // Restart Attack
-            if (!animateBullets && !createBullets && animationBullets.Count > 0)
+            catch (Exception e)
             {
-                waitTimer += gameTime.ElapsedGameTime.Milliseconds;
-
-                if (waitTimer > waitMax)
-                {
-                    // Reset Bullets
-                    bullets.Clear();
-                    animationBullets.Clear();
-
-                    // Reset Hurt Pattern
-                    if (hurtBullets.Count > 0) hurtBullets.Clear();
-
-                    // Restart Attack
-                    startAttack = true;
-
-                    // Reset Timer
-                    waitTimer = 0f;
-                }
+                Debug.Print("Error!\n" + e);
             }
         }
 
@@ -266,7 +329,7 @@ namespace Escapeaway.Source.Objects.Level.Boss
             foreach (var animationBullet in animationBullets) animationBullet.Draw(spriteBatch);
 
             // Draw Health Bar
-            if (movedOnscreen) healthBar.Draw(spriteBatch);
+            if (movedOnscreen) if (!defeated) healthBar.Draw(spriteBatch);
         }
     }
 }

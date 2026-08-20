@@ -8,20 +8,23 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Escapeaway.Source.Objects.Level.Projectiles
 {
-    internal class Bullet
+    internal class DevilFireball
     {
         // Sprite
         private Character bullet;
         private Point
             startLocation = new Point(0, 0),
 
-            size = new Point(16, 16),
-            sheetSize = new Point(16, 16);
+            size = new Point(12, 12),
+            sheetSize = new Point(12, 12);
 
         // Properties
         public bool hit = false;
-        private bool
+        public bool
             hurts = false, // Can Hurt Player
+            moving = true, // If Bullet can Move
+            parry = false, gone = false; // Parried by Player
+        private bool
             movingUp = false; // Move Up (For Created Animation)
 
         private int pixelsToMove = 2;
@@ -32,7 +35,7 @@ namespace Escapeaway.Source.Objects.Level.Projectiles
         /// <param name="startLocation">The starting location of the projectile.</param>
         /// <param name="hurts">Whether the projectile should hurt the player on contact.</param>
         /// <param name="movingUp">If the projectile should be moving up or left after creation. (True = Up, False = Left)</param>
-        public Bullet(Point startLocation, bool hurts = false, bool movingUp = false)
+        public DevilFireball(Point startLocation, bool hurts = false, bool movingUp = false)
         {
             // Set Variables
             this.hurts = hurts;
@@ -50,15 +53,39 @@ namespace Escapeaway.Source.Objects.Level.Projectiles
         {
             bullet.Update(gameTime);
 
-            // Move Up
-            if (movingUp)
+            // Movement
+            if (moving)
             {
-                if (bullet.Y > -size.Y) bullet.Y -= pixelsToMove;
+                // Up
+                if (movingUp)
+                {
+                    if (bullet.Y > -size.Y)
+                    {
+                        bullet.X -= pixelsToMove;
+                        bullet.Y -= pixelsToMove;
+                    }
+                }
+                // Left
+                else
+                {
+                    if (bullet.X > -size.X) bullet.X -= pixelsToMove;
+                }
             }
-            // Move Left
-            else
+
+            // Parry
+            if (parry)
             {
-                if (bullet.X > -size.X) bullet.X -= pixelsToMove;
+                bullet.X += (pixelsToMove * 2);
+                bullet.Y -= pixelsToMove;
+            }
+
+            // Disappear
+            if (gone)
+            {
+                parry = false;
+                moving = false;
+
+                bullet.X = Global.resWidth;
             }
         }
 
@@ -67,11 +94,6 @@ namespace Escapeaway.Source.Objects.Level.Projectiles
             bullet.Draw(spriteBatch);
         }
 
-        // Getters
-
-        public int X => bullet.X;
-        public int Y => bullet.Y;
-        public int Width => bullet.Width;
-        public int Height => bullet.Height;
+        public Character sprite => this.bullet;
     }
 }

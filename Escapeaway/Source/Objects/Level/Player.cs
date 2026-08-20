@@ -11,6 +11,8 @@ using Escapeaway.Source.Objects;
 using Escapeaway.Source.Objects.Level.Particles;
 using Escapeaway.Source.Objects.Level.Rooms;
 using Escapeaway.Source.Graphics;
+using Escapeaway.Source.Objects.Level.Boss;
+using System.Diagnostics;
 
 namespace Escapeaway.Source.Objects.Level
 {
@@ -190,7 +192,7 @@ namespace Escapeaway.Source.Objects.Level
             shouldFlicker = false;
         }
 
-        private void LostLife()
+        private void LoseLife()
         {
             // Reset Player
             Reset();
@@ -199,6 +201,7 @@ namespace Escapeaway.Source.Objects.Level
             shouldFlicker = true;
             countdownRun = true;
 
+            /*
             if (lives > 0)
             {
                 // If score is above 1, take away a quarter of it after death
@@ -206,7 +209,8 @@ namespace Escapeaway.Source.Objects.Level
                 // If score is THAT low, set to 0
                 else score = 0;
             }
-            
+            */
+
             // Take a life
             if (lives > 0) lives--;
             // Game Over
@@ -214,6 +218,16 @@ namespace Escapeaway.Source.Objects.Level
             {
                 gameOver = true;
             }
+        }
+
+        /// <summary>
+        /// Lose a life during a boss fight.
+        /// </summary>
+        private void LoseLifeDuringBoss()
+        {
+            LoseLife();
+
+            centered = true;
         }
 
         /// <summary>
@@ -341,7 +355,7 @@ namespace Escapeaway.Source.Objects.Level
                 // Lost a Life
                 if (Y > Global.resHeight)
                 {
-                    LostLife();
+                    LoseLife();
                 }
 
                 // Jump
@@ -685,6 +699,80 @@ namespace Escapeaway.Source.Objects.Level
                         {
                             if (aboveGround) PlayAnimation("falling");
                         }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Update the player during a boss fight.
+        /// </summary>
+        public void BossFight(DevilBoss devil)
+        {
+            if (moving)
+            {
+                // Projectiles
+                foreach (var bullet in devil.bullets)
+                {
+                    // Allow Bullets to Move
+                    if (!bullet.moving) bullet.moving = true;
+
+                    // If Player Touches Bullet
+                    if (CollidesWith(bullet.sprite))
+                    {
+                        // Not Sliding
+                        if (!sliding)
+                        {
+                            if (bullet.hurts)
+                            {
+                                LoseLifeDuringBoss();
+                            }
+
+                            else
+                            {
+                                if (!bullet.parry)
+                                {
+                                    LoseLifeDuringBoss();
+                                }
+                            }    
+                        }
+
+                        // Sliding
+                        else
+                        {
+                            // Hurts
+                            if (bullet.hurts)
+                            {
+                                LoseLifeDuringBoss();
+                            }
+
+                            // Can Parry
+                            else
+                            {
+                                devil.ParryBullet(bullet);
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Stop Bullets when Lost a Life
+            else
+            {
+                foreach (var bullet in devil.bullets)
+                {
+                    // Stop Bullet Movement
+                    if (bullet.moving) bullet.moving = false;
+
+                    // Collision during Respawn
+                    int
+                        amountToMove = 50, // Amount to move Bullet back by
+                        radius = 40; // Radius around player to remove bullets
+                    if (CollidesWith(bullet.sprite)
+                        || bullet.sprite.X >= this.X - radius && bullet.sprite.X <= this.Width + radius)
+                    {
+                        // Move Bullets away from Player
+                        devil.MoveBulletsAway(amountToMove);
                     }
                 }
             }
