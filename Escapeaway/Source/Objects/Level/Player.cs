@@ -449,7 +449,7 @@ namespace Escapeaway.Source.Objects.Level
                     if (footstepSfxTimer > framesToPlayFootstepSfx)
                     {
                         // Play Footstep SFX
-                        if (!sliding && !blocked) SFX.footsteps.Play();
+                        if (!sliding && !blocked && !slowingDown) SFX.footsteps.Play();
 
                         // Reset Timer
                         footstepSfxTimer = 0f;
