@@ -30,11 +30,11 @@ namespace Escapeaway.Source.States
         private StaticSprite overlay;
 
         // Yes, I made the copyright symbol a hashtag. Deal with it
+
         private Text copyright;
         private String copyrightString =
             """
-                    # Snowman64 2026
-            Made for BOSS BASH JAM 4
+                      Snowman64 2026
             """;
 
         private Text
@@ -65,17 +65,17 @@ namespace Escapeaway.Source.States
 
             overlay = new StaticSprite(Global.titleOverlay, new Rectangle(0, 0, Global.resWidth, Global.resHeight), CustomColor.White);
 
-            copyright = new Text(Global.defaultFont, copyrightString, new Vector2(62, 196), CustomColor.White, 1.0f, false);
+            copyright = new Text(Global.defaultFont, copyrightString, new Vector2(62, /* 196 */ 204), CustomColor.White, 1.0f, false);
             version = new Text(Global.defaultFont, Global.gameVersion, new Vector2((Global.resWidth / 2) - 120, 204), CustomColor.White, 1.0f, false);
 
             // Buttons
             buttons = new ButtonList();
-            buttons.Add("Start", new Vector2(buttonX, buttonY - 10), CustomColor.White);
-            buttons.Add("Endless Mode", new Vector2(buttonX, buttonY + 10), CustomColor.White);
-            buttons.Add("Options", new Vector2(buttonX, buttonY + 30), CustomColor.White);
-            buttons.Add("Story", new Vector2(buttonX, buttonY + 50), CustomColor.White);
-            buttons.Add("Credits", new Vector2(buttonX, buttonY + 70), CustomColor.White);
-            buttons.Add("Exit", new Vector2(buttonX, buttonY + 90), CustomColor.White);
+            buttons.Add("Start", new Vector2(buttonX, buttonY), CustomColor.White);
+            buttons.Add("Endless Mode", new Vector2(buttonX, buttonY + 20), CustomColor.White);
+            buttons.Add("Options", new Vector2(buttonX, buttonY + 40), CustomColor.White);
+            buttons.Add("Story", new Vector2(buttonX, buttonY + 60), CustomColor.White);
+            buttons.Add("Credits", new Vector2(buttonX, buttonY + 80), CustomColor.White);
+            buttons.Add("Exit", new Vector2(buttonX, buttonY + 100), CustomColor.White);
         }
 
         public void SetHighscore()

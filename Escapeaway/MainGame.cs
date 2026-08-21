@@ -2,7 +2,7 @@
 // https://store.steampowered.com/app/5143520/ESCAPEAWAY/
 
 // Created by Snowman64
-// Developed from August 8, 2026 - TBA
+// Developed from August 8, 2026 - August 21, 2026
 
 // Made for BOSS BASH JAM 4
 // https://itch.io/jam/boss-bash-jam-4
