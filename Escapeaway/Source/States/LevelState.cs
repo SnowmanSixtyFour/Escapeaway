@@ -15,6 +15,7 @@ using Escapeaway.Source.Objects.Level.Background;
 using Escapeaway.Source.Objects.Level.Rooms;
 using Escapeaway.Source.Objects.Level.Background.Cutscene;
 using Escapeaway.Source.Objects.Level.Boss;
+using Microsoft.Xna.Framework.Media;
 
 namespace Escapeaway.Source.States
 {
@@ -198,6 +199,13 @@ namespace Escapeaway.Source.States
                 player.Update(gameTime);
                 player.SetSpeed(this.endless, currentScreen);
 
+                // Set Music
+                if (player.moving)
+                {
+                    if (MediaPlayer.State != MediaState.Playing) MediaPlayer.Play(Music.main);
+                }
+
+                // Set Bosses
                 player.BossFight(this.devil);
                 if (main.endless) player.Endless(this.follower);
 
@@ -300,6 +308,8 @@ namespace Escapeaway.Source.States
                     || ButtonPress(Buttons.B))
                 {
                     SwitchState(main.title);
+
+                    MediaPlayer.Stop();
                 }
             }
         }

@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Escapeaway.Source;
 using Escapeaway.Source.States;
+using Microsoft.Xna.Framework.Media;
 
 namespace Escapeaway.Source.States
 {
@@ -75,6 +76,13 @@ namespace Escapeaway.Source.States
 
             // Pause Game when Inactive
             if (Global.pauseWhenInactive && !Global.active) Global.paused = true;
+
+            // Kill Music
+            if (currentState == gameOver
+                || currentState == win)
+            {
+                if (MediaPlayer.State == MediaState.Playing) MediaPlayer.Stop();
+            }
 
             // Update Current State
             currentState.Update(gameTime, this);

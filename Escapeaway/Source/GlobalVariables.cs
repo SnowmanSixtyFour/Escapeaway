@@ -121,6 +121,7 @@ namespace Escapeaway.Source
 
             SFX.projectile = Content.Load<SoundEffect>("Assets/Audio/projectile");
 
+            Music.title = Content.Load<Song>("Assets/Audio/title");
             Music.main = Content.Load<Song>("Assets/Audio/mainloop");
         }
     }
@@ -159,6 +160,9 @@ namespace Escapeaway.Source
     internal class Music
     {
         public static Song
+            // UIs
+            title,
+
             // Gameplay
             main;
     }

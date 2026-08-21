@@ -10,6 +10,7 @@ using Escapeaway;
 using Escapeaway.Source.Graphics;
 using Escapeaway.Source.Objects;
 using Escapeaway.Source.Graphics.GUI;
+using Microsoft.Xna.Framework.Media;
 
 namespace Escapeaway.Source.States
 {
@@ -122,6 +123,9 @@ namespace Escapeaway.Source.States
 
         public override void OnUpdate(GameTime gameTime, Main main)
         {
+            // Play Music
+            if (MediaPlayer.State != MediaState.Playing) MediaPlayer.Play(Music.title);
+
             // Update Selected Button
             buttons.Update(gameTime, this);
 
@@ -136,6 +140,9 @@ namespace Escapeaway.Source.States
 
                 // Go to Level
                 SwitchState(main.level);
+
+                // Kill Music
+                MediaPlayer.Stop();
             }
 
             // Endless Mode
@@ -145,6 +152,8 @@ namespace Escapeaway.Source.States
                 main.level.GoBackToFirstRoom();
 
                 SwitchState(main.level);
+
+                MediaPlayer.Stop();
             }
 
             // Options
