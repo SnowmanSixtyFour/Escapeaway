@@ -169,8 +169,6 @@ namespace Escapeaway.Source.Objects.Level.Rooms
         private void SetRoom()
         {
             ground = currentRoomLayout[selectedRoomLayout];
-
-            Debug.Print("Current room is " + selectedRoomLayout);
         }
 
         public void Update(GameTime gameTime, Color screenColor, Player player)
