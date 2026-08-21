@@ -19,6 +19,8 @@ namespace Escapeaway.Source.States
         private ButtonList buttons;
         private int buttonX = 20, buttonY = 174;
 
+        private int score;
+
         public WinState()
         {
             // Set Text
@@ -33,6 +35,14 @@ namespace Escapeaway.Source.States
 
             // Save Highscore
             WriteToOptions();
+        }
+
+        public void SetScore(int newScore)
+        {
+            this.score = newScore;
+
+            Global.highscore = this.score;
+            WriteToOptions(newScore: this.score);
         }
 
         public override void OnUpdate(GameTime gameTime, Main main)

@@ -53,7 +53,7 @@ namespace Escapeaway.Source.States
          * */
 
         public int
-            currentScreen = 98,
+            currentScreen = 0,
             screenWithBackgroundDevil = 49,
             
             randomScreenColor = 0;
@@ -83,7 +83,7 @@ namespace Escapeaway.Source.States
             devil = new DevilBoss(200);
             follower = new FollowerBoss();
 
-            player = new Player(Global.player, new Point(16, 128), Color.White, defaultLives);
+            player = new Player(Global.player, new Point(8, 128), Color.White, defaultLives);
 
             endOverlay = new LevelEndOverlay();
 
@@ -175,6 +175,9 @@ namespace Escapeaway.Source.States
                 // When Game Won
                 if (endOverlay.isCentered)
                 {
+                    main.win.SetScore(player.score);
+                    main.title.SetHighscore();
+
                     SwitchState(main.win);
 
                     endOverlay.Reset();

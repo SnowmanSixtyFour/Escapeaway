@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Escapeaway.Source.Graphics;
+using System.Diagnostics;
 
 namespace Escapeaway.Source.Objects.Level.Rooms
 {
@@ -42,24 +43,24 @@ namespace Escapeaway.Source.Objects.Level.Rooms
             // Set Rooms
             firstRoom.Add(new StaticSprite(Global.ground, new Rectangle(0, 160, Global.resWidth, 120), screenColor, true));
 
-            room1.Add(new StaticSprite(Global.ground, new Rectangle(0, 160, Global.resWidth / 4, 120), screenColor, true));
+            room1.Add(new StaticSprite(Global.ground, new Rectangle(0, 160, Global.resWidth / 4 - 10, 120), screenColor, true));
             room1.Add(new StaticSprite(Global.ground, new Rectangle(Global.resWidth / 2 - 20, 160, 40, 120), screenColor, true));
-            room1.Add(new StaticSprite(Global.ground, new Rectangle(Global.resWidth / 2 + 60, 160, 80, 120), screenColor, true));
-            room1.Add(new StaticSprite(Global.ground, new Rectangle(Global.resWidth - 42, 32, 20, 106), screenColor, true));
+            room1.Add(new StaticSprite(Global.ground, new Rectangle(Global.resWidth / 2 + 80, 160, 72, 120), screenColor, true));
+            room1.Add(new StaticSprite(Global.ground, new Rectangle(Global.resWidth - 20, 32, 20, 106), screenColor, true));
+            
+            room2.Add(new StaticSprite(Global.ground, new Rectangle(0, 160, 40, 120), screenColor, true));
+            room2.Add(new StaticSprite(Global.ground, new Rectangle(Global.resWidth - 14, 160, 20, 120), screenColor, true));
+            room2.Add(new StaticSprite(Global.ground, new Rectangle(Global.resWidth / 2 - 40, 140, 35, 20), screenColor, true));
+            room2.Add(new StaticSprite(Global.ground, new Rectangle(Global.resWidth / 2 + 50, 140, 35, 20), screenColor, true));
 
-            room2.Add(new StaticSprite(Global.ground, new Rectangle(0, 160, 50, 120), screenColor, true));
-            room2.Add(new StaticSprite(Global.ground, new Rectangle(Global.resWidth - 20, 160, 20, 120), screenColor, true));
-            room2.Add(new StaticSprite(Global.ground, new Rectangle(Global.resWidth / 2 - 35, 140, 35, 20), screenColor, true));
-            room2.Add(new StaticSprite(Global.ground, new Rectangle(Global.resWidth / 2 + 45, 140, 35, 20), screenColor, true));
-
-            room3.Add(new StaticSprite(Global.ground, new Rectangle(0, 160, Global.resWidth - 60, 120), screenColor, true));
+            room3.Add(new StaticSprite(Global.ground, new Rectangle(0, 160, Global.resWidth - 86, 120), screenColor, true));
             room3.Add(new StaticSprite(Global.ground, new Rectangle(Global.resWidth - 20, 160, 20, 120), screenColor, true));
             room3.Add(new StaticSprite(Global.ground, new Rectangle(Global.resWidth / 4 - 10, 32, 20, 100), screenColor, true));
 
-            room4.Add(new StaticSprite(Global.ground, new Rectangle(0, 160, 60, 120), screenColor, true));
+            room4.Add(new StaticSprite(Global.ground, new Rectangle(0, 160, 40, 120), screenColor, true));
             room4.Add(new StaticSprite(Global.ground, new Rectangle(Global.resWidth - 20, 160, 20, 120), screenColor, true));
-            room4.Add(new StaticSprite(Global.ground, new Rectangle(Global.resWidth / 2 - 25, 140, 30, 120), screenColor, true));
-            room4.Add(new StaticSprite(Global.ground, new Rectangle(Global.resWidth / 2 + 35, 120, 30, 120), screenColor, true));
+            room4.Add(new StaticSprite(Global.ground, new Rectangle(Global.resWidth / 2 - 40, 140, 30, 120), screenColor, true));
+            room4.Add(new StaticSprite(Global.ground, new Rectangle(Global.resWidth / 2 + 40, 120, 30, 120), screenColor, true));
 
             room5.Add(new StaticSprite(Global.ground, new Rectangle(0, 160, Global.resWidth / 2 - 30, 120), screenColor, true));
             room5.Add(new StaticSprite(Global.ground, new Rectangle(Global.resWidth / 2 + 30, 160, 110, 120), screenColor, true));
@@ -78,7 +79,7 @@ namespace Escapeaway.Source.Objects.Level.Rooms
             room8.Add(new StaticSprite(Global.ground, new Rectangle(Global.resWidth / 2 + 60, 160, 80, 120), screenColor, true));
             room8.Add(new StaticSprite(Global.ground, new Rectangle(Global.resWidth - 42, 32, 20, 98), screenColor, true));
 
-            room9.Add(new StaticSprite(Global.ground, new Rectangle(0, 160, 60, 120), screenColor, true));
+            room9.Add(new StaticSprite(Global.ground, new Rectangle(0, 160, 46, 120), screenColor, true));
             room9.Add(new StaticSprite(Global.ground, new Rectangle(Global.resWidth - 40, 160, 40, 120), screenColor, true));
             room9.Add(new StaticSprite(Global.ground, new Rectangle(90, 130, Global.resWidth - 160, 20), screenColor, true));
             room9.Add(new StaticSprite(Global.ground, new Rectangle(Global.resWidth - 90, 25, 20, 80), screenColor, true));
@@ -92,10 +93,10 @@ namespace Escapeaway.Source.Objects.Level.Rooms
             room11.Add(new StaticSprite(Global.ground, new Rectangle(50, 32, 20, 98), screenColor, true));
             room11.Add(new StaticSprite(Global.ground, new Rectangle(Global.resWidth - 50, 32, 20, 98), screenColor, true));
 
-            room12.Add(new StaticSprite(Global.ground, new Rectangle(0, 160, Global.resWidth - 70, 120), screenColor, true));
+            room12.Add(new StaticSprite(Global.ground, new Rectangle(0, 160, Global.resWidth - 80, 120), screenColor, true));
             room12.Add(new StaticSprite(Global.ground, new Rectangle(Global.resWidth - 20, 160, 20, 120), screenColor, true));
             room12.Add(new StaticSprite(Global.ground, new Rectangle(40, 25, 20, 110), screenColor, true));
-            room12.Add(new StaticSprite(Global.ground, new Rectangle(Global.resWidth - 120, 115, 50, 20), screenColor, true));
+            room12.Add(new StaticSprite(Global.ground, new Rectangle(Global.resWidth - 130, 115, 50, 20), screenColor, true));
 
             lastRoom.Add(new StaticSprite(Global.ground, new Rectangle(0, 160, Global.resWidth, 120), screenColor, true));
 
@@ -118,20 +119,6 @@ namespace Escapeaway.Source.Objects.Level.Rooms
             SetRoom();
         }
 
-        public void GoToFirstRoom()
-        {
-            // Set Current Room to First Room
-            selectedRoomLayout = 0;
-            SetRoom();
-        }
-
-        public void GoToLastRoom()
-        {
-            // Set Current Room to Last Room
-            selectedRoomLayout = (currentRoomLayout.Count - 1);
-            SetRoom();
-        }
-
         /// <summary>
         /// Set the layout of the room to a random layout.
         /// </summary>
@@ -143,11 +130,6 @@ namespace Escapeaway.Source.Objects.Level.Rooms
             // Randomize again if next room is the same
             if (nextRoomLayout == selectedRoomLayout) RandomizeRoom();
             else selectedRoomLayout = nextRoomLayout;
-        }
-
-        private void SetRoom()
-        {
-            ground = currentRoomLayout[selectedRoomLayout];
         }
 
         private void UpdateColor(Color color)
@@ -168,6 +150,27 @@ namespace Escapeaway.Source.Objects.Level.Rooms
             foreach (var room in room11) room.SetColor(color);
             foreach (var room in room12) room.SetColor(color);
             foreach (var room in lastRoom) room.SetColor(color);
+        }
+
+        public void GoToFirstRoom()
+        {
+            // Set Current Room to First Room
+            selectedRoomLayout = 0;
+            SetRoom();
+        }
+
+        public void GoToLastRoom()
+        {
+            // Set Current Room to Last Room
+            selectedRoomLayout = (currentRoomLayout.Count - 1);
+            SetRoom();
+        }
+
+        private void SetRoom()
+        {
+            ground = currentRoomLayout[selectedRoomLayout];
+
+            Debug.Print("Current room is " + selectedRoomLayout);
         }
 
         public void Update(GameTime gameTime, Color screenColor, Player player)

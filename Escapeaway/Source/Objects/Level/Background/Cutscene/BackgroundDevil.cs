@@ -26,7 +26,7 @@ namespace Escapeaway.Source.Objects.Level.Background.Cutscene
             startingPosition = 0 - size.X;
 
             // Set Sprite
-            devil = new Character(Global.devil, new Point(startingPosition, Global.resHeight / 2 - size.Y / 2 - yOffset), sheetSize, size, Color.White);
+            devil = new Character(Global.devil, new Point(startingPosition, Global.resHeight / 2 - size.Y / 2 - yOffset), sheetSize, size, CustomColor.Black * 0.5f);
 
             // Create Animations
             devil.CreateAnimation("default", 0, 0);
