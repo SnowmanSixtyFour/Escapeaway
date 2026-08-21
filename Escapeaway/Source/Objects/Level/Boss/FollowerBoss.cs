@@ -10,7 +10,7 @@ namespace Escapeaway.Source.Objects.Level.Boss
 {
     internal class FollowerBoss : Boss
     {
-        private Character follower;
+        public Character sprite;
         private int currentScreen = 0;
 
         private Point
@@ -23,13 +23,13 @@ namespace Escapeaway.Source.Objects.Level.Boss
 
         public FollowerBoss() : base()
         {
-            follower = new Character(Global.devil, startingPosition, sheetSize, size, Color.White);
+            sprite = new Character(Global.devil, startingPosition, sheetSize, size, Color.White);
 
-            follower.CreateAnimation("default", 0, 0);
-            follower.CreateAnimation("hurt", 1, 1);
-            follower.CreateAnimation("staring", 2, 2);
-            follower.CreateAnimation("shocked", 3, 3);
-            follower.CreateAnimation("attack", 4, 5);
+            sprite.CreateAnimation("default", 0, 0);
+            sprite.CreateAnimation("hurt", 1, 1);
+            sprite.CreateAnimation("staring", 2, 2);
+            sprite.CreateAnimation("shocked", 3, 3);
+            sprite.CreateAnimation("attack", 4, 5);
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace Escapeaway.Source.Objects.Level.Boss
             base.Reset();
 
             // Reset Position
-            follower.SetLocation(startingPosition);
+            sprite.SetLocation(startingPosition);
         }
 
         /// <summary>
@@ -49,10 +49,10 @@ namespace Escapeaway.Source.Objects.Level.Boss
         public void MovePositionBack()
         {
             // If Not Already Behind a Room
-            if (follower.X >= -size.X - 120)
+            if (sprite.X >= -size.X - 120)
             {
                 // Move Follower Behind a Room
-                follower.X -= Global.resWidth;
+                sprite.X -= Global.resWidth;
             }
         }
 
@@ -64,22 +64,22 @@ namespace Escapeaway.Source.Objects.Level.Boss
             // Move Follower
             if (this.currentScreen != 0)
             {
-                follower.Update(gameTime);
+                sprite.Update(gameTime);
 
                 // Move Towards Player
 
-                if (player.X > follower.X) follower.X += pixelsToMove;
-                else if (player.X < follower.X) follower.X -= pixelsToMove;
+                if (player.X > sprite.X) sprite.X += pixelsToMove;
+                else if (player.X < sprite.X) sprite.X -= pixelsToMove;
 
-                if (player.Y > follower.Y) follower.Y += pixelsToMove;
-                else if (player.Y < follower.Y) follower.Y -= pixelsToMove;
+                if (player.Y > sprite.Y) sprite.Y += pixelsToMove;
+                else if (player.Y < sprite.Y) sprite.Y -= pixelsToMove;
             }
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             // Draw Follower
-            if (currentScreen != 0) follower.Draw(spriteBatch);
+            if (currentScreen != 0) sprite.Draw(spriteBatch);
         }
     }
 }

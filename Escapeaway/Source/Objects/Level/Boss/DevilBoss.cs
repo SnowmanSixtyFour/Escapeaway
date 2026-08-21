@@ -268,7 +268,7 @@ namespace Escapeaway.Source.Objects.Level.Boss
                             hurtBullets.Add(shouldHurt);
 
                             // Add New Bullet to List
-                            Point offset = new Point(5, 40); // Offset for Creating Bullet
+                            Point offset = new Point((devil.Width - 6), 30); // Offset for Creating Bullet
                             animationBullets.Add(new DevilFireball(new Point(devil.X + offset.X, fightPosition.Y + offset.Y), shouldHurt, true));
                             currentBullet++;
 
@@ -300,7 +300,7 @@ namespace Escapeaway.Source.Objects.Level.Boss
                             bool shouldHurt = hurtBullets[currentBullet];
 
                             // Create New Bullet
-                            bullets.Add(new DevilFireball(new Point(Global.resWidth, 140), shouldHurt, false));
+                            bullets.Add(new DevilFireball(new Point(Global.resWidth, 142), shouldHurt, false));
                             currentBullet++;
 
                             // Remove Bullet Once Offscreen
@@ -365,6 +365,35 @@ namespace Escapeaway.Source.Objects.Level.Boss
                 catch (Exception e)
                 {
                     Debug.Print("Error!\n" + e);
+                }
+            }
+
+            // Animations
+
+            if (defeated)
+            {
+                devil.PlayAnimation("shocked");
+            }
+            else
+            {
+                if (animateBullets) devil.PlayAnimation("attack");
+
+                else
+                {
+                    bool hurt = false;
+                    foreach (var bullet in bullets)
+                    {
+                        if (bullet.parry)
+                        {
+                            if (devil.CollidesWith(bullet.sprite))
+                            {
+                                hurt = true;
+                            }
+                        }
+                    }
+
+                    if (hurt) devil.PlayAnimation("hurt");
+                    else devil.PlayAnimation("default");
                 }
             }
         }

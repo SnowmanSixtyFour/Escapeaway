@@ -792,6 +792,16 @@ namespace Escapeaway.Source.Objects.Level
             }
         }
 
+        public void Endless(FollowerBoss follower)
+        {
+            if (this.CollidesWith(follower.sprite))
+            {
+                LoseLife();
+
+                follower.MovePositionBack();
+            }
+        }
+
         public override void Draw(SpriteBatch spriteBatch)
         {
             // Draw Character

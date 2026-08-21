@@ -15,8 +15,8 @@ namespace Escapeaway.Source.Objects.Level.Projectiles
         private Point
             startLocation = new Point(0, 0),
 
-            size = new Point(12, 12),
-            sheetSize = new Point(12, 12);
+            size = new Point(8, 8),
+            sheetSize = new Point(16, 8);
 
         // Properties
         public bool hit = false;
@@ -43,15 +43,42 @@ namespace Escapeaway.Source.Objects.Level.Projectiles
             this.startLocation = startLocation;
 
             // Set Character
-            bullet = new Character(null, startLocation, size, sheetSize, Color.Orange);
+            bullet = new Character(null, startLocation, sheetSize, size, Color.White);
 
-            // wip
-            if (hurts) bullet.SetColor(Color.Red);
+            // Set Texture
+            if (!hurts)
+            {
+                if (movingUp)
+                {
+                    bullet.SetSprite(Global.newFireballParry);
+                }
+                else
+                {
+                    bullet.SetSprite(Global.fireballParry);
+                }
+            }
+            else
+            {
+                if (movingUp)
+                {
+                    bullet.SetSprite(Global.newFireball);
+                }
+                else
+                {
+                    bullet.SetSprite(Global.fireball);
+                }
+            }
+
+            // Set Animation
+            bullet.CreateAnimation("default", 0, 1);
         }
 
         public void Update(GameTime gameTime)
         {
             bullet.Update(gameTime);
+
+            // Animate
+            bullet.PlayAnimation("default");
 
             // Movement
             if (moving)
@@ -59,16 +86,16 @@ namespace Escapeaway.Source.Objects.Level.Projectiles
                 // Up
                 if (movingUp)
                 {
-                    if (bullet.Y > -size.Y)
+                    if (bullet.Y > -sheetSize.Y)
                     {
-                        bullet.X -= pixelsToMove;
+                        bullet.X += pixelsToMove;
                         bullet.Y -= pixelsToMove;
                     }
                 }
                 // Left
                 else
                 {
-                    if (bullet.X > -size.X) bullet.X -= pixelsToMove;
+                    if (bullet.X > -sheetSize.X) bullet.X -= pixelsToMove;
                 }
             }
 

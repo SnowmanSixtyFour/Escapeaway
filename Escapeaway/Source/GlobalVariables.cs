@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 
 namespace Escapeaway.Source
 {
@@ -69,6 +70,10 @@ namespace Escapeaway.Source
             devil,
             player,
 
+            // Projectiles
+            newFireball, newFireballParry,
+            fireball, fireballParry,
+
             // Particles
             dustParticle, heatParticle;
         public static SpriteFont
@@ -93,6 +98,11 @@ namespace Escapeaway.Source
             devil = Content.Load<Texture2D>("Assets/Images/Level/devil");
             player = Content.Load<Texture2D>("Assets/Images/Level/player");
 
+            newFireball = Content.Load<Texture2D>("Assets/Images/Level/newFireball");
+            newFireballParry = Content.Load<Texture2D>("Assets/Images/Level/newFireballParry");
+            fireball = Content.Load<Texture2D>("Assets/Images/Level/fireball");
+            fireballParry = Content.Load<Texture2D>("Assets/Images/Level/fireballParry");
+
             dustParticle = Content.Load<Texture2D>("Assets/Images/Level/dust");
             heatParticle = Content.Load<Texture2D>("Assets/Images/Level/heat");
 
@@ -110,6 +120,8 @@ namespace Escapeaway.Source
             SFX.skid = Content.Load<SoundEffect>("Assets/Audio/skid");
 
             SFX.projectile = Content.Load<SoundEffect>("Assets/Audio/projectile");
+
+            Music.main = Content.Load<Song>("Assets/Audio/mainloop");
         }
     }
 
@@ -142,5 +154,12 @@ namespace Escapeaway.Source
             skid,
 
             projectile;
+    }
+
+    internal class Music
+    {
+        public static Song
+            // Gameplay
+            main;
     }
 }
