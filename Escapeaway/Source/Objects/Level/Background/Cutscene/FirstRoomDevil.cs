@@ -28,6 +28,12 @@ namespace Escapeaway.Source.Objects.Level.Background.Cutscene
         {
             devil = new Character(Global.devil, location, sheetSize, size, Color.White);
 
+            devil.CreateAnimation("default", 0, 0);
+            devil.CreateAnimation("hurt", 1, 1);
+            devil.CreateAnimation("staring", 2, 2);
+            devil.CreateAnimation("shocked", 3, 3);
+            devil.CreateAnimation("attack", 4, 5);
+
             maxUpHeight = (location.Y - 2);
             maxDownHeight = (location.Y + 2);
         }
@@ -42,7 +48,15 @@ namespace Escapeaway.Source.Objects.Level.Background.Cutscene
             visible = true;
         }
 
-        public void Update(GameTime gameTime)
+        /// <summary>
+        /// Reset the first room's Devil back to his original state.
+        /// </summary>
+        public void Reset()
+        {
+            devil.PlayAnimation("staring");
+        }
+
+        public void Update(GameTime gameTime, Player player)
         {
             devil.Update(gameTime);
 
@@ -62,6 +76,17 @@ namespace Escapeaway.Source.Objects.Level.Background.Cutscene
             {
                 if (yVelocity < maxMovementSpeed) yVelocity += gravity;
                 else yVelocity = maxMovementSpeed;
+            }
+
+            // Animations
+
+            if (player.moving)
+            {
+                devil.PlayAnimation("shocked");
+            }
+            else
+            {
+                devil.PlayAnimation("staring");
             }
         }
 

@@ -15,11 +15,13 @@ namespace Escapeaway.Source.States
     {
         private String credits =
             """
-            Snowman64 - Programmer
+            Snowman64           Programmer
+                           Particle Sprites
 
-            ShawSure - Artist
+            ShawSure          Sprite Artist
+                         Character Designer
 
-            River347 - Music
+            River347                 Music
             """;
 
         private Text

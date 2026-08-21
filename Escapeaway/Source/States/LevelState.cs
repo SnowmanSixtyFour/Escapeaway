@@ -108,6 +108,9 @@ namespace Escapeaway.Source.States
             player.Reset();
             player.X = 172; // Make sure position in first room is ahead of devil
 
+            // Reset Objects
+            firstRoomDevil.Reset();
+
             // Endless Mode Properties
             if (this.endless)
             {
@@ -177,7 +180,7 @@ namespace Escapeaway.Source.States
                 }
 
                 // Update Enemies
-                firstRoomDevil.Update(gameTime);
+                firstRoomDevil.Update(gameTime, player);
                 if (currentScreen == screenWithBackgroundDevil) backgroundDevil.Update(gameTime);
                 
                 if (player.moving) // Enemies to only update while player is moving
