@@ -12,8 +12,8 @@ namespace Escapeaway.Source.Objects.Level.Background.Cutscene
     {
         private Character devil;
         private Point
-            size = new Point(20, 20),
-            sheetSize = new Point(20, 20);
+            size = new Point(80, 64),
+            sheetSize = new Point(480, 64);
         private int
             yOffset = 25,
             pixelsToMove = 4,
@@ -27,6 +27,13 @@ namespace Escapeaway.Source.Objects.Level.Background.Cutscene
 
             // Set Sprite
             devil = new Character(Global.devil, new Point(startingPosition, Global.resHeight / 2 - size.Y / 2 - yOffset), sheetSize, size, Color.White);
+
+            // Create Animations
+            devil.CreateAnimation("default", 0, 0);
+            devil.CreateAnimation("hurt", 1, 1);
+            devil.CreateAnimation("staring", 2, 2);
+            devil.CreateAnimation("shocked", 3, 3);
+            devil.CreateAnimation("attack", 4, 5);
         }
 
         public void Reset()

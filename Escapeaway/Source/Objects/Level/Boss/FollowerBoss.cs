@@ -17,13 +17,19 @@ namespace Escapeaway.Source.Objects.Level.Boss
             startingPosition = new Point(0, 0),
 
             size = new Point(80, 64),
-            sheetSize = new Point(80, 64);
+            sheetSize = new Point(480, 64);
 
         private int pixelsToMove = 2;
 
         public FollowerBoss() : base()
         {
             follower = new Character(Global.devil, startingPosition, sheetSize, size, Color.White);
+
+            follower.CreateAnimation("default", 0, 0);
+            follower.CreateAnimation("hurt", 1, 1);
+            follower.CreateAnimation("staring", 2, 2);
+            follower.CreateAnimation("shocked", 3, 3);
+            follower.CreateAnimation("attack", 4, 5);
         }
 
         /// <summary>

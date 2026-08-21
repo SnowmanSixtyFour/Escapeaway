@@ -19,7 +19,10 @@ namespace Escapeaway.Source.Objects.Level.Boss
         private bool flicker = false;
         private float
             flickerTimer = 0f,
-            timeUntilFlicker = 90f;
+            timeUntilFlicker = 140f;
+        private int
+            timesFlickered = 0,
+            maxFlickers = 3;
 
         /// <summary>
         /// Create a health bar for a boss fight.
@@ -33,6 +36,19 @@ namespace Escapeaway.Source.Objects.Level.Boss
             bossName = new Text(Global.defaultFont, name, new Vector2(98, 181), CustomColor.White, 1.0f, true);
         }
 
+        public void Flicker()
+        {
+            // If not already flickering (I'm not trying to blind the player)
+            if (!flicker)
+            {
+                // Start Flicker
+                flicker = true;
+
+                // Set Counter to 0
+                timesFlickered = 0;
+            }
+        }
+
         public void Update(GameTime gameTime, Boss boss)
         {
             // Calculate Size of Health Bar
@@ -40,6 +56,34 @@ namespace Escapeaway.Source.Objects.Level.Boss
 
             // Set Size
             healthBar.SetWidth(newWidth);
+
+            // Flickering Effect
+            if (flicker)
+            {
+                // Update Timer
+                flickerTimer += gameTime.ElapsedGameTime.Milliseconds;
+
+                // On Flicker Event
+                if (flickerTimer > timeUntilFlicker)
+                {
+                    // Add to Counter
+                    timesFlickered++;
+
+                    // Update Color for Outline
+                    if (outerOutline.GetColor() == CustomColor.Black) outerOutline.SetColor(CustomColor.White);
+                    else outerOutline.SetColor(CustomColor.Black);
+
+                    // Reset Timer
+                    flickerTimer = 0f;
+                }
+
+                // When Counter Reaches Max
+                if (timesFlickered > maxFlickers)
+                {
+                    // End Flicker
+                    flicker = false;
+                }
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)

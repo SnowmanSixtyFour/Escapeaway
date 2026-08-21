@@ -21,7 +21,7 @@ namespace Escapeaway.Source.Objects.Level.Boss
         private Character devil;
         private Point
             size = new Point(80, 64),
-            sheetSize = new Point(80, 64);
+            sheetSize = new Point(480, 64);
 
         // Health Bar
         private BossHealthBar healthBar;
@@ -76,9 +76,15 @@ namespace Escapeaway.Source.Objects.Level.Boss
             random = new Random();
 
             // Set Boss
-            devil = new Character(Global.devil, new Point(Global.resWidth, fightPosition.Y), size, sheetSize, Color.White);
 
-            // Set Objects
+            devil = new Character(Global.devil, new Point(Global.resWidth, fightPosition.Y), sheetSize, size, Color.White);
+
+            devil.CreateAnimation("default", 0, 0);
+            devil.CreateAnimation("hurt", 1, 1);
+            devil.CreateAnimation("staring", 2, 2);
+            devil.CreateAnimation("shocked", 3, 3);
+            devil.CreateAnimation("attack", 4, 5);
+
             healthBar = new BossHealthBar("The Devil");
         }
 
@@ -123,9 +129,18 @@ namespace Escapeaway.Source.Objects.Level.Boss
 
         private void HurtDevil()
         {
+            // Calculate Next Damage Amount
             int damageDealt = random.Next(10, 25);
 
-            if (health > 0) health -= damageDealt;
+            // If Health is Above 0
+            if (health > 0)
+            {
+                // Flicker Health Bar
+                healthBar.Flicker();
+
+                // Deal Damage to Health
+                health -= damageDealt;
+            }
         }
 
         public void Update(GameTime gameTime, Player player)
