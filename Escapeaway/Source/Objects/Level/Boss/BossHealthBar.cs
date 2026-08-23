@@ -70,8 +70,8 @@ namespace Escapeaway.Source.Objects.Level.Boss
                     timesFlickered++;
 
                     // Update Color for Outline
-                    if (outerOutline.GetColor() == CustomColor.Black) outerOutline.SetColor(CustomColor.White);
-                    else outerOutline.SetColor(CustomColor.Black);
+                    if (healthBar.GetColor() == CustomColor.Red) healthBar.SetColor(CustomColor.Pink);
+                    else healthBar.SetColor(CustomColor.Red);
 
                     // Reset Timer
                     flickerTimer = 0f;

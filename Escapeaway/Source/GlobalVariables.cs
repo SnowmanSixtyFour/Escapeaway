@@ -31,7 +31,7 @@ namespace Escapeaway.Source
             displayWidth = 768,
             displayHeight = 672;
 
-        public static string gameVersion = "1.0.0";
+        public static string gameVersion = "1.0.1";
 
         public static int
             highscore = 0,
@@ -131,6 +131,7 @@ namespace Escapeaway.Source
         public static Color
             DarkRed = new Color(136, 20, 0),
             Red = new Color(168, 0, 32),
+            Pink = new Color(248, 164, 192),
             LightOrange = new Color(248, 120, 88),
             Yellow = new Color(248, 184, 0),
             DarkAqua = new Color(0, 136, 136),

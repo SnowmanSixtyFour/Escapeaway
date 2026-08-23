@@ -65,7 +65,7 @@ namespace Escapeaway.Source.States
 
             overlay = new StaticSprite(Global.titleOverlay, new Rectangle(0, 0, Global.resWidth, Global.resHeight), CustomColor.White);
 
-            copyright = new Text(Global.defaultFont, copyrightString, new Vector2(62, /* 196 */ 204), CustomColor.White, 1.0f, false);
+            copyright = new Text(Global.defaultFont, copyrightString, new Vector2(58, 204), CustomColor.White, 1.0f, false);
             version = new Text(Global.defaultFont, Global.gameVersion, new Vector2((Global.resWidth / 2) - 120, 204), CustomColor.White, 1.0f, false);
 
             // Buttons

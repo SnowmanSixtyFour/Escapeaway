@@ -201,16 +201,6 @@ namespace Escapeaway.Source.Objects.Level
             shouldFlicker = true;
             countdownRun = true;
 
-            /*
-            if (lives > 0)
-            {
-                // If score is above 1, take away a quarter of it after death
-                if (score > 1) score -= (score /= 4);
-                // If score is THAT low, set to 0
-                else score = 0;
-            }
-            */
-
             // Take a life
             if (lives > 0) lives--;
             // Game Over

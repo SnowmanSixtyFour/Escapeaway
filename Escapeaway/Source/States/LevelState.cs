@@ -205,7 +205,11 @@ namespace Escapeaway.Source.States
                 // Set Music
                 if (player.moving)
                 {
-                    if (MediaPlayer.State != MediaState.Playing) MediaPlayer.Play(Music.main);
+                    if (MediaPlayer.Queue.ActiveSong == Music.main && MediaPlayer.State == MediaState.Stopped
+                        || MediaPlayer.State != MediaState.Playing)
+                    {
+                        MediaPlayer.Play(Music.main);
+                    }
                 }
 
                 // Set Bosses
