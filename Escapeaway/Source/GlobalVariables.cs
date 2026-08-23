@@ -31,7 +31,7 @@ namespace Escapeaway.Source
             displayWidth = 768,
             displayHeight = 672;
 
-        public static string gameVersion = "1.0.1";
+        public static string gameVersion = "1.0.0";
 
         public static int
             highscore = 0,

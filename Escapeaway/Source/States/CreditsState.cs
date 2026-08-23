@@ -22,6 +22,14 @@ namespace Escapeaway.Source.States
                          Character Designer
 
             River347                 Music
+
+
+             Copyrighted assets have been
+             removed for the sake of the
+                  GitHub repository.
+
+                  Music used is by
+                    Kevin Macleod
             """;
 
         private Text
