@@ -14,6 +14,12 @@ Play as <b>YOURSELF</b>, dragged to the underdepths after being falsely accused 
 
 Dodge obstacles, and make it to the end of the game while avoiding <b>the Devil</b>, who's hunting you down!
 
+## Modes
+
+The <b>main game</b> features up to 100 rooms, with hints of your battle against the Devil sprinkled in-between. At the climax is a showdown against him - and winning secures your escape!
+
+<b>Endless Mode</b> features an unlimited amount of rooms as the Devil chases you down, substituting the boss battle for a proper endless runner.
+
 ## Controls
 <b>Z</b> | Jump
 
@@ -23,10 +29,19 @@ Dodge obstacles, and make it to the end of the game while avoiding <b>the Devil<
 
 <i>"How do you stop running?" <b>You CAN'T!</b></i>
 
-## Downloads
-The game can be downloaded on [Steam](https://store.steampowered.com/app/5143520/ESCAPEAWAY/), [itch.io](https://snowman64.itch.io/escapeaway), and [Game Jolt](https://gamejolt.com/games/escapeaway/1090448) for free!
+# Credits
+[Snowman64](https://github.com/SnowmanSixtyFour) - Programmer
 
-Alternatively, you can browse the [releases](https://github.com/SnowmanSixtyFour/Escapeaway/releases) in the GitHub repository.
+[ShawSure](https://bsky.app/profile/shawsure.bsky.social) - Sprite Artist
+
+[River347](https://river347.bandcamp.com/) - Musician
+
+## Downloads
+The latest versions of the game can be downloaded on [Steam](https://store.steampowered.com/app/5143520/ESCAPEAWAY/), [itch.io](https://snowman64.itch.io/escapeaway), and [Game Jolt](https://gamejolt.com/games/escapeaway/1090448) for free!
+
+Alternatively, you can browse the [releases](https://github.com/SnowmanSixtyFour/Escapeaway/releases) in the GitHub repository for [1.0.0](https://github.com/SnowmanSixtyFour/Escapeaway/releases/tag/1.0.0). The repository itself is meant to serve for code archival purposes.
 
 # Copyright
 Copyright (c) 2026 Snowman64, under the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html).
+
+All sprite assets are owned by [ShawSure](https://bsky.app/profile/shawsure.bsky.social), and music tracks are owned by [River347](https://river347.bandcamp.com/) respectively. Other assets included in the repository such as sound effects, ground tiles, and so on are free for use.
