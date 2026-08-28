@@ -7,7 +7,9 @@
 <a href="https://www.gnu.org/licenses/gpl-3.0.en.html"><img src="https://img.shields.io/badge/License-GPLv3-blue.svg" height="28" alt="GNU GPL v3"></a>
 <br/>
 
-### A fast-paced platformer made with [MonoGame](https://monogame.net/), for [BOSS BASH JAM 4](https://itch.io/jam/boss-bash-jam-4).
+# [5TH PLACE](https://itch.io/jam/boss-bash-jam-4/rate/4876955) in [BOSS BASH JAM 4](https://itch.io/jam/boss-bash-jam-4)!
+
+### A fast-paced platformer made with [MonoGame](https://monogame.net/).
 
 # About
 Play as <b>YOURSELF</b>, dragged to the underdepths after being falsely accused for sins you never committed — as you attempt to <i>escape</i> back into your regular life!
