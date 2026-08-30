@@ -41,7 +41,10 @@ The <b>main game</b> features up to 100 rooms, with hints of your battle against
 ## Downloads
 The latest versions of the game can be downloaded on [Steam](https://store.steampowered.com/app/5143520/ESCAPEAWAY/), [itch.io](https://snowman64.itch.io/escapeaway), and [Game Jolt](https://gamejolt.com/games/escapeaway/1090448) for free!
 
-Alternatively, you can browse the [releases](https://github.com/SnowmanSixtyFour/Escapeaway/releases) in the GitHub repository for [1.0.0](https://github.com/SnowmanSixtyFour/Escapeaway/releases/tag/1.0.0). The repository itself is meant to serve for code archival purposes.
+Alternatively, you can browse the [releases](https://github.com/SnowmanSixtyFour/EscapeawaySource/releases) in the GitHub repository for [1.0.0](https://github.com/SnowmanSixtyFour/EscapeawaySource/releases/tag/1.0.0).
+
+### Source Code
+The repository itself is meant to serve for code archival purposes, and does not contain code beyond release 1.0.0.
 
 # Copyright
 Copyright (c) 2026 Snowman64, under the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html).
